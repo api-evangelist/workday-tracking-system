@@ -1,0 +1,123 @@
+name: Workday Tracking System
+description: APIs for managing employee time tracking, attendance, projects, and work schedules in the Workday system
+image: https://www.workday.com/content/dam/web/images/logo.png
+url: https://www.workday.com
+created: '2024-01-15'
+modified: '2024-01-15'
+apis:
+- name: Time Tracking API
+  description: Manage employee time entries, timesheets, and work hours
+  image: https://www.workday.com/content/dam/web/images/icons/time-tracking.png
+  humanURL: https://www.workday.com/en-us/products/human-capital-management/time-tracking.html
+  baseURL: https://api.workday.com/v1/time-tracking
+  tags:
+  - Time Tracking
+  - Timesheets
+  - Hours
+  - Attendance
+  properties:
+  - type: Documentation
+    url: https://docs.workday.com/api/time-tracking
+  - type: OpenAPI
+    url: https://api.workday.com/v1/time-tracking/openapi.json
+  - type: Authentication
+    url: https://docs.workday.com/authentication
+  contact:
+  - FN: Workday API Support
+    email: api-support@workday.com
+    url: https://community.workday.com
+- name: Attendance API
+  description: Track employee attendance, absences, and leave requests
+  image: https://www.workday.com/content/dam/web/images/icons/attendance.png
+  humanURL: https://www.workday.com/en-us/products/human-capital-management/attendance.html
+  baseURL: https://api.workday.com/v1/attendance
+  tags:
+  - Attendance
+  - Absences
+  - Leave
+  - Time Off
+  properties:
+  - type: Documentation
+    url: https://docs.workday.com/api/attendance
+  - type: OpenAPI
+    url: https://api.workday.com/v1/attendance/openapi.json
+  - type: Postman Collection
+    url: https://www.postman.com/workday/workspace/attendance-api
+- name: Project Tracking API
+  description: Manage project assignments, tasks, and time allocation
+  image: https://www.workday.com/content/dam/web/images/icons/projects.png
+  humanURL: https://www.workday.com/en-us/products/financial-management/projects.html
+  baseURL: https://api.workday.com/v1/projects
+  tags:
+  - Projects
+  - Tasks
+  - Assignments
+  - Resource Management
+  properties:
+  - type: Documentation
+    url: https://docs.workday.com/api/projects
+  - type: OpenAPI
+    url: https://api.workday.com/v1/projects/openapi.json
+  - type: SDKs
+    url: https://github.com/workday/project-tracking-sdk
+- name: Schedule Management API
+  description: Create and manage employee work schedules and shifts
+  image: https://www.workday.com/content/dam/web/images/icons/scheduling.png
+  humanURL: https://www.workday.com/en-us/products/human-capital-management/scheduling.html
+  baseURL: https://api.workday.com/v1/schedules
+  tags:
+  - Schedules
+  - Shifts
+  - Planning
+  - Workforce Management
+  properties:
+  - type: Documentation
+    url: https://docs.workday.com/api/schedules
+  - type: OpenAPI
+    url: https://api.workday.com/v1/schedules/openapi.json
+  - type: Webhooks
+    url: https://docs.workday.com/api/schedules/webhooks
+- name: Reporting API
+  description: Generate reports on time tracking, attendance, and productivity metrics
+  image: https://www.workday.com/content/dam/web/images/icons/reporting.png
+  humanURL: https://www.workday.com/en-us/products/analytics-reporting.html
+  baseURL: https://api.workday.com/v1/reports
+  tags:
+  - Reports
+  - Analytics
+  - Metrics
+  - Business Intelligence
+  properties:
+  - type: Documentation
+    url: https://docs.workday.com/api/reports
+  - type: OpenAPI
+    url: https://api.workday.com/v1/reports/openapi.json
+  - type: Query Examples
+    url: https://docs.workday.com/api/reports/examples
+common:
+- type: Portal
+  url: https://developer.workday.com
+- type: Authentication
+  url: https://docs.workday.com/authentication/oauth2
+- type: Rate Limits
+  url: https://docs.workday.com/rate-limits
+- type: Status Page
+  url: https://status.workday.com
+- type: Support
+  url: https://www.workday.com/en-us/company/latest/customer-support.html
+- type: Terms of Service
+  url: https://www.workday.com/en-us/terms-of-service.html
+- type: Privacy Policy
+  url: https://www.workday.com/en-us/privacy.html
+maintainers:
+- FN: Workday Developer Relations
+  email: developer-relations@workday.com
+  url: https://developer.workday.com
+tags:
+- Time Tracking
+- Attendance
+- Project Management
+- Workforce Management
+- Human Capital Management
+- HCM
+- Enterprise
