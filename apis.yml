@@ -13,16 +13,14 @@ apis:
   - name: Time Tracking API
     description: >-
       Manage employee time entries, timesheets, and work hours.
-    image: 
-      https://www.workday.com/content/dam/web/images/icons/time-tracking.png
-    humanURL: 
-      https://www.workday.com/en-us/products/human-capital-management/time-tracking.html
+    image: https://www.workday.com/content/dam/web/images/icons/time-tracking.png
+    humanURL: https://www.workday.com/en-us/products/human-capital-management/time-tracking.html
     baseURL: https://api.workday.com/v1/time-tracking
     tags:
+      - Attendance
+      - Hours
       - Time Tracking
       - Timesheets
-      - Hours
-      - Attendance
     properties:
       - type: Documentation
         url: https://docs.workday.com/api/time-tracking
@@ -38,12 +36,11 @@ apis:
     description: >-
       Track employee attendance, absences, and leave requests.
     image: https://www.workday.com/content/dam/web/images/icons/attendance.png
-    humanURL: 
-      https://www.workday.com/en-us/products/human-capital-management/attendance.html
+    humanURL: https://www.workday.com/en-us/products/human-capital-management/attendance.html
     baseURL: https://api.workday.com/v1/attendance
     tags:
-      - Attendance
       - Absences
+      - Attendance
       - Leave
       - Time Off
     properties:
@@ -57,14 +54,13 @@ apis:
     description: >-
       Manage project assignments, tasks, and time allocation.
     image: https://www.workday.com/content/dam/web/images/icons/projects.png
-    humanURL: 
-      https://www.workday.com/en-us/products/financial-management/projects.html
+    humanURL: https://www.workday.com/en-us/products/financial-management/projects.html
     baseURL: https://api.workday.com/v1/projects
     tags:
-      - Projects
-      - Tasks
       - Assignments
+      - Projects
       - Resource Management
+      - Tasks
     properties:
       - type: Documentation
         url: https://docs.workday.com/api/projects
@@ -76,13 +72,12 @@ apis:
     description: >-
       Create and manage employee work schedules and shifts.
     image: https://www.workday.com/content/dam/web/images/icons/scheduling.png
-    humanURL: 
-      https://www.workday.com/en-us/products/human-capital-management/scheduling.html
+    humanURL: https://www.workday.com/en-us/products/human-capital-management/scheduling.html
     baseURL: https://api.workday.com/v1/schedules
     tags:
+      - Planning
       - Schedules
       - Shifts
-      - Planning
       - Workforce Management
     properties:
       - type: Documentation
@@ -98,10 +93,10 @@ apis:
     humanURL: https://www.workday.com/en-us/products/analytics-reporting.html
     baseURL: https://api.workday.com/v1/reports
     tags:
-      - Reports
       - Analytics
-      - Metrics
       - Business Intelligence
+      - Metrics
+      - Reports
     properties:
       - type: Documentation
         url: https://docs.workday.com/api/reports
@@ -128,10 +123,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 tags:
-  - Time Tracking
   - Attendance
-  - Project Management
-  - Workforce Management
-  - Human Capital Management
-  - HCM
   - Enterprise
+  - HCM
+  - Human Capital Management
+  - Project Management
+  - Time Tracking
+  - Workforce Management
