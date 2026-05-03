@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-request-schema.json",
+  "title": "TimeRequest",
+  "description": "A time request submitted by a worker",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the time request"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "requestDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the time request"
+    },
+    "requestType": {
+      "type": "string",
+      "description": "Type of time request",
+      "enum": ["Overtime", "AdjustmentRequest", "ScheduleChange"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Approval status of the request",
+      "enum": ["Draft", "Submitted", "Approved", "Denied"]
+    },
+    "comment": {
+      "type": "string",
+      "description": "Worker's comment on the request"
+    },
+    "approverComment": {
+      "type": "string",
+      "description": "Approver's comment"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of request creation",
+      "readOnly": true
+    }
+  }
+}

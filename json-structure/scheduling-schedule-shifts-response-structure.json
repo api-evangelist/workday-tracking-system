@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-schedule-shifts-response-structure.json",
+  "name": "ScheduleShiftsResponse",
+  "description": "Paginated list of schedule shifts",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32"
+    },
+    "offset": {
+      "type": "int32"
+    },
+    "limit": {
+      "type": "int32"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A schedule shift assigned to a worker or position",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique Workday ID of the shift"
+          },
+          "workerId": {
+            "type": "string",
+            "description": "Worker assigned to this shift"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Scheduling organization ID"
+          },
+          "shiftDate": {
+            "type": "date",
+            "description": "Date of the shift"
+          },
+          "startTime": {
+            "type": "time",
+            "description": "Shift start time"
+          },
+          "endTime": {
+            "type": "time",
+            "description": "Shift end time"
+          },
+          "hours": {
+            "type": "float",
+            "description": "Scheduled hours for the shift"
+          },
+          "shiftType": {
+            "type": "string",
+            "description": "Type of shift",
+            "enum": [
+              "Regular",
+              "Overtime",
+              "OnCall",
+              "Split"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Shift status",
+            "enum": [
+              "Scheduled",
+              "Confirmed",
+              "Cancelled",
+              "Completed"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional shift notes"
+          }
+        },
+        "required": [
+          "workerId",
+          "shiftDate",
+          "startTime",
+          "endTime"
+        ]
+      }
+    }
+  }
+}

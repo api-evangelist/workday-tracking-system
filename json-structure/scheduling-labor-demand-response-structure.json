@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-labor-demand-response-structure.json",
+  "name": "LaborDemandResponse",
+  "description": "LaborDemandResponse schema from Workday Scheduling API",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A labor demand entry for workforce planning",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique ID of the labor demand entry"
+          },
+          "organizationId": {
+            "type": "string",
+            "description": "Scheduling organization ID"
+          },
+          "date": {
+            "type": "date",
+            "description": "Date for the labor demand"
+          },
+          "hour": {
+            "type": "int32",
+            "description": "Hour of the day (0-23) for the demand",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "requiredHeadcount": {
+            "type": "int32",
+            "description": "Number of workers required"
+          },
+          "jobProfileId": {
+            "type": "string",
+            "description": "Job profile/role required"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional notes"
+          }
+        }
+      }
+    }
+  }
+}

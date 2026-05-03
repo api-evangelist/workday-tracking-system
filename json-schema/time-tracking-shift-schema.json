@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-shift-schema.json",
+  "title": "Shift",
+  "description": "A single shift within a work schedule",
+  "type": "object",
+  "properties": {
+    "dayOfWeek": {
+      "type": "string",
+      "description": "Day of the week for this shift",
+      "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "startTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Shift start time (HH:MM:SS)",
+      "example": "09:00:00"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Shift end time (HH:MM:SS)",
+      "example": "17:00:00"
+    },
+    "hours": {
+      "type": "number",
+      "format": "float",
+      "description": "Total hours for this shift",
+      "example": 8.0
+    }
+  }
+}

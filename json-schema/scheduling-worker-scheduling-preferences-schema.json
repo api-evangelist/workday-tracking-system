@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-worker-scheduling-preferences-schema.json",
+  "title": "WorkerSchedulingPreferences",
+  "description": "A worker's scheduling preferences",
+  "type": "object",
+  "properties": {
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "preferredStartTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Preferred shift start time",
+      "example": "08:00:00"
+    },
+    "preferredEndTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Preferred shift end time",
+      "example": "16:00:00"
+    },
+    "preferredDaysOff": {
+      "type": "array",
+      "description": "Preferred days off",
+      "items": {
+        "type": "string",
+        "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      }
+    },
+    "maxHoursPerWeek": {
+      "type": "number",
+      "format": "float",
+      "description": "Maximum hours per week",
+      "example": 40.0
+    },
+    "minHoursPerWeek": {
+      "type": "number",
+      "format": "float",
+      "description": "Minimum hours per week",
+      "example": 32.0
+    },
+    "availability": {
+      "type": "object",
+      "description": "Worker availability by day of week",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "available": { "type": "boolean" },
+          "startTime": { "type": "string", "format": "time" },
+          "endTime": { "type": "string", "format": "time" }
+        }
+      }
+    }
+  }
+}

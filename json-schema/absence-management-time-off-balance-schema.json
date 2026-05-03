@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-balance-schema.json",
+  "title": "TimeOffBalance",
+  "description": "A worker's balance for a specific time off plan",
+  "type": "object",
+  "properties": {
+    "planId": {
+      "type": "string",
+      "description": "Workday ID of the time off plan"
+    },
+    "planName": {
+      "type": "string",
+      "description": "Name of the time off plan",
+      "example": "Vacation"
+    },
+    "balance": {
+      "type": "number",
+      "format": "float",
+      "description": "Current available balance in hours",
+      "example": 80.0
+    },
+    "accrued": {
+      "type": "number",
+      "format": "float",
+      "description": "Total hours accrued year-to-date",
+      "example": 96.0
+    },
+    "used": {
+      "type": "number",
+      "format": "float",
+      "description": "Total hours used year-to-date",
+      "example": 16.0
+    },
+    "pending": {
+      "type": "number",
+      "format": "float",
+      "description": "Hours pending approval",
+      "example": 8.0
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement",
+      "enum": ["Hours", "Days"],
+      "example": "Hours"
+    },
+    "asOfDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the balance was calculated"
+    }
+  }
+}

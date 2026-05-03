@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-timesheets-response-structure.json",
+  "name": "TimesheetsResponse",
+  "description": "Response containing timesheets",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32",
+      "description": "Total count of timesheets"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of timesheets",
+      "items": {
+        "type": "object",
+        "description": "An employee timesheet for a pay period",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique Workday ID of the timesheet"
+          },
+          "workerId": {
+            "type": "string",
+            "description": "Workday ID of the worker"
+          },
+          "periodStartDate": {
+            "type": "date",
+            "description": "Start date of the pay period"
+          },
+          "periodEndDate": {
+            "type": "date",
+            "description": "End date of the pay period"
+          },
+          "totalHours": {
+            "type": "float",
+            "description": "Total hours recorded in the timesheet"
+          },
+          "regularHours": {
+            "type": "float",
+            "description": "Regular hours worked"
+          },
+          "overtimeHours": {
+            "type": "float",
+            "description": "Overtime hours worked"
+          },
+          "status": {
+            "type": "string",
+            "description": "Timesheet status",
+            "enum": [
+              "Draft",
+              "Submitted",
+              "Approved",
+              "Rejected"
+            ]
+          },
+          "timeBlocks": {
+            "type": "array",
+            "description": "Time blocks in this timesheet",
+            "items": {
+              "type": "object",
+              "description": "A reported or calculated time block representing hours worked",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "workerId": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "date"
+                },
+                "startTime": {
+                  "type": "time"
+                },
+                "endTime": {
+                  "type": "time"
+                },
+                "hours": {
+                  "type": "float"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "Regular",
+                    "Overtime",
+                    "Holiday",
+                    "Leave"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "Reported",
+                    "Calculated",
+                    "Approved",
+                    "Rejected"
+                  ]
+                },
+                "projectId": {
+                  "type": "string"
+                },
+                "taskId": {
+                  "type": "string"
+                },
+                "comment": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "datetime"
+                },
+                "modifiedAt": {
+                  "type": "datetime"
+                }
+              },
+              "required": [
+                "workerId",
+                "date",
+                "hours",
+                "type"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

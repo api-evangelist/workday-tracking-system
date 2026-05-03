@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-leave-of-absence-structure.json",
+  "name": "LeaveOfAbsence",
+  "description": "A leave of absence record",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the leave record"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "leaveType": {
+      "type": "string",
+      "description": "Type of leave (e.g., FMLA, Military, Personal)"
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Leave start date"
+    },
+    "expectedEndDate": {
+      "type": "date",
+      "description": "Expected return date"
+    },
+    "actualReturnDate": {
+      "type": "date",
+      "description": "Actual date of return from leave"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the leave",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Active",
+        "Completed",
+        "Cancelled"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the leave of absence"
+    },
+    "continuousOrIntermittent": {
+      "type": "string",
+      "description": "Whether leave is continuous or intermittent",
+      "enum": [
+        "Continuous",
+        "Intermittent"
+      ]
+    }
+  }
+}

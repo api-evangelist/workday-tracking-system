@@ -1,0 +1,163 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "workday": "https://api.workday.com/ontology/tracking/",
+
+    "TimeBlock": {
+      "@id": "workday:TimeBlock",
+      "@type": "@id",
+      "comment": "A reported or calculated time block representing hours worked by an employee"
+    },
+    "Timesheet": {
+      "@id": "workday:Timesheet",
+      "@type": "@id",
+      "comment": "An employee timesheet covering a specific pay period"
+    },
+    "LeaveOfAbsence": {
+      "@id": "workday:LeaveOfAbsence",
+      "@type": "@id",
+      "comment": "A leave of absence record for an employee"
+    },
+    "TimeOffEntry": {
+      "@id": "workday:TimeOffEntry",
+      "@type": "@id",
+      "comment": "An employee time off request entry"
+    },
+    "ScheduleShift": {
+      "@id": "workday:ScheduleShift",
+      "@type": "@id",
+      "comment": "A shift assigned to a worker in a schedule"
+    },
+    "WorkSchedule": {
+      "@id": "workday:WorkSchedule",
+      "@type": "@id",
+      "comment": "A work schedule assignment for a worker"
+    },
+    "TimeClockEvent": {
+      "@id": "workday:TimeClockEvent",
+      "@type": "@id",
+      "comment": "A punch-in or punch-out event from a time clock device"
+    },
+    "TimeRequest": {
+      "@id": "workday:TimeRequest",
+      "@type": "@id",
+      "comment": "A time request submitted by a worker for approval"
+    },
+
+    "id": "@id",
+    "workerId": {
+      "@id": "workday:workerId",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "workday:date",
+      "@type": "xsd:date"
+    },
+    "startTime": {
+      "@id": "workday:startTime",
+      "@type": "xsd:time"
+    },
+    "endTime": {
+      "@id": "workday:endTime",
+      "@type": "xsd:time"
+    },
+    "hours": {
+      "@id": "workday:hours",
+      "@type": "xsd:decimal"
+    },
+    "type": {
+      "@id": "workday:timeType",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "workday:status",
+      "@type": "xsd:string"
+    },
+    "periodStartDate": {
+      "@id": "workday:periodStartDate",
+      "@type": "xsd:date"
+    },
+    "periodEndDate": {
+      "@id": "workday:periodEndDate",
+      "@type": "xsd:date"
+    },
+    "totalHours": {
+      "@id": "workday:totalHours",
+      "@type": "xsd:decimal"
+    },
+    "regularHours": {
+      "@id": "workday:regularHours",
+      "@type": "xsd:decimal"
+    },
+    "overtimeHours": {
+      "@id": "workday:overtimeHours",
+      "@type": "xsd:decimal"
+    },
+    "leaveType": {
+      "@id": "workday:leaveType",
+      "@type": "xsd:string"
+    },
+    "startDate": {
+      "@id": "workday:startDate",
+      "@type": "xsd:date"
+    },
+    "endDate": {
+      "@id": "workday:endDate",
+      "@type": "xsd:date"
+    },
+    "expectedEndDate": {
+      "@id": "workday:expectedEndDate",
+      "@type": "xsd:date"
+    },
+    "actualReturnDate": {
+      "@id": "workday:actualReturnDate",
+      "@type": "xsd:date"
+    },
+    "timeOffType": {
+      "@id": "workday:timeOffType",
+      "@type": "xsd:string"
+    },
+    "projectId": {
+      "@id": "workday:projectId",
+      "@type": "xsd:string"
+    },
+    "taskId": {
+      "@id": "workday:taskId",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "workday:comment",
+      "@type": "xsd:string"
+    },
+    "eventType": {
+      "@id": "workday:eventType",
+      "@type": "xsd:string"
+    },
+    "eventDateTime": {
+      "@id": "workday:eventDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "shiftDate": {
+      "@id": "workday:shiftDate",
+      "@type": "xsd:date"
+    },
+    "organizationId": {
+      "@id": "workday:organizationId",
+      "@type": "xsd:string"
+    },
+    "scheduleName": {
+      "@id": "workday:scheduleName",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "modifiedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

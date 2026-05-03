@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/workday-tracking-system-time-block-structure.json",
+  "name": "TimeBlock",
+  "description": "A reported or calculated time block representing hours worked by an employee in the Workday system",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the time block"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker who logged this time block"
+    },
+    "date": {
+      "type": "date",
+      "description": "Date of the time block (YYYY-MM-DD)"
+    },
+    "startTime": {
+      "type": "time",
+      "description": "Start time of the time block (HH:MM:SS)"
+    },
+    "endTime": {
+      "type": "time",
+      "description": "End time of the time block (HH:MM:SS)"
+    },
+    "hours": {
+      "type": "double",
+      "description": "Total hours recorded in this time block",
+      "minimum": 0,
+      "maximum": 24
+    },
+    "type": {
+      "type": "string",
+      "description": "Category of time worked",
+      "enum": [
+        "Regular",
+        "Overtime",
+        "Holiday",
+        "Leave"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Approval and processing status of the time block",
+      "enum": [
+        "Reported",
+        "Calculated",
+        "Approved",
+        "Rejected"
+      ]
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project identifier (optional)"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Associated task identifier (optional)"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional worker comment about this time block",
+      "maxLength": 500
+    },
+    "createdAt": {
+      "type": "datetime",
+      "description": "Timestamp when the time block was created"
+    },
+    "modifiedAt": {
+      "type": "datetime",
+      "description": "Timestamp when the time block was last modified"
+    }
+  },
+  "required": [
+    "workerId",
+    "date",
+    "hours",
+    "type"
+  ],
+  "additionalProperties": false
+}

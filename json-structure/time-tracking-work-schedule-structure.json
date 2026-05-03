@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-work-schedule-structure.json",
+  "name": "WorkSchedule",
+  "description": "A worker's work schedule assignment",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the schedule assignment"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "scheduleName": {
+      "type": "string",
+      "description": "Name of the assigned work schedule"
+    },
+    "scheduleType": {
+      "type": "string",
+      "description": "Type of schedule",
+      "enum": [
+        "Fixed",
+        "Flexible",
+        "Rotating"
+      ]
+    },
+    "effectiveDate": {
+      "type": "date",
+      "description": "Date the schedule assignment takes effect"
+    },
+    "endDate": {
+      "type": "date",
+      "description": "Date the schedule assignment ends (optional)"
+    },
+    "hoursPerWeek": {
+      "type": "float",
+      "description": "Scheduled hours per week"
+    },
+    "shifts": {
+      "type": "array",
+      "description": "Daily shift schedule",
+      "items": {
+        "type": "object",
+        "description": "A single shift within a work schedule",
+        "properties": {
+          "dayOfWeek": {
+            "type": "string",
+            "description": "Day of the week for this shift",
+            "enum": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          },
+          "startTime": {
+            "type": "time",
+            "description": "Shift start time (HH:MM:SS)"
+          },
+          "endTime": {
+            "type": "time",
+            "description": "Shift end time (HH:MM:SS)"
+          },
+          "hours": {
+            "type": "float",
+            "description": "Total hours for this shift"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "workerId",
+    "scheduleName",
+    "effectiveDate"
+  ]
+}

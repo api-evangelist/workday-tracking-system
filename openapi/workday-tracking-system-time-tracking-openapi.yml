@@ -1,0 +1,1011 @@
+openapi: 3.0.3
+info:
+  title: Workday Time Tracking API
+  description: >-
+    Manage employee time entries, time blocks, time clock events, work schedule
+    assignments, and time requests within the Workday platform. Supports both
+    individual and batch operations for enterprise workforce management.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+  - url: https://{tenant}.workday.com/api/time-tracking/v1
+    description: Workday tenant-specific Time Tracking REST API
+    variables:
+      tenant:
+        default: your-tenant
+        description: Your Workday tenant identifier
+security:
+  - BearerAuth: []
+tags:
+  - name: Time Blocks
+    description: Operations for managing reported and calculated time blocks
+  - name: Time Clock Events
+    description: Operations for importing and managing time clock events
+  - name: Work Schedules
+    description: Operations for assigning and managing work schedules
+  - name: Time Requests
+    description: Operations for creating and retrieving time requests
+  - name: Timesheets
+    description: Operations for managing employee timesheets
+paths:
+  /workers/{workerId}/timeBlocks:
+    get:
+      operationId: listTimeBlocks
+      summary: List Time Blocks
+      description: Returns calculated time blocks for a worker within a specified date range.
+      tags:
+        - Time Blocks
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for time block retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for time block retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          required: false
+          description: Filter by time block status
+          schema:
+            type: string
+            enum:
+              - Reported
+              - Calculated
+              - Approved
+              - Rejected
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            default: 100
+            maximum: 1000
+        - name: offset
+          in: query
+          required: false
+          description: Offset for pagination
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of time blocks retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlocksResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTimeBlock
+      summary: Create Time Block
+      description: Creates a new reported time block for a worker.
+      tags:
+        - Time Blocks
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeBlockInput'
+      responses:
+        '201':
+          description: Time block created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /workers/{workerId}/timeBlocks/{timeBlockId}:
+    get:
+      operationId: getTimeBlock
+      summary: Get Time Block
+      description: Returns a specific time block for a worker.
+      tags:
+        - Time Blocks
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timeBlockId
+          in: path
+          required: true
+          description: The Workday ID of the time block
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Time block retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTimeBlock
+      summary: Update Time Block
+      description: Updates an existing reported time block for a worker.
+      tags:
+        - Time Blocks
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timeBlockId
+          in: path
+          required: true
+          description: The Workday ID of the time block
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeBlockInput'
+      responses:
+        '200':
+          description: Time block updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTimeBlock
+      summary: Delete Time Block
+      description: Deletes a reported time block for a worker.
+      tags:
+        - Time Blocks
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timeBlockId
+          in: path
+          required: true
+          description: The Workday ID of the time block
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Time block deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/timeClockEvents:
+    get:
+      operationId: listTimeClockEvents
+      summary: List Time Clock Events
+      description: Returns time clock events for a worker.
+      tags:
+        - Time Clock Events
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for event retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for event retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Time clock events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEventsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTimeClockEvent
+      summary: Create Time Clock Event
+      description: >-
+        Adds a time clock event from a third-party time collection system.
+        Workday Time Tracking processes these into reported and calculated time blocks.
+      tags:
+        - Time Clock Events
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeClockEventInput'
+      responses:
+        '201':
+          description: Time clock event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEvent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/workSchedule:
+    get:
+      operationId: getWorkSchedule
+      summary: Get Work Schedule
+      description: Returns the current work schedule assignment for a worker.
+      tags:
+        - Work Schedules
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: asOfDate
+          in: query
+          required: false
+          description: Retrieve schedule effective as of this date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Work schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkSchedule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: assignWorkSchedule
+      summary: Assign Work Schedule
+      description: >-
+        Imports work schedule assignments. Supports work schedule calendar
+        assignments and assignments based on patterns specific to a worker.
+      tags:
+        - Work Schedules
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkScheduleAssignment'
+      responses:
+        '200':
+          description: Work schedule assigned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkSchedule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/timeRequests:
+    get:
+      operationId: listTimeRequests
+      summary: List Time Requests
+      description: Retrieves time requests for a worker.
+      tags:
+        - Time Requests
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for time request retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for time request retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Time requests retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeRequestsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTimeRequest
+      summary: Create Time Request
+      description: Creates a new user time request or updates an existing one.
+      tags:
+        - Time Requests
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeRequestInput'
+      responses:
+        '201':
+          description: Time request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/timesheets:
+    get:
+      operationId: listTimesheets
+      summary: List Timesheets
+      description: Returns timesheets for a worker within a date range.
+      tags:
+        - Timesheets
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for timesheet retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for timesheet retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Timesheets retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesheetsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/timesheets/{timesheetId}/submit:
+    post:
+      operationId: submitTimesheet
+      summary: Submit Timesheet
+      description: Submits a timesheet for approval.
+      tags:
+        - Timesheets
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timesheetId
+          in: path
+          required: true
+          description: The Workday ID of the timesheet
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Timesheet submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timesheet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication
+  schemas:
+    TimeBlock:
+      type: object
+      description: A reported or calculated time block representing hours worked
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time block
+          example: 3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2
+        workerId:
+          type: string
+          description: Workday ID of the worker
+          example: e3f2a1b0c8d7e6f5
+        date:
+          type: string
+          format: date
+          description: Date of the time block
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: '09:00:00'
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours in the time block
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+            - Regular
+            - Overtime
+            - Holiday
+            - Leave
+          example: Regular
+        status:
+          type: string
+          description: Status of the time block
+          enum:
+            - Reported
+            - Calculated
+            - Approved
+            - Rejected
+          example: Approved
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+          example: proj_abc123
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+          example: task_xyz789
+        comment:
+          type: string
+          description: Optional comment for the time block
+          example: Working on Q2 planning
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was created
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was last modified
+          readOnly: true
+      required:
+        - workerId
+        - date
+        - hours
+        - type
+    TimeBlockInput:
+      type: object
+      description: Input payload for creating or updating a time block
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date of the time block (YYYY-MM-DD)
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: '09:00:00'
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours worked
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+            - Regular
+            - Overtime
+            - Holiday
+            - Leave
+          example: Regular
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+        comment:
+          type: string
+          description: Optional comment
+      required:
+        - date
+        - hours
+        - type
+    TimeBlocksResponse:
+      type: object
+      description: Paginated response containing time blocks
+      properties:
+        total:
+          type: integer
+          description: Total number of time blocks matching the query
+          example: 42
+        offset:
+          type: integer
+          description: Current pagination offset
+          example: 0
+        limit:
+          type: integer
+          description: Maximum records returned per page
+          example: 100
+        data:
+          type: array
+          description: Array of time blocks
+          items:
+            $ref: '#/components/schemas/TimeBlock'
+    TimeClockEvent:
+      type: object
+      description: A time clock event recording a punch-in or punch-out
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time clock event
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+            - ClockIn
+            - ClockOut
+            - BreakStart
+            - BreakEnd
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device
+        locationId:
+          type: string
+          description: Location identifier for the clock event
+        status:
+          type: string
+          description: Processing status of the event
+          enum:
+            - Pending
+            - Processed
+            - Failed
+      required:
+        - workerId
+        - eventType
+        - eventDateTime
+    TimeClockEventInput:
+      type: object
+      description: Input for creating a time clock event
+      properties:
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+            - ClockIn
+            - ClockOut
+            - BreakStart
+            - BreakEnd
+          example: ClockIn
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device (optional)
+        locationId:
+          type: string
+          description: Location identifier (optional)
+      required:
+        - eventType
+        - eventDateTime
+    TimeClockEventsResponse:
+      type: object
+      description: Response containing time clock events
+      properties:
+        total:
+          type: integer
+          description: Total count of events
+        data:
+          type: array
+          description: Array of time clock events
+          items:
+            $ref: '#/components/schemas/TimeClockEvent'
+    WorkSchedule:
+      type: object
+      description: A worker's work schedule assignment
+      properties:
+        id:
+          type: string
+          description: Unique ID of the schedule assignment
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        scheduleName:
+          type: string
+          description: Name of the assigned work schedule
+          example: Standard 5-Day Week
+        scheduleType:
+          type: string
+          description: Type of schedule
+          enum:
+            - Fixed
+            - Flexible
+            - Rotating
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the schedule assignment takes effect
+        endDate:
+          type: string
+          format: date
+          description: Date the schedule assignment ends (optional)
+        hoursPerWeek:
+          type: number
+          format: float
+          description: Scheduled hours per week
+          example: 40.0
+        shifts:
+          type: array
+          description: Daily shift schedule
+          items:
+            $ref: '#/components/schemas/Shift'
+      required:
+        - workerId
+        - scheduleName
+        - effectiveDate
+    WorkScheduleAssignment:
+      type: object
+      description: Input for assigning a work schedule to a worker
+      properties:
+        scheduleId:
+          type: string
+          description: Workday ID of the schedule to assign
+          example: sch_standard_5day
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the assignment becomes effective
+          example: '2026-05-01'
+        endDate:
+          type: string
+          format: date
+          description: Optional end date for the assignment
+      required:
+        - scheduleId
+        - effectiveDate
+    Shift:
+      type: object
+      description: A single shift within a work schedule
+      properties:
+        dayOfWeek:
+          type: string
+          description: Day of the week for this shift
+          enum:
+            - Monday
+            - Tuesday
+            - Wednesday
+            - Thursday
+            - Friday
+            - Saturday
+            - Sunday
+        startTime:
+          type: string
+          format: time
+          description: Shift start time (HH:MM:SS)
+          example: '09:00:00'
+        endTime:
+          type: string
+          format: time
+          description: Shift end time (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours for this shift
+          example: 8.0
+    TimeRequest:
+      type: object
+      description: A time request submitted by a worker
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time request
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        requestDate:
+          type: string
+          format: date
+          description: Date of the time request
+        requestType:
+          type: string
+          description: Type of time request
+          enum:
+            - Overtime
+            - AdjustmentRequest
+            - ScheduleChange
+        status:
+          type: string
+          description: Approval status of the request
+          enum:
+            - Draft
+            - Submitted
+            - Approved
+            - Denied
+        comment:
+          type: string
+          description: Worker's comment on the request
+        approverComment:
+          type: string
+          description: Approver's comment
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of request creation
+          readOnly: true
+    TimeRequestInput:
+      type: object
+      description: Input for creating a time request
+      properties:
+        requestDate:
+          type: string
+          format: date
+          description: Date for the time request
+          example: '2026-05-03'
+        requestType:
+          type: string
+          description: Type of time request
+          enum:
+            - Overtime
+            - AdjustmentRequest
+            - ScheduleChange
+        comment:
+          type: string
+          description: Comment explaining the request
+      required:
+        - requestDate
+        - requestType
+    TimeRequestsResponse:
+      type: object
+      description: Response containing time requests
+      properties:
+        total:
+          type: integer
+          description: Total count of time requests
+        data:
+          type: array
+          description: Array of time requests
+          items:
+            $ref: '#/components/schemas/TimeRequest'
+    Timesheet:
+      type: object
+      description: An employee timesheet for a pay period
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the timesheet
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        periodStartDate:
+          type: string
+          format: date
+          description: Start date of the pay period
+          example: '2026-04-27'
+        periodEndDate:
+          type: string
+          format: date
+          description: End date of the pay period
+          example: '2026-05-03'
+        totalHours:
+          type: number
+          format: float
+          description: Total hours recorded in the timesheet
+          example: 40.0
+        regularHours:
+          type: number
+          format: float
+          description: Regular hours worked
+          example: 40.0
+        overtimeHours:
+          type: number
+          format: float
+          description: Overtime hours worked
+          example: 0.0
+        status:
+          type: string
+          description: Timesheet status
+          enum:
+            - Draft
+            - Submitted
+            - Approved
+            - Rejected
+        timeBlocks:
+          type: array
+          description: Time blocks in this timesheet
+          items:
+            $ref: '#/components/schemas/TimeBlock'
+    TimesheetsResponse:
+      type: object
+      description: Response containing timesheets
+      properties:
+        total:
+          type: integer
+          description: Total count of timesheets
+        data:
+          type: array
+          description: Array of timesheets
+          items:
+            $ref: '#/components/schemas/Timesheet'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

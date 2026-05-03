@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-accrual-override-input-structure.json",
+  "name": "AccrualOverrideInput",
+  "description": "Input for creating an accrual override",
+  "type": "object",
+  "properties": {
+    "planId": {
+      "type": "string",
+      "description": "ID of the time off plan"
+    },
+    "overrideType": {
+      "type": "string",
+      "description": "Type of override",
+      "enum": [
+        "Adjustment",
+        "Override"
+      ]
+    },
+    "hours": {
+      "type": "float",
+      "description": "Hours to adjust or override"
+    },
+    "effectiveDate": {
+      "type": "date",
+      "description": "Effective date of the override"
+    },
+    "expirationDate": {
+      "type": "date",
+      "description": "Optional expiration date"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the override"
+    }
+  },
+  "required": [
+    "planId",
+    "overrideType",
+    "hours",
+    "effectiveDate"
+  ]
+}

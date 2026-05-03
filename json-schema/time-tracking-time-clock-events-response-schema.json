@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-clock-events-response-schema.json",
+  "title": "TimeClockEventsResponse",
+  "description": "Response containing time clock events",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total count of events"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of time clock events",
+      "items": {
+        "type": "object",
+        "description": "A time clock event recording a punch-in or punch-out",
+        "properties": {
+          "id": { "type": "string", "description": "Unique Workday ID of the time clock event" },
+          "workerId": { "type": "string", "description": "Workday ID of the worker" },
+          "eventType": { "type": "string", "description": "Type of clock event", "enum": ["ClockIn", "ClockOut", "BreakStart", "BreakEnd"] },
+          "eventDateTime": { "type": "string", "format": "date-time", "description": "Date and time of the clock event", "example": "2026-05-03T09:00:00Z" },
+          "deviceId": { "type": "string", "description": "ID of the time clock device" },
+          "locationId": { "type": "string", "description": "Location identifier for the clock event" },
+          "status": { "type": "string", "description": "Processing status of the event", "enum": ["Pending", "Processed", "Failed"] }
+        },
+        "required": ["workerId", "eventType", "eventDateTime"]
+      }
+    }
+  }
+}

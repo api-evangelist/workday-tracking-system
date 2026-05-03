@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-leave-of-absence-input-structure.json",
+  "name": "LeaveOfAbsenceInput",
+  "description": "Input for creating a leave of absence request",
+  "type": "object",
+  "properties": {
+    "leaveType": {
+      "type": "string",
+      "description": "Type of leave"
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Leave start date"
+    },
+    "expectedEndDate": {
+      "type": "date",
+      "description": "Expected return date"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the leave"
+    },
+    "continuousOrIntermittent": {
+      "type": "string",
+      "description": "Leave continuity type",
+      "enum": [
+        "Continuous",
+        "Intermittent"
+      ],
+      "default": "Continuous"
+    }
+  },
+  "required": [
+    "leaveType",
+    "startDate",
+    "expectedEndDate"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-worker-scheduling-preferences-input-schema.json",
+  "title": "WorkerSchedulingPreferencesInput",
+  "description": "Input for updating scheduling preferences",
+  "type": "object",
+  "properties": {
+    "preferredStartTime": {
+      "type": "string",
+      "format": "time"
+    },
+    "preferredEndTime": {
+      "type": "string",
+      "format": "time"
+    },
+    "preferredDaysOff": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxHoursPerWeek": {
+      "type": "number",
+      "format": "float"
+    },
+    "minHoursPerWeek": {
+      "type": "number",
+      "format": "float"
+    }
+  }
+}

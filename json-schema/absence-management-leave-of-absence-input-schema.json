@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-leave-of-absence-input-schema.json",
+  "title": "LeaveOfAbsenceInput",
+  "description": "Input for creating a leave of absence request",
+  "type": "object",
+  "properties": {
+    "leaveType": {
+      "type": "string",
+      "description": "Type of leave",
+      "example": "FMLA"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Leave start date",
+      "example": "2026-06-01"
+    },
+    "expectedEndDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected return date",
+      "example": "2026-07-01"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the leave"
+    },
+    "continuousOrIntermittent": {
+      "type": "string",
+      "description": "Leave continuity type",
+      "enum": ["Continuous", "Intermittent"],
+      "default": "Continuous"
+    }
+  },
+  "required": ["leaveType", "startDate", "expectedEndDate"]
+}

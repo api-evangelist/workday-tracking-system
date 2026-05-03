@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-blocks-response-schema.json",
+  "title": "TimeBlocksResponse",
+  "description": "Paginated response containing time blocks",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of time blocks matching the query",
+      "example": 42
+    },
+    "offset": {
+      "type": "integer",
+      "description": "Current pagination offset",
+      "example": 0
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum records returned per page",
+      "example": 100
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of time blocks",
+      "items": {
+        "type": "object",
+        "description": "A reported or calculated time block representing hours worked",
+        "properties": {
+          "id": { "type": "string", "description": "Unique Workday ID of the time block", "example": "3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2" },
+          "workerId": { "type": "string", "description": "Workday ID of the worker", "example": "e3f2a1b0c8d7e6f5" },
+          "date": { "type": "string", "format": "date", "description": "Date of the time block", "example": "2026-05-03" },
+          "startTime": { "type": "string", "format": "time", "description": "Start time of the time block (HH:MM:SS)", "example": "09:00:00" },
+          "endTime": { "type": "string", "format": "time", "description": "End time of the time block (HH:MM:SS)", "example": "17:00:00" },
+          "hours": { "type": "number", "format": "float", "description": "Total hours in the time block", "example": 8.0 },
+          "type": { "type": "string", "description": "Type of time block", "enum": ["Regular", "Overtime", "Holiday", "Leave"], "example": "Regular" },
+          "status": { "type": "string", "description": "Status of the time block", "enum": ["Reported", "Calculated", "Approved", "Rejected"], "example": "Approved" },
+          "projectId": { "type": "string", "description": "Associated project ID (optional)", "example": "proj_abc123" },
+          "taskId": { "type": "string", "description": "Associated task ID (optional)", "example": "task_xyz789" },
+          "comment": { "type": "string", "description": "Optional comment for the time block", "example": "Working on Q2 planning" },
+          "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the time block was created", "readOnly": true },
+          "modifiedAt": { "type": "string", "format": "date-time", "description": "Timestamp when the time block was last modified", "readOnly": true }
+        },
+        "required": ["workerId", "date", "hours", "type"]
+      }
+    }
+  }
+}

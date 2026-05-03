@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-timesheets-response-schema.json",
+  "title": "TimesheetsResponse",
+  "description": "Response containing timesheets",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total count of timesheets"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of timesheets",
+      "items": {
+        "type": "object",
+        "description": "An employee timesheet for a pay period",
+        "properties": {
+          "id": { "type": "string", "description": "Unique Workday ID of the timesheet" },
+          "workerId": { "type": "string", "description": "Workday ID of the worker" },
+          "periodStartDate": { "type": "string", "format": "date", "description": "Start date of the pay period", "example": "2026-04-27" },
+          "periodEndDate": { "type": "string", "format": "date", "description": "End date of the pay period", "example": "2026-05-03" },
+          "totalHours": { "type": "number", "format": "float", "description": "Total hours recorded in the timesheet", "example": 40.0 },
+          "regularHours": { "type": "number", "format": "float", "description": "Regular hours worked", "example": 40.0 },
+          "overtimeHours": { "type": "number", "format": "float", "description": "Overtime hours worked", "example": 0.0 },
+          "status": { "type": "string", "description": "Timesheet status", "enum": ["Draft", "Submitted", "Approved", "Rejected"] },
+          "timeBlocks": {
+            "type": "array",
+            "description": "Time blocks in this timesheet",
+            "items": {
+              "type": "object",
+              "description": "A reported or calculated time block representing hours worked",
+              "properties": {
+                "id": { "type": "string" },
+                "workerId": { "type": "string" },
+                "date": { "type": "string", "format": "date" },
+                "startTime": { "type": "string", "format": "time" },
+                "endTime": { "type": "string", "format": "time" },
+                "hours": { "type": "number", "format": "float" },
+                "type": { "type": "string", "enum": ["Regular", "Overtime", "Holiday", "Leave"] },
+                "status": { "type": "string", "enum": ["Reported", "Calculated", "Approved", "Rejected"] },
+                "projectId": { "type": "string" },
+                "taskId": { "type": "string" },
+                "comment": { "type": "string" },
+                "createdAt": { "type": "string", "format": "date-time", "readOnly": true },
+                "modifiedAt": { "type": "string", "format": "date-time", "readOnly": true }
+              },
+              "required": ["workerId", "date", "hours", "type"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

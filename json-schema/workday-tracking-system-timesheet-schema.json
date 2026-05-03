@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/workday-tracking-system-timesheet-schema.json",
+  "title": "Timesheet",
+  "description": "An employee timesheet covering a pay period in the Workday time tracking system",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the timesheet"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "periodStartDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the pay period",
+      "example": "2026-04-27"
+    },
+    "periodEndDate": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the pay period",
+      "example": "2026-05-03"
+    },
+    "totalHours": {
+      "type": "number",
+      "description": "Total hours recorded in the timesheet",
+      "minimum": 0,
+      "example": 40.0
+    },
+    "regularHours": {
+      "type": "number",
+      "description": "Regular (non-overtime) hours worked",
+      "minimum": 0,
+      "example": 40.0
+    },
+    "overtimeHours": {
+      "type": "number",
+      "description": "Overtime hours worked",
+      "minimum": 0,
+      "example": 0.0
+    },
+    "status": {
+      "type": "string",
+      "description": "Current approval status of the timesheet",
+      "enum": ["Draft", "Submitted", "Approved", "Rejected"],
+      "example": "Approved"
+    },
+    "timeBlocks": {
+      "type": "array",
+      "description": "Individual time blocks that make up this timesheet",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "hours": { "type": "number" },
+          "type": { "type": "string" }
+        }
+      }
+    }
+  },
+  "required": ["workerId", "periodStartDate", "periodEndDate"],
+  "additionalProperties": false
+}

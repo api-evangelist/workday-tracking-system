@@ -1,0 +1,283 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Absence Management"
+  description: "API for managing employee time off, leave of absence, accrual balances, and absence-related workflows in the Workday platform."
+  tags:
+    - Workday
+    - Absence Management
+    - Leave
+    - Time Off
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_BEARER_TOKEN: WORKDAY_BEARER_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - type: http
+      namespace: workday-absence-management
+      baseUri: "https://{{WORKDAY_TENANT}}.workday.com/api/absence-management/v1"
+      description: "Workday Absence Management REST API"
+      authentication:
+        type: bearer
+        token: "{{WORKDAY_BEARER_TOKEN}}"
+      resources:
+        - name: time-off
+          path: /workers/{workerId}/timeOff
+          description: "Time off entries for a worker"
+          operations:
+            - name: list-time-off
+              method: GET
+              description: "List time off entries for a worker"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+                - name: startDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Start date filter"
+                - name: endDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "End date filter"
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Status filter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: request-time-off
+              method: POST
+              description: "Submit a time off request for a worker"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+              body:
+                type: json
+                data:
+                  timeOffType: "{{tools.timeOffType}}"
+                  startDate: "{{tools.startDate}}"
+                  endDate: "{{tools.endDate}}"
+                  comment: "{{tools.comment}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: time-off-balances
+          path: /workers/{workerId}/timeOffBalances
+          description: "Time off plan balances for a worker"
+          operations:
+            - name: list-time-off-balances
+              method: GET
+              description: "Get time off plan balances for a worker"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+                - name: asOfDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Balance as-of date"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: leave-of-absence
+          path: /workers/{workerId}/leaveOfAbsence
+          description: "Leave of absence records for a worker"
+          operations:
+            - name: list-leaves-of-absence
+              method: GET
+              description: "List leave of absence records for a worker"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Status filter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: request-leave-of-absence
+              method: POST
+              description: "Submit a leave of absence request"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+              body:
+                type: json
+                data:
+                  leaveType: "{{tools.leaveType}}"
+                  startDate: "{{tools.startDate}}"
+                  expectedEndDate: "{{tools.expectedEndDate}}"
+                  reason: "{{tools.reason}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: accrual-overrides
+          path: /workers/{workerId}/accrualOverrides
+          description: "Accrual overrides for a worker"
+          operations:
+            - name: list-accrual-overrides
+              method: GET
+              description: "List accrual overrides for a worker"
+              inputParameters:
+                - name: workerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Worker ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: workday-absence-management-api
+      resources:
+        - path: /v1/workers/{workerId}/time-off
+          name: time-off
+          description: "Worker time off"
+          operations:
+            - method: GET
+              name: list-time-off
+              description: "List time off for a worker"
+              call: "workday-absence-management.list-time-off"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: request-time-off
+              description: "Request time off for a worker"
+              call: "workday-absence-management.request-time-off"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/time-off-balances
+          name: time-off-balances
+          description: "Worker time off balances"
+          operations:
+            - method: GET
+              name: list-time-off-balances
+              description: "Get time off balances for a worker"
+              call: "workday-absence-management.list-time-off-balances"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: workday-absence-management-mcp
+      transport: http
+      tools:
+        - name: list-time-off
+          description: "List time off entries for a Workday worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-time-off"
+          with:
+            workerId: "tools.workerId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: request-time-off
+          description: "Submit a time off request for a worker"
+          hints:
+            readOnly: false
+          call: "workday-absence-management.request-time-off"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-time-off-balances
+          description: "Get current time off plan balances for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-time-off-balances"
+          with:
+            workerId: "tools.workerId"
+            asOfDate: "tools.asOfDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-leaves-of-absence
+          description: "List leave of absence records for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-leaves-of-absence"
+          with:
+            workerId: "tools.workerId"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: request-leave-of-absence
+          description: "Submit a leave of absence request for a worker"
+          hints:
+            readOnly: false
+          call: "workday-absence-management.request-leave-of-absence"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-accrual-overrides
+          description: "List accrual overrides for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-accrual-overrides"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."

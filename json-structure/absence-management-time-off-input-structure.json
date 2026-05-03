@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-input-structure.json",
+  "name": "TimeOffInput",
+  "description": "Input for creating or adjusting a time off entry",
+  "type": "object",
+  "properties": {
+    "timeOffType": {
+      "type": "string",
+      "description": "Type of time off plan"
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Start date of the time off"
+    },
+    "endDate": {
+      "type": "date",
+      "description": "End date of the time off"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment"
+    }
+  },
+  "required": [
+    "timeOffType",
+    "startDate",
+    "endDate"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-clock-event-input-structure.json",
+  "name": "TimeClockEventInput",
+  "description": "Input for creating a time clock event",
+  "type": "object",
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "description": "Type of clock event",
+      "enum": [
+        "ClockIn",
+        "ClockOut",
+        "BreakStart",
+        "BreakEnd"
+      ]
+    },
+    "eventDateTime": {
+      "type": "datetime",
+      "description": "Date and time of the clock event"
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "ID of the time clock device (optional)"
+    },
+    "locationId": {
+      "type": "string",
+      "description": "Location identifier (optional)"
+    }
+  },
+  "required": [
+    "eventType",
+    "eventDateTime"
+  ]
+}

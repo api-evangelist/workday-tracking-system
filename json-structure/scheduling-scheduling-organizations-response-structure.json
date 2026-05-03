@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-scheduling-organizations-response-structure.json",
+  "name": "SchedulingOrganizationsResponse",
+  "description": "SchedulingOrganizationsResponse schema from Workday Scheduling API",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32"
+    },
+    "offset": {
+      "type": "int32"
+    },
+    "limit": {
+      "type": "int32"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A scheduling organization unit",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique Workday ID of the scheduling organization"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the scheduling organization"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of scheduling organization",
+            "enum": [
+              "Site",
+              "Department",
+              "Team"
+            ]
+          },
+          "parentOrganizationId": {
+            "type": "string",
+            "description": "Parent organization ID (if hierarchical)"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Timezone for the organization"
+          },
+          "operatingHours": {
+            "type": "object",
+            "description": "Operating hours configuration",
+            "properties": {
+              "openTime": {
+                "type": "time",
+                "description": "Daily opening time"
+              },
+              "closeTime": {
+                "type": "time",
+                "description": "Daily closing time"
+              },
+              "daysOfOperation": {
+                "type": "array",
+                "description": "Days when the location operates",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-schedule-shift-input-structure.json",
+  "name": "ScheduleShiftInput",
+  "description": "Input for creating or updating a schedule shift",
+  "type": "object",
+  "properties": {
+    "workerId": {
+      "type": "string",
+      "description": "Worker ID to assign to the shift"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Scheduling organization ID"
+    },
+    "shiftDate": {
+      "type": "date",
+      "description": "Date of the shift"
+    },
+    "startTime": {
+      "type": "time",
+      "description": "Shift start time"
+    },
+    "endTime": {
+      "type": "time",
+      "description": "Shift end time"
+    },
+    "shiftType": {
+      "type": "string",
+      "description": "Type of shift",
+      "enum": [
+        "Regular",
+        "Overtime",
+        "OnCall",
+        "Split"
+      ],
+      "default": "Regular"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes"
+    }
+  },
+  "required": [
+    "workerId",
+    "shiftDate",
+    "startTime",
+    "endTime"
+  ]
+}

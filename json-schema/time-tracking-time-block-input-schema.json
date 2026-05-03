@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-block-input-schema.json",
+  "title": "TimeBlockInput",
+  "description": "Input payload for creating or updating a time block",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the time block (YYYY-MM-DD)",
+      "example": "2026-05-03"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Start time of the time block (HH:MM:SS)",
+      "example": "09:00:00"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "time",
+      "description": "End time of the time block (HH:MM:SS)",
+      "example": "17:00:00"
+    },
+    "hours": {
+      "type": "number",
+      "format": "float",
+      "description": "Total hours worked",
+      "example": 8.0
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of time block",
+      "enum": ["Regular", "Overtime", "Holiday", "Leave"],
+      "example": "Regular"
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project ID (optional)"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Associated task ID (optional)"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment"
+    }
+  },
+  "required": ["date", "hours", "type"]
+}

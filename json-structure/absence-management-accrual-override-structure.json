@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-accrual-override-structure.json",
+  "name": "AccrualOverride",
+  "description": "An accrual override record",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the accrual override"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "planId": {
+      "type": "string",
+      "description": "ID of the time off plan"
+    },
+    "overrideType": {
+      "type": "string",
+      "description": "Type of override",
+      "enum": [
+        "Adjustment",
+        "Override",
+        "Expiration"
+      ]
+    },
+    "hours": {
+      "type": "float",
+      "description": "Hours of the override"
+    },
+    "effectiveDate": {
+      "type": "date",
+      "description": "Date the override takes effect"
+    },
+    "expirationDate": {
+      "type": "date",
+      "description": "Date the override expires (if applicable)"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the override"
+    }
+  }
+}

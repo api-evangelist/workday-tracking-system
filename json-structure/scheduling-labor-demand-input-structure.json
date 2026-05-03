@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-labor-demand-input-structure.json",
+  "name": "LaborDemandInput",
+  "description": "Input for creating a labor demand entry",
+  "type": "object",
+  "properties": {
+    "organizationId": {
+      "type": "string",
+      "description": "Scheduling organization ID"
+    },
+    "date": {
+      "type": "date",
+      "description": "Date for the demand"
+    },
+    "hour": {
+      "type": "int32",
+      "description": "Hour of the day (0-23)",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "requiredHeadcount": {
+      "type": "int32",
+      "description": "Number of workers required"
+    },
+    "jobProfileId": {
+      "type": "string",
+      "description": "Job profile ID (optional)"
+    }
+  },
+  "required": [
+    "organizationId",
+    "date",
+    "requiredHeadcount"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-block-input-structure.json",
+  "name": "TimeBlockInput",
+  "description": "Input payload for creating or updating a time block",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "date",
+      "description": "Date of the time block (YYYY-MM-DD)"
+    },
+    "startTime": {
+      "type": "time",
+      "description": "Start time of the time block (HH:MM:SS)"
+    },
+    "endTime": {
+      "type": "time",
+      "description": "End time of the time block (HH:MM:SS)"
+    },
+    "hours": {
+      "type": "float",
+      "description": "Total hours worked"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of time block",
+      "enum": [
+        "Regular",
+        "Overtime",
+        "Holiday",
+        "Leave"
+      ]
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project ID (optional)"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Associated task ID (optional)"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment"
+    }
+  },
+  "required": [
+    "date",
+    "hours",
+    "type"
+  ]
+}

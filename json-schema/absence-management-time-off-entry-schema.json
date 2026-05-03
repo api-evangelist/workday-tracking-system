@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-entry-schema.json",
+  "title": "TimeOffEntry",
+  "description": "An employee time off entry",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the time off entry"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "timeOffType": {
+      "type": "string",
+      "description": "Type of time off (e.g., Vacation, Sick, Personal)",
+      "example": "Vacation"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of the time off",
+      "example": "2026-05-10"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of the time off",
+      "example": "2026-05-14"
+    },
+    "hours": {
+      "type": "number",
+      "format": "float",
+      "description": "Total hours of time off",
+      "example": 40.0
+    },
+    "days": {
+      "type": "number",
+      "format": "float",
+      "description": "Total days of time off",
+      "example": 5.0
+    },
+    "status": {
+      "type": "string",
+      "description": "Approval status of the time off request",
+      "enum": ["Draft", "Submitted", "Approved", "Denied", "Cancelled"]
+    },
+    "comment": {
+      "type": "string",
+      "description": "Worker's note on the request"
+    },
+    "approverComment": {
+      "type": "string",
+      "description": "Manager's comment on approval/denial"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  },
+  "required": ["workerId", "timeOffType", "startDate", "endDate"]
+}

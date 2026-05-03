@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-clock-events-response-structure.json",
+  "name": "TimeClockEventsResponse",
+  "description": "Response containing time clock events",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32",
+      "description": "Total count of events"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of time clock events",
+      "items": {
+        "type": "object",
+        "description": "A time clock event recording a punch-in or punch-out",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique Workday ID of the time clock event"
+          },
+          "workerId": {
+            "type": "string",
+            "description": "Workday ID of the worker"
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Type of clock event",
+            "enum": [
+              "ClockIn",
+              "ClockOut",
+              "BreakStart",
+              "BreakEnd"
+            ]
+          },
+          "eventDateTime": {
+            "type": "datetime",
+            "description": "Date and time of the clock event"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "ID of the time clock device"
+          },
+          "locationId": {
+            "type": "string",
+            "description": "Location identifier for the clock event"
+          },
+          "status": {
+            "type": "string",
+            "description": "Processing status of the event",
+            "enum": [
+              "Pending",
+              "Processed",
+              "Failed"
+            ]
+          }
+        },
+        "required": [
+          "workerId",
+          "eventType",
+          "eventDateTime"
+        ]
+      }
+    }
+  }
+}

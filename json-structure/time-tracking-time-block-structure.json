@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-block-structure.json",
+  "name": "TimeBlock",
+  "description": "A reported or calculated time block representing hours worked",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the time block"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker"
+    },
+    "date": {
+      "type": "date",
+      "description": "Date of the time block"
+    },
+    "startTime": {
+      "type": "time",
+      "description": "Start time of the time block (HH:MM:SS)"
+    },
+    "endTime": {
+      "type": "time",
+      "description": "End time of the time block (HH:MM:SS)"
+    },
+    "hours": {
+      "type": "float",
+      "description": "Total hours in the time block"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of time block",
+      "enum": [
+        "Regular",
+        "Overtime",
+        "Holiday",
+        "Leave"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the time block",
+      "enum": [
+        "Reported",
+        "Calculated",
+        "Approved",
+        "Rejected"
+      ]
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project ID (optional)"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "Associated task ID (optional)"
+    },
+    "comment": {
+      "type": "string",
+      "description": "Optional comment for the time block"
+    },
+    "createdAt": {
+      "type": "datetime",
+      "description": "Timestamp when the time block was created"
+    },
+    "modifiedAt": {
+      "type": "datetime",
+      "description": "Timestamp when the time block was last modified"
+    }
+  },
+  "required": [
+    "workerId",
+    "date",
+    "hours",
+    "type"
+  ]
+}

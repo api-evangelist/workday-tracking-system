@@ -1,0 +1,417 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Workday Workforce Time Management"
+  description: >-
+    Unified capability for managing the complete employee time lifecycle in Workday,
+    combining Time Tracking and Absence Management APIs. Used by HR managers, payroll
+    teams, and workforce administrators to track attendance, process time off, manage
+    schedules, and ensure accurate time records for payroll processing.
+  tags:
+    - Workday
+    - Time Tracking
+    - Absence Management
+    - Workforce Management
+    - HR
+    - Payroll
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WORKDAY_BEARER_TOKEN: WORKDAY_BEARER_TOKEN
+      WORKDAY_TENANT: WORKDAY_TENANT
+
+capability:
+  consumes:
+    - import: workday-time-tracking
+      location: ./shared/time-tracking.yaml
+    - import: workday-absence-management
+      location: ./shared/absence-management.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: workforce-time-management-api
+      description: "Unified REST API for complete workforce time management."
+      resources:
+        - path: /v1/workers/{workerId}/time-blocks
+          name: time-blocks
+          description: "Time blocks recorded by a worker"
+          operations:
+            - method: GET
+              name: list-time-blocks
+              description: "List time blocks for a worker"
+              call: "workday-time-tracking.list-time-blocks"
+              with:
+                workerId: "rest.workerId"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-time-block
+              description: "Create a new time block for a worker"
+              call: "workday-time-tracking.create-time-block"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/time-blocks/{timeBlockId}
+          name: time-block
+          description: "A specific time block"
+          operations:
+            - method: GET
+              name: get-time-block
+              description: "Get a specific time block"
+              call: "workday-time-tracking.get-time-block"
+              with:
+                workerId: "rest.workerId"
+                timeBlockId: "rest.timeBlockId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-time-block
+              description: "Update a time block"
+              call: "workday-time-tracking.update-time-block"
+              with:
+                workerId: "rest.workerId"
+                timeBlockId: "rest.timeBlockId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-time-block
+              description: "Delete a time block"
+              call: "workday-time-tracking.delete-time-block"
+              with:
+                workerId: "rest.workerId"
+                timeBlockId: "rest.timeBlockId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/clock-events
+          name: clock-events
+          description: "Time clock events for a worker"
+          operations:
+            - method: GET
+              name: list-clock-events
+              description: "List time clock events for a worker"
+              call: "workday-time-tracking.list-time-clock-events"
+              with:
+                workerId: "rest.workerId"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-clock-event
+              description: "Record a clock-in or clock-out event"
+              call: "workday-time-tracking.create-time-clock-event"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/schedule
+          name: schedule
+          description: "Work schedule for a worker"
+          operations:
+            - method: GET
+              name: get-schedule
+              description: "Get the work schedule for a worker"
+              call: "workday-time-tracking.get-work-schedule"
+              with:
+                workerId: "rest.workerId"
+                asOfDate: "rest.asOfDate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: assign-schedule
+              description: "Assign a work schedule to a worker"
+              call: "workday-time-tracking.assign-work-schedule"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/timesheets
+          name: timesheets
+          description: "Timesheets for a worker"
+          operations:
+            - method: GET
+              name: list-timesheets
+              description: "List timesheets for a worker"
+              call: "workday-time-tracking.list-timesheets"
+              with:
+                workerId: "rest.workerId"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/time-off
+          name: time-off
+          description: "Time off requests for a worker"
+          operations:
+            - method: GET
+              name: list-time-off
+              description: "List time off for a worker"
+              call: "workday-absence-management.list-time-off"
+              with:
+                workerId: "rest.workerId"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: request-time-off
+              description: "Request time off for a worker"
+              call: "workday-absence-management.request-time-off"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/time-off-balances
+          name: time-off-balances
+          description: "Time off plan balances for a worker"
+          operations:
+            - method: GET
+              name: list-time-off-balances
+              description: "Get time off balances for a worker"
+              call: "workday-absence-management.list-time-off-balances"
+              with:
+                workerId: "rest.workerId"
+                asOfDate: "rest.asOfDate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workers/{workerId}/leaves
+          name: leaves
+          description: "Leave of absence records for a worker"
+          operations:
+            - method: GET
+              name: list-leaves
+              description: "List leaves of absence for a worker"
+              call: "workday-absence-management.list-leaves-of-absence"
+              with:
+                workerId: "rest.workerId"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: request-leave
+              description: "Request a leave of absence"
+              call: "workday-absence-management.request-leave-of-absence"
+              with:
+                workerId: "rest.workerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: workforce-time-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted workforce time management in Workday."
+      tools:
+        - name: list-time-blocks
+          description: "List time blocks recorded by a Workday worker in a date range"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-time-tracking.list-time-blocks"
+          with:
+            workerId: "tools.workerId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-time-block
+          description: "Create a new time block entry for a worker"
+          hints:
+            readOnly: false
+          call: "workday-time-tracking.create-time-block"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-time-block
+          description: "Get details of a specific time block"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-time-tracking.get-time-block"
+          with:
+            workerId: "tools.workerId"
+            timeBlockId: "tools.timeBlockId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-time-block
+          description: "Update an existing time block"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "workday-time-tracking.update-time-block"
+          with:
+            workerId: "tools.workerId"
+            timeBlockId: "tools.timeBlockId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-time-block
+          description: "Delete a reported time block"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "workday-time-tracking.delete-time-block"
+          with:
+            workerId: "tools.workerId"
+            timeBlockId: "tools.timeBlockId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-clock-events
+          description: "List time clock events (punches) for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-time-tracking.list-time-clock-events"
+          with:
+            workerId: "tools.workerId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-clock-event
+          description: "Record a clock-in or clock-out event from a time device"
+          hints:
+            readOnly: false
+          call: "workday-time-tracking.create-time-clock-event"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-work-schedule
+          description: "Get the current work schedule assigned to a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-time-tracking.get-work-schedule"
+          with:
+            workerId: "tools.workerId"
+            asOfDate: "tools.asOfDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: assign-work-schedule
+          description: "Assign a work schedule to a worker"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "workday-time-tracking.assign-work-schedule"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-timesheets
+          description: "List timesheets for a worker for a period"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-time-tracking.list-timesheets"
+          with:
+            workerId: "tools.workerId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-time-off
+          description: "List time off requests for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-time-off"
+          with:
+            workerId: "tools.workerId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: request-time-off
+          description: "Submit a time off request for a worker"
+          hints:
+            readOnly: false
+          call: "workday-absence-management.request-time-off"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-time-off-balances
+          description: "Get time off plan balances for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-time-off-balances"
+          with:
+            workerId: "tools.workerId"
+            asOfDate: "tools.asOfDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-leaves-of-absence
+          description: "List leave of absence records for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-leaves-of-absence"
+          with:
+            workerId: "tools.workerId"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: request-leave-of-absence
+          description: "Submit a leave of absence request for a worker"
+          hints:
+            readOnly: false
+          call: "workday-absence-management.request-leave-of-absence"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-accrual-overrides
+          description: "List accrual balance overrides for a worker"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "workday-absence-management.list-accrual-overrides"
+          with:
+            workerId: "tools.workerId"
+          outputParameters:
+            - type: object
+              mapping: "$."

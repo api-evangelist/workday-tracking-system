@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-labor-demand-schema.json",
+  "title": "LaborDemand",
+  "description": "A labor demand entry for workforce planning",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the labor demand entry"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Scheduling organization ID"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date for the labor demand"
+    },
+    "hour": {
+      "type": "integer",
+      "description": "Hour of the day (0-23) for the demand",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "requiredHeadcount": {
+      "type": "integer",
+      "description": "Number of workers required",
+      "example": 5
+    },
+    "jobProfileId": {
+      "type": "string",
+      "description": "Job profile/role required"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes"
+    }
+  }
+}

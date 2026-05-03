@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-requests-response-structure.json",
+  "name": "TimeRequestsResponse",
+  "description": "Response containing time requests",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32",
+      "description": "Total count of time requests"
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of time requests",
+      "items": {
+        "type": "object",
+        "description": "A time request submitted by a worker",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique Workday ID of the time request"
+          },
+          "workerId": {
+            "type": "string",
+            "description": "Workday ID of the worker"
+          },
+          "requestDate": {
+            "type": "date",
+            "description": "Date of the time request"
+          },
+          "requestType": {
+            "type": "string",
+            "description": "Type of time request",
+            "enum": [
+              "Overtime",
+              "AdjustmentRequest",
+              "ScheduleChange"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Approval status of the request",
+            "enum": [
+              "Draft",
+              "Submitted",
+              "Approved",
+              "Denied"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "description": "Worker's comment on the request"
+          },
+          "approverComment": {
+            "type": "string",
+            "description": "Approver's comment"
+          },
+          "createdAt": {
+            "type": "datetime",
+            "description": "Timestamp of request creation"
+          }
+        }
+      }
+    }
+  }
+}

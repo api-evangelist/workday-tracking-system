@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-work-schedule-assignment-structure.json",
+  "name": "WorkScheduleAssignment",
+  "description": "Input for assigning a work schedule to a worker",
+  "type": "object",
+  "properties": {
+    "scheduleId": {
+      "type": "string",
+      "description": "Workday ID of the schedule to assign"
+    },
+    "effectiveDate": {
+      "type": "date",
+      "description": "Date the assignment becomes effective"
+    },
+    "endDate": {
+      "type": "date",
+      "description": "Optional end date for the assignment"
+    }
+  },
+  "required": [
+    "scheduleId",
+    "effectiveDate"
+  ]
+}

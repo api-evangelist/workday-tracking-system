@@ -1,0 +1,628 @@
+rules:
+
+  # =====================================================================
+  # INFO / METADATA
+  # =====================================================================
+  info-title-format:
+    description: API title should follow the "Workday ..." naming pattern
+    severity: warn
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Workday .+ API$"
+
+  info-description-required:
+    description: API info must have a description
+    severity: error
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  info-description-min-length:
+    description: API description should be at least 50 characters
+    severity: warn
+    given: $.info.description
+    then:
+      function: length
+      functionOptions:
+        min: 50
+
+  info-version-required:
+    description: API info must specify a version
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  info-version-format:
+    description: API version should follow the "v{N}" pattern (e.g. v1)
+    severity: warn
+    given: $.info.version
+    then:
+      function: pattern
+      functionOptions:
+        match: "^v[0-9]+$"
+
+  info-contact-required:
+    description: API info should include contact information
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  info-contact-name:
+    description: Contact should include a name
+    severity: warn
+    given: $.info.contact
+    then:
+      field: name
+      function: truthy
+
+  info-contact-url:
+    description: Contact should include a developer URL
+    severity: warn
+    given: $.info.contact
+    then:
+      field: url
+      function: truthy
+
+  # =====================================================================
+  # OPENAPI VERSION
+  # =====================================================================
+  openapi-version:
+    description: APIs must use OpenAPI 3.0.x
+    severity: error
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions:
+        match: "^3\\.0\\."
+
+  # =====================================================================
+  # SERVERS
+  # =====================================================================
+  servers-defined:
+    description: At least one server must be defined
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  servers-https-only:
+    description: All server URLs must use HTTPS
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-tenant-pattern:
+    description: Server URLs should follow the Workday tenant pattern (e.g. https://{tenant}.workday.com/api/{domain}/v{N})
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://\\{tenant\\}\\.workday\\.com/api/[a-z][a-z-]*/v[0-9]+$"
+
+  servers-description-required:
+    description: Servers should have descriptions
+    severity: warn
+    given: $.servers[*]
+    then:
+      field: description
+      function: truthy
+
+  # =====================================================================
+  # PATHS — NAMING CONVENTIONS
+  # =====================================================================
+  paths-camel-case:
+    description: Path segments should use camelCase (Workday convention)
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/([a-z][a-zA-Z0-9]*|\\{[a-zA-Z][a-zA-Z0-9]*\\}))+$"
+
+  paths-no-trailing-slash:
+    description: Paths must not have trailing slashes
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+
+  paths-no-query-string:
+    description: Paths must not contain query strings
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\\?"
+
+  paths-no-version-prefix:
+    description: API version belongs in the server URL, not in the path
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^/v[0-9]+(/|$)"
+
+  paths-worker-scoped-when-applicable:
+    description: Worker-specific resources should be scoped under /workers/{workerId}
+    severity: info
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^/(timeBlocks|timeOff|timeRequests|timesheets|timeClockEvents|workSchedule|leaveOfAbsence|balances|accruals)(/|$)"
+
+  # =====================================================================
+  # OPERATIONS
+  # =====================================================================
+  operation-summary-required:
+    description: All operations must have a summary
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-title-case:
+    description: Operation summaries should use Title Case (e.g., "List Time Blocks")
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9]*(\\s[A-Z0-9][A-Za-z0-9-]*)*$"
+
+  operation-description-required:
+    description: All operations should have a description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  operation-id-required:
+    description: All operations must have an operationId
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-id-camel-case:
+    description: operationId should use camelCase
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  operation-id-verb-prefix:
+    description: operationId should start with a recognized verb (list, get, create, update, delete, request, submit, assign, import, override)
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(list|get|create|update|delete|request|submit|assign|import|override|cancel|approve|deny|return)[A-Z][a-zA-Z0-9]+$"
+
+  operation-tags-required:
+    description: All operations must have at least one tag
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  operation-single-tag:
+    description: Operations should have exactly one tag for clean grouping
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].tags
+    then:
+      function: length
+      functionOptions:
+        max: 1
+
+  # =====================================================================
+  # TAGS
+  # =====================================================================
+  tags-defined-globally:
+    description: Global tags array should be defined at the root
+    severity: warn
+    given: $
+    then:
+      field: tags
+      function: truthy
+
+  tags-title-case:
+    description: Tags should use Title Case (e.g. "Time Blocks", "Leave of Absence")
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s(of|to|for|and|the|in|on)|\\s[A-Z][a-zA-Z]*)*$"
+
+  tags-description-required:
+    description: All global tags should have descriptions
+    severity: warn
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  # =====================================================================
+  # PARAMETERS
+  # =====================================================================
+  parameter-description-required:
+    description: All parameters must have descriptions
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  parameter-camel-case:
+    description: Parameter names should use camelCase (Workday convention)
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  parameter-schema-required:
+    description: All parameters must define a schema
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: schema
+      function: truthy
+
+  parameter-pagination-offset:
+    description: Use "offset" (not "skip", "from", or "page") for pagination offset
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in == 'query')].name
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^(skip|from|page|pageNumber|pageNum)$"
+
+  parameter-pagination-limit:
+    description: Use "limit" (not "size", "count", or "perPage") for pagination size
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in == 'query')].name
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^(size|count|perPage|pageSize)$"
+
+  parameter-date-range-naming:
+    description: Date range filters should use startDate/endDate (Workday convention)
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in == 'query')].name
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^(fromDate|toDate|dateFrom|dateTo|begin|end)$"
+
+  parameter-worker-id-naming:
+    description: Worker identifier path parameter should be named "workerId"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in == 'path' && @.name =~ /worker/i)].name
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - workerId
+
+  # =====================================================================
+  # REQUEST BODIES
+  # =====================================================================
+  request-body-description:
+    description: Request bodies should have descriptions
+    severity: warn
+    given: $.paths[*][post,put,patch].requestBody
+    then:
+      field: description
+      function: truthy
+
+  request-body-json-content:
+    description: Request bodies must support application/json
+    severity: error
+    given: $.paths[*][post,put,patch].requestBody.content
+    then:
+      field: application/json
+      function: truthy
+
+  request-body-schema-ref:
+    description: Request body schemas should reference a named component (not be inlined)
+    severity: warn
+    given: $.paths[*][post,put,patch].requestBody.content.application/json.schema
+    then:
+      field: $ref
+      function: truthy
+
+  # =====================================================================
+  # RESPONSES
+  # =====================================================================
+  response-success-required:
+    description: All operations must define at least one response
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-description-required:
+    description: All responses must have a description
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  response-401-required:
+    description: All operations should define a 401 Unauthorized response
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '401'
+      function: truthy
+
+  response-404-required-for-resource-paths:
+    description: GET/PUT/DELETE on resource paths should define a 404 Not Found response
+    severity: warn
+    given: $.paths[?(@property.match(/\\{[a-zA-Z]+\\}$/))][get,put,delete].responses
+    then:
+      field: '404'
+      function: truthy
+
+  response-400-for-mutations:
+    description: POST/PUT/PATCH operations should define a 400 Bad Request response
+    severity: warn
+    given: $.paths[*][post,put,patch].responses
+    then:
+      field: '400'
+      function: truthy
+
+  response-success-json-content:
+    description: 2xx responses with content should use application/json
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses[?(@property.match(/^2[0-9]{2}$/))].content
+    then:
+      field: application/json
+      function: truthy
+
+  response-error-schema:
+    description: Error responses should reference an error schema with message and error fields
+    severity: info
+    given: $.components.schemas.ErrorResponse.properties
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - error
+            - message
+
+  response-delete-204:
+    description: DELETE operations should return 204 No Content
+    severity: info
+    given: $.paths[*].delete.responses
+    then:
+      field: '204'
+      function: truthy
+
+  # =====================================================================
+  # SCHEMAS — PROPERTY NAMING
+  # =====================================================================
+  schema-property-camel-case:
+    description: Schema property names should use camelCase (Workday convention)
+    severity: warn
+    given: $.components.schemas[*].properties[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  schema-type-defined:
+    description: Top-level schemas must define a type
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: type
+      function: truthy
+
+  schema-description-required:
+    description: Top-level schemas should have a description
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy
+
+  schema-id-property-naming:
+    description: Identifier properties should be named "id" or end with "Id" (e.g., workerId, timeBlockId)
+    severity: info
+    given: $.components.schemas[*].properties[?(@property.match(/^[a-zA-Z]*[Ii]dentifier$/))]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: ".*"
+
+  schema-timestamp-naming:
+    description: Timestamp properties should follow the createdAt/modifiedAt convention
+    severity: info
+    given: $.components.schemas[*].properties[?(@property.match(/^(created|modified|updated)[_-]?(date|time|on)$/i))]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: ".*"
+
+  schema-required-array:
+    description: Required fields should be declared in a "required" array, not on individual properties
+    severity: info
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: required
+      function: falsy
+
+  # =====================================================================
+  # SECURITY
+  # =====================================================================
+  security-global-defined:
+    description: Global security requirements should be defined
+    severity: warn
+    given: $
+    then:
+      field: security
+      function: truthy
+
+  security-schemes-defined:
+    description: Security schemes must be defined under components
+    severity: error
+    given: $
+    then:
+      field: components.securitySchemes
+      function: truthy
+
+  security-bearer-scheme:
+    description: Workday APIs should expose a BearerAuth scheme using Bearer/JWT
+    severity: warn
+    given: $.components.securitySchemes.BearerAuth
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - type
+            - scheme
+          properties:
+            type:
+              const: http
+            scheme:
+              const: bearer
+
+  security-bearer-format:
+    description: Bearer security schemes should declare bearerFormat (e.g. JWT)
+    severity: warn
+    given: $.components.securitySchemes[?(@.scheme == 'bearer')]
+    then:
+      field: bearerFormat
+      function: truthy
+
+  security-scheme-description:
+    description: Security schemes should have a description
+    severity: warn
+    given: $.components.securitySchemes[*]
+    then:
+      field: description
+      function: truthy
+
+  # =====================================================================
+  # HTTP METHOD CONVENTIONS
+  # =====================================================================
+  get-no-request-body:
+    description: GET operations must not have a request body
+    severity: error
+    given: $.paths[*].get
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-request-body:
+    description: DELETE operations should not have a request body
+    severity: warn
+    given: $.paths[*].delete
+    then:
+      field: requestBody
+      function: falsy
+
+  post-has-request-body:
+    description: POST operations should have a request body
+    severity: warn
+    given: $.paths[*].post
+    then:
+      field: requestBody
+      function: truthy
+
+  put-has-request-body:
+    description: PUT operations should have a request body
+    severity: warn
+    given: $.paths[*].put
+    then:
+      field: requestBody
+      function: truthy
+
+  patch-has-request-body:
+    description: PATCH operations should have a request body
+    severity: warn
+    given: $.paths[*].patch
+    then:
+      field: requestBody
+      function: truthy
+
+  # =====================================================================
+  # GENERAL QUALITY
+  # =====================================================================
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings
+    severity: error
+    given: $..description
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"
+
+  schema-properties-have-descriptions:
+    description: Schema properties should have descriptions
+    severity: info
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: description
+      function: truthy
+
+  schema-properties-have-examples:
+    description: Schema properties should include examples
+    severity: info
+    given: $.components.schemas[*].properties[?(@.type && @.type != 'object' && @.type != 'array')]
+    then:
+      field: example
+      function: truthy
+
+  deprecation-documented:
+    description: Deprecated operations should explain the deprecation in the description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete][?(@.deprecated == true)]
+    then:
+      field: description
+      function: truthy
+
+  external-docs-encouraged:
+    description: APIs should link to external documentation
+    severity: info
+    given: $
+    then:
+      field: externalDocs
+      function: truthy

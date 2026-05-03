@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/workday-tracking-system-leave-of-absence-structure.json",
+  "name": "LeaveOfAbsence",
+  "description": "A leave of absence record for an employee in the Workday absence management system",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the leave record"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Workday ID of the worker on leave"
+    },
+    "leaveType": {
+      "type": "string",
+      "description": "Type of leave of absence",
+      "enum": [
+        "FMLA",
+        "Military",
+        "Personal",
+        "Medical",
+        "Parental",
+        "Sabbatical"
+      ]
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Date the leave begins"
+    },
+    "expectedEndDate": {
+      "type": "date",
+      "description": "Expected date of return"
+    },
+    "actualReturnDate": {
+      "type": "date",
+      "description": "Actual date worker returned from leave"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the leave",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Active",
+        "Completed",
+        "Cancelled"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the leave of absence",
+      "maxLength": 1000
+    },
+    "continuousOrIntermittent": {
+      "type": "string",
+      "description": "Whether leave is taken continuously or intermittently",
+      "enum": [
+        "Continuous",
+        "Intermittent"
+      ]
+    }
+  },
+  "required": [
+    "workerId",
+    "leaveType",
+    "startDate",
+    "expectedEndDate"
+  ],
+  "additionalProperties": false
+}

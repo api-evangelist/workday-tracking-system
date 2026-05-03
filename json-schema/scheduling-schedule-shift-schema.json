@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-schedule-shift-schema.json",
+  "title": "ScheduleShift",
+  "description": "A schedule shift assigned to a worker or position",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the shift"
+    },
+    "workerId": {
+      "type": "string",
+      "description": "Worker assigned to this shift"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Scheduling organization ID"
+    },
+    "shiftDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the shift",
+      "example": "2026-05-05"
+    },
+    "startTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Shift start time",
+      "example": "08:00:00"
+    },
+    "endTime": {
+      "type": "string",
+      "format": "time",
+      "description": "Shift end time",
+      "example": "16:00:00"
+    },
+    "hours": {
+      "type": "number",
+      "format": "float",
+      "description": "Scheduled hours for the shift",
+      "example": 8.0
+    },
+    "shiftType": {
+      "type": "string",
+      "description": "Type of shift",
+      "enum": ["Regular", "Overtime", "OnCall", "Split"],
+      "example": "Regular"
+    },
+    "status": {
+      "type": "string",
+      "description": "Shift status",
+      "enum": ["Scheduled", "Confirmed", "Cancelled", "Completed"]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional shift notes"
+    }
+  },
+  "required": ["workerId", "shiftDate", "startTime", "endTime"]
+}

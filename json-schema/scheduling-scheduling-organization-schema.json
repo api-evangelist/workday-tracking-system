@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-scheduling-organization-schema.json",
+  "title": "SchedulingOrganization",
+  "description": "A scheduling organization unit",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Workday ID of the scheduling organization"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the scheduling organization",
+      "example": "North America Operations"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of scheduling organization",
+      "enum": ["Site", "Department", "Team"]
+    },
+    "parentOrganizationId": {
+      "type": "string",
+      "description": "Parent organization ID (if hierarchical)"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "Timezone for the organization",
+      "example": "America/New_York"
+    },
+    "operatingHours": {
+      "type": "object",
+      "description": "Operating hours configuration",
+      "properties": {
+        "openTime": {
+          "type": "string",
+          "format": "time",
+          "description": "Daily opening time"
+        },
+        "closeTime": {
+          "type": "string",
+          "format": "time",
+          "description": "Daily closing time"
+        },
+        "daysOfOperation": {
+          "type": "array",
+          "description": "Days when the location operates",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

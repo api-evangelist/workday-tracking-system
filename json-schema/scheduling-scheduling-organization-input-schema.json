@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-scheduling-organization-input-schema.json",
+  "title": "SchedulingOrganizationInput",
+  "description": "Input for creating a scheduling organization",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the organization"
+    },
+    "type": {
+      "type": "string",
+      "description": "Organization type",
+      "enum": ["Site", "Department", "Team"]
+    },
+    "parentOrganizationId": {
+      "type": "string",
+      "description": "Parent organization ID (optional)"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "Timezone identifier"
+    }
+  },
+  "required": ["name", "type"]
+}

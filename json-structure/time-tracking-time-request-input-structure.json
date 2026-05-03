@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-request-input-structure.json",
+  "name": "TimeRequestInput",
+  "description": "Input for creating a time request",
+  "type": "object",
+  "properties": {
+    "requestDate": {
+      "type": "date",
+      "description": "Date for the time request"
+    },
+    "requestType": {
+      "type": "string",
+      "description": "Type of time request",
+      "enum": [
+        "Overtime",
+        "AdjustmentRequest",
+        "ScheduleChange"
+      ]
+    },
+    "comment": {
+      "type": "string",
+      "description": "Comment explaining the request"
+    }
+  },
+  "required": [
+    "requestDate",
+    "requestType"
+  ]
+}
