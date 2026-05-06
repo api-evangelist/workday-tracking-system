@@ -4,101 +4,39 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Workday Tracking System
 providerId: workday-tracking-system
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Absence Management
-  - Attendance
-  - Enterprise
-  - HCM
-  - Human Capital Management
-  - Payroll
-  - Scheduling
-  - Time Tracking
-  - Timesheets
-  - Workforce Management
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Workday Tracking System API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Time Tracking
+  - Workforce Management
+  - Workday
+description: Workday does not publish a unified public rate-limit policy for the Time Tracking,
+  Absence, or Scheduling APIs. Throttling is tenant-scoped and documented inside the gated
+  Workday Community reference.
+sources:
+  - https://community.workday.com/api
+  - https://docs.workday.com/api/time-tracking
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Workday Time Tracking API
-      - Workday Absence Management API
-      - Workday Scheduling API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Workday Time Tracking API
-      - Workday Absence Management API
-      - Workday Scheduling API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Workday Time Tracking API
-      - Workday Absence Management API
-      - Workday Scheduling API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Workday Time Tracking API
-      - Workday Absence Management API
-      - Workday Scheduling API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Workday Time Tracking API
-      - Workday Absence Management API
-      - Workday Scheduling API
+  - name: Tenant-scoped throttling (see gated Workday Community documentation)
+    scope: tenant
+    metric: varies
+    limit: see https://community.workday.com/api
+    notes: Workday enforces tenant-level throttling and per-integration concurrency caps for time-
+      tracking and scheduling endpoints; specific values are not publicly published.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Documentation gating
+    description: Workday rate-limit policy is published only on community.workday.com, which
+      requires a customer login. No public per-second or per-minute numbers are available.
+  - name: Backoff
+    description: Standard guidance is exponential backoff with jitter on HTTP 503 and documented
+      Workday SOAP throttling faults.
+  - name: Batch operations
+    description: Time-block and clock-event endpoints expose batch variants; using them is the
+      primary mitigation for tenant-level throttling.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+    url: https://apievangelist.com
