@@ -355,7 +355,7 @@ common:
     url: https://www.workday.com/en-us/privacy.html
   - type: GitHubOrganization
     url: https://github.com/Workday
-  - type: JSON-LD
+  - type: JSONLD
     url: >-
       https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-ld/workday-tracking-system-context.jsonld
   - type: JSONSchema
