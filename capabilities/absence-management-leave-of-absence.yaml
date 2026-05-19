@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Absence Management API — Leave of Absence
+  description: 'Workday Absence Management API — Leave of Absence. 3 operations. Lead operation: List Leaves of Absence. Self-contained
+    Naftiko capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Leave of Absence
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: absence-management-leave-of-absence
+    baseUri: https://{tenant}.workday.com/api/absence-management/v1
+    description: Workday Absence Management API — Leave of Absence business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-leaveOfAbsence
+      path: /workers/{workerId}/leaveOfAbsence
+      operations:
+      - name: listleavesofabsence
+        method: GET
+        description: List Leaves of Absence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: status
+          in: query
+          type: string
+          description: Filter by leave status
+      - name: requestleaveofabsence
+        method: POST
+        description: Request Leave of Absence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workers-workerId-leaveOfAbsence-leaveId-return
+      path: /workers/{workerId}/leaveOfAbsence/{leaveId}/return
+      operations:
+      - name: returnfromleaveofabsence
+        method: POST
+        description: Return from Leave of Absence
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: leaveId
+          in: path
+          type: string
+          description: The Workday ID of the leave of absence record
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: absence-management-leave-of-absence-rest
+    port: 8080
+    description: REST adapter for Workday Absence Management API — Leave of Absence. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/leaveofabsence
+      name: workers-workerid-leaveofabsence
+      description: REST surface for workers-workerId-leaveOfAbsence.
+      operations:
+      - method: GET
+        name: listleavesofabsence
+        description: List Leaves of Absence
+        call: absence-management-leave-of-absence.listleavesofabsence
+        with:
+          workerId: rest.workerId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: requestleaveofabsence
+        description: Request Leave of Absence
+        call: absence-management-leave-of-absence.requestleaveofabsence
+        with:
+          workerId: rest.workerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workers/{workerid}/leaveofabsence/{leaveid}/return
+      name: workers-workerid-leaveofabsence-leaveid-return
+      description: REST surface for workers-workerId-leaveOfAbsence-leaveId-return.
+      operations:
+      - method: POST
+        name: returnfromleaveofabsence
+        description: Return from Leave of Absence
+        call: absence-management-leave-of-absence.returnfromleaveofabsence
+        with:
+          workerId: rest.workerId
+          leaveId: rest.leaveId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: absence-management-leave-of-absence-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Absence Management API — Leave of Absence. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-leaves-absence
+      description: List Leaves of Absence
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: absence-management-leave-of-absence.listleavesofabsence
+      with:
+        workerId: tools.workerId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-leave-absence
+      description: Request Leave of Absence
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: absence-management-leave-of-absence.requestleaveofabsence
+      with:
+        workerId: tools.workerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: return-leave-absence
+      description: Return from Leave of Absence
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: absence-management-leave-of-absence.returnfromleaveofabsence
+      with:
+        workerId: tools.workerId
+        leaveId: tools.leaveId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

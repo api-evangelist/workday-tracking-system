@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Time Tracking API — Work Schedules
+  description: 'Workday Time Tracking API — Work Schedules. 2 operations. Lead operation: Get Work Schedule. Self-contained
+    Naftiko capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Work Schedules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: time-tracking-work-schedules
+    baseUri: https://{tenant}.workday.com/api/time-tracking/v1
+    description: Workday Time Tracking API — Work Schedules business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-workSchedule
+      path: /workers/{workerId}/workSchedule
+      operations:
+      - name: getworkschedule
+        method: GET
+        description: Get Work Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: asOfDate
+          in: query
+          type: string
+          description: Retrieve schedule effective as of this date (YYYY-MM-DD)
+      - name: assignworkschedule
+        method: PUT
+        description: Assign Work Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: time-tracking-work-schedules-rest
+    port: 8080
+    description: REST adapter for Workday Time Tracking API — Work Schedules. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/workschedule
+      name: workers-workerid-workschedule
+      description: REST surface for workers-workerId-workSchedule.
+      operations:
+      - method: GET
+        name: getworkschedule
+        description: Get Work Schedule
+        call: time-tracking-work-schedules.getworkschedule
+        with:
+          workerId: rest.workerId
+          asOfDate: rest.asOfDate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: assignworkschedule
+        description: Assign Work Schedule
+        call: time-tracking-work-schedules.assignworkschedule
+        with:
+          workerId: rest.workerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: time-tracking-work-schedules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Time Tracking API — Work Schedules. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-work-schedule
+      description: Get Work Schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: time-tracking-work-schedules.getworkschedule
+      with:
+        workerId: tools.workerId
+        asOfDate: tools.asOfDate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: assign-work-schedule
+      description: Assign Work Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: time-tracking-work-schedules.assignworkschedule
+      with:
+        workerId: tools.workerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Time Tracking API — Time Requests
+  description: 'Workday Time Tracking API — Time Requests. 2 operations. Lead operation: List Time Requests. Self-contained
+    Naftiko capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Time Requests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: time-tracking-time-requests
+    baseUri: https://{tenant}.workday.com/api/time-tracking/v1
+    description: Workday Time Tracking API — Time Requests business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-timeRequests
+      path: /workers/{workerId}/timeRequests
+      operations:
+      - name: listtimerequests
+        method: GET
+        description: List Time Requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for time request retrieval (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          description: End date for time request retrieval (YYYY-MM-DD)
+      - name: createtimerequest
+        method: POST
+        description: Create Time Request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: time-tracking-time-requests-rest
+    port: 8080
+    description: REST adapter for Workday Time Tracking API — Time Requests. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/timerequests
+      name: workers-workerid-timerequests
+      description: REST surface for workers-workerId-timeRequests.
+      operations:
+      - method: GET
+        name: listtimerequests
+        description: List Time Requests
+        call: time-tracking-time-requests.listtimerequests
+        with:
+          workerId: rest.workerId
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtimerequest
+        description: Create Time Request
+        call: time-tracking-time-requests.createtimerequest
+        with:
+          workerId: rest.workerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: time-tracking-time-requests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Time Tracking API — Time Requests. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-time-requests
+      description: List Time Requests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: time-tracking-time-requests.listtimerequests
+      with:
+        workerId: tools.workerId
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-time-request
+      description: Create Time Request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: time-tracking-time-requests.createtimerequest
+      with:
+        workerId: tools.workerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

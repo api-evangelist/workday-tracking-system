@@ -1,0 +1,141 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Time Tracking API — Timesheets
+  description: 'Workday Time Tracking API — Timesheets. 2 operations. Lead operation: List Timesheets. Self-contained Naftiko
+    capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Timesheets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: time-tracking-timesheets
+    baseUri: https://{tenant}.workday.com/api/time-tracking/v1
+    description: Workday Time Tracking API — Timesheets business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-timesheets
+      path: /workers/{workerId}/timesheets
+      operations:
+      - name: listtimesheets
+        method: GET
+        description: List Timesheets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for timesheet retrieval (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          description: End date for timesheet retrieval (YYYY-MM-DD)
+    - name: workers-workerId-timesheets-timesheetId-submit
+      path: /workers/{workerId}/timesheets/{timesheetId}/submit
+      operations:
+      - name: submittimesheet
+        method: POST
+        description: Submit Timesheet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timesheetId
+          in: path
+          type: string
+          description: The Workday ID of the timesheet
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: time-tracking-timesheets-rest
+    port: 8080
+    description: REST adapter for Workday Time Tracking API — Timesheets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/timesheets
+      name: workers-workerid-timesheets
+      description: REST surface for workers-workerId-timesheets.
+      operations:
+      - method: GET
+        name: listtimesheets
+        description: List Timesheets
+        call: time-tracking-timesheets.listtimesheets
+        with:
+          workerId: rest.workerId
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workers/{workerid}/timesheets/{timesheetid}/submit
+      name: workers-workerid-timesheets-timesheetid-submit
+      description: REST surface for workers-workerId-timesheets-timesheetId-submit.
+      operations:
+      - method: POST
+        name: submittimesheet
+        description: Submit Timesheet
+        call: time-tracking-timesheets.submittimesheet
+        with:
+          workerId: rest.workerId
+          timesheetId: rest.timesheetId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: time-tracking-timesheets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Time Tracking API — Timesheets. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-timesheets
+      description: List Timesheets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: time-tracking-timesheets.listtimesheets
+      with:
+        workerId: tools.workerId
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: submit-timesheet
+      description: Submit Timesheet
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: time-tracking-timesheets.submittimesheet
+      with:
+        workerId: tools.workerId
+        timesheetId: tools.timesheetId
+      outputParameters:
+      - type: object
+        mapping: $.

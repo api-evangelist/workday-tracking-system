@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Absence Management API — Balances
+  description: 'Workday Absence Management API — Balances. 1 operations. Lead operation: List Time Off Balances. Self-contained
+    Naftiko capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Balances
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: absence-management-balances
+    baseUri: https://{tenant}.workday.com/api/absence-management/v1
+    description: Workday Absence Management API — Balances business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-timeOffBalances
+      path: /workers/{workerId}/timeOffBalances
+      operations:
+      - name: listtimeoffbalances
+        method: GET
+        description: List Time Off Balances
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: asOfDate
+          in: query
+          type: string
+          description: Balance as-of date (YYYY-MM-DD)
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: absence-management-balances-rest
+    port: 8080
+    description: REST adapter for Workday Absence Management API — Balances. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/timeoffbalances
+      name: workers-workerid-timeoffbalances
+      description: REST surface for workers-workerId-timeOffBalances.
+      operations:
+      - method: GET
+        name: listtimeoffbalances
+        description: List Time Off Balances
+        call: absence-management-balances.listtimeoffbalances
+        with:
+          workerId: rest.workerId
+          asOfDate: rest.asOfDate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: absence-management-balances-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Absence Management API — Balances. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-time-off-balances
+      description: List Time Off Balances
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: absence-management-balances.listtimeoffbalances
+      with:
+        workerId: tools.workerId
+        asOfDate: tools.asOfDate
+      outputParameters:
+      - type: object
+        mapping: $.

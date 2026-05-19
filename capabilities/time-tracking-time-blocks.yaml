@@ -1,0 +1,292 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Time Tracking API — Time Blocks
+  description: 'Workday Time Tracking API — Time Blocks. 5 operations. Lead operation: List Time Blocks. Self-contained Naftiko
+    capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Time Blocks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: time-tracking-time-blocks
+    baseUri: https://{tenant}.workday.com/api/time-tracking/v1
+    description: Workday Time Tracking API — Time Blocks business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-timeBlocks
+      path: /workers/{workerId}/timeBlocks
+      operations:
+      - name: listtimeblocks
+        method: GET
+        description: List Time Blocks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for time block retrieval (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          description: End date for time block retrieval (YYYY-MM-DD)
+        - name: status
+          in: query
+          type: string
+          description: Filter by time block status
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of records to return
+        - name: offset
+          in: query
+          type: integer
+          description: Offset for pagination
+      - name: createtimeblock
+        method: POST
+        description: Create Time Block
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workers-workerId-timeBlocks-timeBlockId
+      path: /workers/{workerId}/timeBlocks/{timeBlockId}
+      operations:
+      - name: gettimeblock
+        method: GET
+        description: Get Time Block
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timeBlockId
+          in: path
+          type: string
+          description: The Workday ID of the time block
+          required: true
+      - name: updatetimeblock
+        method: PUT
+        description: Update Time Block
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timeBlockId
+          in: path
+          type: string
+          description: The Workday ID of the time block
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetimeblock
+        method: DELETE
+        description: Delete Time Block
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timeBlockId
+          in: path
+          type: string
+          description: The Workday ID of the time block
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: time-tracking-time-blocks-rest
+    port: 8080
+    description: REST adapter for Workday Time Tracking API — Time Blocks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/timeblocks
+      name: workers-workerid-timeblocks
+      description: REST surface for workers-workerId-timeBlocks.
+      operations:
+      - method: GET
+        name: listtimeblocks
+        description: List Time Blocks
+        call: time-tracking-time-blocks.listtimeblocks
+        with:
+          workerId: rest.workerId
+          startDate: rest.startDate
+          endDate: rest.endDate
+          status: rest.status
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtimeblock
+        description: Create Time Block
+        call: time-tracking-time-blocks.createtimeblock
+        with:
+          workerId: rest.workerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workers/{workerid}/timeblocks/{timeblockid}
+      name: workers-workerid-timeblocks-timeblockid
+      description: REST surface for workers-workerId-timeBlocks-timeBlockId.
+      operations:
+      - method: GET
+        name: gettimeblock
+        description: Get Time Block
+        call: time-tracking-time-blocks.gettimeblock
+        with:
+          workerId: rest.workerId
+          timeBlockId: rest.timeBlockId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatetimeblock
+        description: Update Time Block
+        call: time-tracking-time-blocks.updatetimeblock
+        with:
+          workerId: rest.workerId
+          timeBlockId: rest.timeBlockId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetimeblock
+        description: Delete Time Block
+        call: time-tracking-time-blocks.deletetimeblock
+        with:
+          workerId: rest.workerId
+          timeBlockId: rest.timeBlockId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: time-tracking-time-blocks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Time Tracking API — Time Blocks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-time-blocks
+      description: List Time Blocks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: time-tracking-time-blocks.listtimeblocks
+      with:
+        workerId: tools.workerId
+        startDate: tools.startDate
+        endDate: tools.endDate
+        status: tools.status
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-time-block
+      description: Create Time Block
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: time-tracking-time-blocks.createtimeblock
+      with:
+        workerId: tools.workerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-time-block
+      description: Get Time Block
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: time-tracking-time-blocks.gettimeblock
+      with:
+        workerId: tools.workerId
+        timeBlockId: tools.timeBlockId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-time-block
+      description: Update Time Block
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: time-tracking-time-blocks.updatetimeblock
+      with:
+        workerId: tools.workerId
+        timeBlockId: tools.timeBlockId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-time-block
+      description: Delete Time Block
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: time-tracking-time-blocks.deletetimeblock
+      with:
+        workerId: tools.workerId
+        timeBlockId: tools.timeBlockId
+      outputParameters:
+      - type: object
+        mapping: $.

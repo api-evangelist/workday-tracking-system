@@ -1,0 +1,250 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Workday Absence Management API — Time Off
+  description: 'Workday Absence Management API — Time Off. 4 operations. Lead operation: List Time Off Entries. Self-contained
+    Naftiko capability covering one Workday Tracking System business surface.'
+  tags:
+  - Workday Tracking System
+  - Time Off
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WORKDAY_TRACKING_SYSTEM_API_KEY: WORKDAY_TRACKING_SYSTEM_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: absence-management-time-off
+    baseUri: https://{tenant}.workday.com/api/absence-management/v1
+    description: Workday Absence Management API — Time Off business capability. Self-contained, no shared references.
+    resources:
+    - name: workers-workerId-timeOff
+      path: /workers/{workerId}/timeOff
+      operations:
+      - name: listtimeoff
+        method: GET
+        description: List Time Off Entries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for retrieval (YYYY-MM-DD)
+        - name: endDate
+          in: query
+          type: string
+          description: End date for retrieval (YYYY-MM-DD)
+        - name: status
+          in: query
+          type: string
+          description: Filter by approval status
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of records to return
+        - name: offset
+          in: query
+          type: integer
+          description: Offset for pagination
+      - name: requesttimeoff
+        method: POST
+        description: Request Time Off
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: workers-workerId-timeOff-timeOffId
+      path: /workers/{workerId}/timeOff/{timeOffId}
+      operations:
+      - name: gettimeoff
+        method: GET
+        description: Get Time Off Entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timeOffId
+          in: path
+          type: string
+          description: The Workday ID of the time off entry
+          required: true
+      - name: adjusttimeoff
+        method: PUT
+        description: Adjust Time Off
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workerId
+          in: path
+          type: string
+          description: The Workday ID of the worker
+          required: true
+        - name: timeOffId
+          in: path
+          type: string
+          description: The Workday ID of the time off entry
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WORKDAY_TRACKING_SYSTEM_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: absence-management-time-off-rest
+    port: 8080
+    description: REST adapter for Workday Absence Management API — Time Off. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/workers/{workerid}/timeoff
+      name: workers-workerid-timeoff
+      description: REST surface for workers-workerId-timeOff.
+      operations:
+      - method: GET
+        name: listtimeoff
+        description: List Time Off Entries
+        call: absence-management-time-off.listtimeoff
+        with:
+          workerId: rest.workerId
+          startDate: rest.startDate
+          endDate: rest.endDate
+          status: rest.status
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: requesttimeoff
+        description: Request Time Off
+        call: absence-management-time-off.requesttimeoff
+        with:
+          workerId: rest.workerId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workers/{workerid}/timeoff/{timeoffid}
+      name: workers-workerid-timeoff-timeoffid
+      description: REST surface for workers-workerId-timeOff-timeOffId.
+      operations:
+      - method: GET
+        name: gettimeoff
+        description: Get Time Off Entry
+        call: absence-management-time-off.gettimeoff
+        with:
+          workerId: rest.workerId
+          timeOffId: rest.timeOffId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: adjusttimeoff
+        description: Adjust Time Off
+        call: absence-management-time-off.adjusttimeoff
+        with:
+          workerId: rest.workerId
+          timeOffId: rest.timeOffId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: absence-management-time-off-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Workday Absence Management API — Time Off. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-time-off-entries
+      description: List Time Off Entries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: absence-management-time-off.listtimeoff
+      with:
+        workerId: tools.workerId
+        startDate: tools.startDate
+        endDate: tools.endDate
+        status: tools.status
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-time-off
+      description: Request Time Off
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: absence-management-time-off.requesttimeoff
+      with:
+        workerId: tools.workerId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-time-off-entry
+      description: Get Time Off Entry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: absence-management-time-off.gettimeoff
+      with:
+        workerId: tools.workerId
+        timeOffId: tools.timeOffId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adjust-time-off
+      description: Adjust Time Off
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: absence-management-time-off.adjusttimeoff
+      with:
+        workerId: tools.workerId
+        timeOffId: tools.timeOffId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
