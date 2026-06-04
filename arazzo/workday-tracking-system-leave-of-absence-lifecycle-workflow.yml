@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Workday Leave of Absence Lifecycle
+  summary: Request a leave of absence for a worker, verify it appears in the list, and process the return from leave.
+  description: >-
+    Drives a leave of absence from request through return. The workflow submits
+    a leave of absence request, lists the worker's leaves to confirm the new
+    record is present, and then submits the return from leave with the actual
+    return date. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: absenceManagementApi
+  url: ../openapi/workday-tracking-system-absence-management-openapi.yml
+  type: openapi
+workflows:
+- workflowId: leave-of-absence-lifecycle
+  summary: Request a leave, confirm it, then process the return from leave.
+  description: >-
+    Submits a leave of absence request, verifies it via the worker's leave
+    list, and processes the worker's return from leave.
+  inputs:
+    type: object
+    required:
+    - workerId
+    - bearerToken
+    - leaveType
+    - startDate
+    - expectedEndDate
+    - returnDate
+    properties:
+      workerId:
+        type: string
+        description: The Workday ID of the worker.
+      bearerToken:
+        type: string
+        description: OAuth 2.0 JWT bearer token for authenticating with Workday.
+      leaveType:
+        type: string
+        description: Type of leave (e.g. FMLA, Military, Personal).
+      startDate:
+        type: string
+        description: Leave start date (YYYY-MM-DD).
+      expectedEndDate:
+        type: string
+        description: Expected return date (YYYY-MM-DD).
+      reason:
+        type: string
+        description: Reason for the leave of absence.
+      returnDate:
+        type: string
+        description: Actual date of return from leave (YYYY-MM-DD).
+      returnComment:
+        type: string
+        description: Optional comment on the return.
+  steps:
+  - stepId: requestLeave
+    description: >-
+      Submit a new leave of absence request for the worker.
+    operationId: requestLeaveOfAbsence
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    requestBody:
+      contentType: application/json
+      payload:
+        leaveType: $inputs.leaveType
+        startDate: $inputs.startDate
+        expectedEndDate: $inputs.expectedEndDate
+        reason: $inputs.reason
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      leaveId: $response.body#/id
+      status: $response.body#/status
+  - stepId: confirmLeaveListed
+    description: >-
+      List the worker's leaves of absence to confirm the newly requested leave
+      is present.
+    operationId: listLeavesOfAbsence
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/total
+      firstLeaveId: $response.body#/data/0/id
+  - stepId: returnFromLeave
+    description: >-
+      Submit the return from leave of absence for the requested leave record.
+    operationId: returnFromLeaveOfAbsence
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: leaveId
+      in: path
+      value: $steps.requestLeave.outputs.leaveId
+    requestBody:
+      contentType: application/json
+      payload:
+        returnDate: $inputs.returnDate
+        comment: $inputs.returnComment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      returnedStatus: $response.body#/status
+      actualReturnDate: $response.body#/actualReturnDate
+  outputs:
+    leaveId: $steps.requestLeave.outputs.leaveId
+    returnedStatus: $steps.returnFromLeave.outputs.returnedStatus

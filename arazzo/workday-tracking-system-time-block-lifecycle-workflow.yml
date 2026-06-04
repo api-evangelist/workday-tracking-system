@@ -1,0 +1,133 @@
+arazzo: 1.0.1
+info:
+  title: Workday Time Block Lifecycle
+  summary: Create a reported time block for a worker, fetch it back, and correct it with updated hours.
+  description: >-
+    Manages a single reported time block from creation through correction. The
+    workflow creates a reported time block for a worker, retrieves it to confirm
+    the persisted values, and then updates it with corrected hours. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: timeTrackingApi
+  url: ../openapi/workday-tracking-system-time-tracking-openapi.yml
+  type: openapi
+workflows:
+- workflowId: time-block-lifecycle
+  summary: Create, fetch, and correct a worker's reported time block.
+  description: >-
+    Creates a reported time block, reads it back to confirm it persisted, then
+    applies a correction to the hours.
+  inputs:
+    type: object
+    required:
+    - workerId
+    - bearerToken
+    - date
+    - hours
+    - type
+    - correctedHours
+    properties:
+      workerId:
+        type: string
+        description: The Workday ID of the worker.
+      bearerToken:
+        type: string
+        description: OAuth 2.0 JWT bearer token for authenticating with Workday.
+      date:
+        type: string
+        description: Date of the time block (YYYY-MM-DD).
+      startTime:
+        type: string
+        description: Start time of the time block (HH:MM:SS).
+      endTime:
+        type: string
+        description: End time of the time block (HH:MM:SS).
+      hours:
+        type: number
+        description: Total hours worked for the initial time block.
+      type:
+        type: string
+        description: Type of time block (Regular, Overtime, Holiday, Leave).
+      correctedHours:
+        type: number
+        description: Corrected total hours for the update step.
+      comment:
+        type: string
+        description: Optional comment.
+  steps:
+  - stepId: createTimeBlock
+    description: >-
+      Create a new reported time block for the worker.
+    operationId: createTimeBlock
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    requestBody:
+      contentType: application/json
+      payload:
+        date: $inputs.date
+        startTime: $inputs.startTime
+        endTime: $inputs.endTime
+        hours: $inputs.hours
+        type: $inputs.type
+        comment: $inputs.comment
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      timeBlockId: $response.body#/id
+  - stepId: getTimeBlock
+    description: >-
+      Fetch the created time block to confirm the persisted values before
+      correcting it.
+    operationId: getTimeBlock
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: timeBlockId
+      in: path
+      value: $steps.createTimeBlock.outputs.timeBlockId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentHours: $response.body#/hours
+      currentDate: $response.body#/date
+  - stepId: correctTimeBlock
+    description: >-
+      Update the reported time block with corrected hours, preserving the
+      original date and type.
+    operationId: updateTimeBlock
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: timeBlockId
+      in: path
+      value: $steps.createTimeBlock.outputs.timeBlockId
+    requestBody:
+      contentType: application/json
+      payload:
+        date: $steps.getTimeBlock.outputs.currentDate
+        hours: $inputs.correctedHours
+        type: $inputs.type
+        comment: $inputs.comment
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedHours: $response.body#/hours
+      updatedStatus: $response.body#/status
+  outputs:
+    timeBlockId: $steps.createTimeBlock.outputs.timeBlockId
+    updatedHours: $steps.correctTimeBlock.outputs.updatedHours

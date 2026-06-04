@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Workday Update Scheduling Preferences and Shift
+  summary: Read a worker's scheduling preferences, update them, and schedule a shift aligned to the preferred times.
+  description: >-
+    Keeps a worker's scheduled shift consistent with their stated availability.
+    The workflow reads the worker's current scheduling preferences, updates them
+    with new preferred times, re-reads the preferences to confirm the change, and
+    creates a shift aligned to the worker's preferred start and end times. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: schedulingApi
+  url: ../openapi/workday-tracking-system-scheduling-openapi.yml
+  type: openapi
+workflows:
+- workflowId: update-scheduling-preferences-and-shift
+  summary: Update a worker's preferences, confirm them, and schedule an aligned shift.
+  description: >-
+    Reads current scheduling preferences, updates the preferred times, confirms
+    the update, and schedules a shift using the worker's preferred start and end
+    times.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - workerId
+    - preferredStartTime
+    - preferredEndTime
+    - shiftDate
+    properties:
+      bearerToken:
+        type: string
+        description: OAuth 2.0 JWT bearer token for authenticating with Workday.
+      workerId:
+        type: string
+        description: The Workday ID of the worker.
+      preferredStartTime:
+        type: string
+        description: New preferred shift start time (HH:MM:SS).
+      preferredEndTime:
+        type: string
+        description: New preferred shift end time (HH:MM:SS).
+      maxHoursPerWeek:
+        type: number
+        description: Optional maximum hours per week.
+      minHoursPerWeek:
+        type: number
+        description: Optional minimum hours per week.
+      shiftDate:
+        type: string
+        description: Date of the shift to schedule (YYYY-MM-DD).
+  steps:
+  - stepId: getPreferences
+    description: >-
+      Read the worker's current scheduling preferences to capture the
+      pre-change state.
+    operationId: getWorkerSchedulingPreferences
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentStartTime: $response.body#/preferredStartTime
+      currentEndTime: $response.body#/preferredEndTime
+  - stepId: updatePreferences
+    description: >-
+      Update the worker's scheduling preferences with the new preferred times
+      and weekly hour bounds.
+    operationId: updateWorkerSchedulingPreferences
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    requestBody:
+      contentType: application/json
+      payload:
+        preferredStartTime: $inputs.preferredStartTime
+        preferredEndTime: $inputs.preferredEndTime
+        maxHoursPerWeek: $inputs.maxHoursPerWeek
+        minHoursPerWeek: $inputs.minHoursPerWeek
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedStartTime: $response.body#/preferredStartTime
+      updatedEndTime: $response.body#/preferredEndTime
+  - stepId: scheduleAlignedShift
+    description: >-
+      Schedule a shift for the worker using the updated preferred start and end
+      times so the shift aligns with their stated availability.
+    operationId: createScheduleShift
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        workerId: $inputs.workerId
+        shiftDate: $inputs.shiftDate
+        startTime: $steps.updatePreferences.outputs.updatedStartTime
+        endTime: $steps.updatePreferences.outputs.updatedEndTime
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      shiftId: $response.body#/id
+      shiftStartTime: $response.body#/startTime
+  outputs:
+    updatedStartTime: $steps.updatePreferences.outputs.updatedStartTime
+    shiftId: $steps.scheduleAlignedShift.outputs.shiftId

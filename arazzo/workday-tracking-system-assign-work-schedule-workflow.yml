@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Workday Assign Work Schedule
+  summary: Read a worker's current work schedule, assign a new schedule, and confirm the assignment took effect.
+  description: >-
+    Assigns a work schedule to a worker while preserving an auditable before and
+    after view. The workflow reads the worker's current schedule, imports a new
+    work schedule assignment, and re-reads the schedule effective as of the new
+    assignment date to confirm it took effect. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: timeTrackingApi
+  url: ../openapi/workday-tracking-system-time-tracking-openapi.yml
+  type: openapi
+workflows:
+- workflowId: assign-work-schedule
+  summary: Capture the current schedule, assign a new one, and confirm it.
+  description: >-
+    Reads the worker's existing work schedule, assigns a new schedule effective
+    on a given date, then confirms the assignment by reading the schedule as of
+    that date.
+  inputs:
+    type: object
+    required:
+    - workerId
+    - bearerToken
+    - scheduleId
+    - effectiveDate
+    properties:
+      workerId:
+        type: string
+        description: The Workday ID of the worker.
+      bearerToken:
+        type: string
+        description: OAuth 2.0 JWT bearer token for authenticating with Workday.
+      scheduleId:
+        type: string
+        description: Workday ID of the schedule to assign.
+      effectiveDate:
+        type: string
+        description: Date the assignment becomes effective (YYYY-MM-DD).
+      endDate:
+        type: string
+        description: Optional end date for the assignment (YYYY-MM-DD).
+  steps:
+  - stepId: getCurrentSchedule
+    description: >-
+      Read the worker's current work schedule assignment to capture the
+      pre-change state.
+    operationId: getWorkSchedule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentScheduleName: $response.body#/scheduleName
+      currentEffectiveDate: $response.body#/effectiveDate
+  - stepId: assignSchedule
+    description: >-
+      Import the new work schedule assignment for the worker.
+    operationId: assignWorkSchedule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    requestBody:
+      contentType: application/json
+      payload:
+        scheduleId: $inputs.scheduleId
+        effectiveDate: $inputs.effectiveDate
+        endDate: $inputs.endDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assignedScheduleName: $response.body#/scheduleName
+      assignedId: $response.body#/id
+  - stepId: confirmSchedule
+    description: >-
+      Read the worker's schedule effective as of the new assignment date to
+      confirm the assignment took effect.
+    operationId: getWorkSchedule
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: asOfDate
+      in: query
+      value: $inputs.effectiveDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedScheduleName: $response.body#/scheduleName
+      confirmedEffectiveDate: $response.body#/effectiveDate
+      hoursPerWeek: $response.body#/hoursPerWeek
+  outputs:
+    assignedId: $steps.assignSchedule.outputs.assignedId
+    confirmedScheduleName: $steps.confirmSchedule.outputs.confirmedScheduleName

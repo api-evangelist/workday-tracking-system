@@ -1,0 +1,169 @@
+arazzo: 1.0.1
+info:
+  title: Workday Clock Event to Timesheet Submission
+  summary: Ingest a time clock event, poll for the resulting calculated time blocks, then submit the worker's timesheet.
+  description: >-
+    Models the third-party time collection flow where a clock event is pushed
+    into Workday, processed into reported and calculated time blocks, and rolled
+    up into a timesheet for approval. The workflow creates a time clock event,
+    polls the worker's time blocks until calculated blocks appear, lists the
+    worker's timesheets, and submits the most recent one. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: timeTrackingApi
+  url: ../openapi/workday-tracking-system-time-tracking-openapi.yml
+  type: openapi
+workflows:
+- workflowId: clock-event-to-timesheet
+  summary: Push a clock event, wait for time blocks, and submit the timesheet.
+  description: >-
+    Ingests a time clock event, polls the worker's time blocks until the
+    processing produces blocks, then locates and submits the worker's timesheet.
+  inputs:
+    type: object
+    required:
+    - workerId
+    - bearerToken
+    - eventType
+    - eventDateTime
+    - startDate
+    - endDate
+    properties:
+      workerId:
+        type: string
+        description: The Workday ID of the worker.
+      bearerToken:
+        type: string
+        description: OAuth 2.0 JWT bearer token for authenticating with Workday.
+      eventType:
+        type: string
+        description: Type of clock event (ClockIn, ClockOut, BreakStart, BreakEnd).
+      eventDateTime:
+        type: string
+        description: Date and time of the clock event (ISO 8601).
+      deviceId:
+        type: string
+        description: Optional ID of the time clock device.
+      locationId:
+        type: string
+        description: Optional location identifier.
+      startDate:
+        type: string
+        description: Start date for time block and timesheet retrieval (YYYY-MM-DD).
+      endDate:
+        type: string
+        description: End date for time block and timesheet retrieval (YYYY-MM-DD).
+  steps:
+  - stepId: pushClockEvent
+    description: >-
+      Push a time clock event from the third-party collection system into
+      Workday Time Tracking for processing.
+    operationId: createTimeClockEvent
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    requestBody:
+      contentType: application/json
+      payload:
+        eventType: $inputs.eventType
+        eventDateTime: $inputs.eventDateTime
+        deviceId: $inputs.deviceId
+        locationId: $inputs.locationId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      eventId: $response.body#/id
+      eventStatus: $response.body#/status
+  - stepId: pollTimeBlocks
+    description: >-
+      Poll the worker's time blocks for the event date range until processing
+      has produced at least one time block. Retries while the list is empty.
+    operationId: listTimeBlocks
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: startDate
+      in: query
+      value: $inputs.startDate
+    - name: endDate
+      in: query
+      value: $inputs.endDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      blockCount: $response.body#/total
+      firstBlockId: $response.body#/data/0/id
+    onSuccess:
+    - name: blocksReady
+      type: goto
+      stepId: listTimesheets
+      criteria:
+      - context: $response.body
+        condition: $.data.length > 0
+        type: jsonpath
+    onFailure:
+    - name: retryPoll
+      type: retry
+      stepId: pollTimeBlocks
+      retryAfter: 5
+      retryLimit: 10
+      criteria:
+      - context: $response.body
+        condition: $.data.length == 0
+        type: jsonpath
+  - stepId: listTimesheets
+    description: >-
+      List the worker's timesheets for the period to locate the timesheet that
+      now contains the processed time blocks.
+    operationId: listTimesheets
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: startDate
+      in: query
+      value: $inputs.startDate
+    - name: endDate
+      in: query
+      value: $inputs.endDate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      timesheetId: $response.body#/data/0/id
+      timesheetStatus: $response.body#/data/0/status
+  - stepId: submitTimesheet
+    description: >-
+      Submit the located timesheet for approval.
+    operationId: submitTimesheet
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: workerId
+      in: path
+      value: $inputs.workerId
+    - name: timesheetId
+      in: path
+      value: $steps.listTimesheets.outputs.timesheetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      submittedStatus: $response.body#/status
+      totalHours: $response.body#/totalHours
+  outputs:
+    eventId: $steps.pushClockEvent.outputs.eventId
+    timesheetId: $steps.listTimesheets.outputs.timesheetId
+    submittedStatus: $steps.submitTimesheet.outputs.submittedStatus
