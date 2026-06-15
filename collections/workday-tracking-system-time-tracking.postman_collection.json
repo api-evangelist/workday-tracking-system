@@ -1,0 +1,3897 @@
+{
+  "item": [
+    {
+      "id": "7634e857-8bba-4274-ad64-6673999c8f74",
+      "name": "Time Blocks",
+      "description": {
+        "content": "Operations for managing reported and calculated time blocks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d58497e-ee31-421e-974d-b9f7a325fb36",
+          "name": "List Time Blocks",
+          "request": {
+            "name": "List Time Blocks",
+            "description": {
+              "content": "Returns calculated time blocks for a worker within a specified date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeBlocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date for time block retrieval (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date for time block retrieval (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by time block status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of records to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1ca8b29-4d19-48f9-a584-3fbf1fe95341",
+              "name": "List of time blocks retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 42,\n  \"offset\": 0,\n  \"limit\": 100,\n  \"data\": [\n    {\n      \"workerId\": \"e3f2a1b0c8d7e6f5\",\n      \"date\": \"2026-05-03\",\n      \"hours\": 8,\n      \"type\": \"Regular\",\n      \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"status\": \"Approved\",\n      \"projectId\": \"proj_abc123\",\n      \"taskId\": \"task_xyz789\",\n      \"comment\": \"Working on Q2 planning\",\n      \"createdAt\": \"2015-08-08T07:30:34.005Z\",\n      \"modifiedAt\": \"2022-04-12T23:43:11.290Z\"\n    },\n    {\n      \"workerId\": \"e3f2a1b0c8d7e6f5\",\n      \"date\": \"2026-05-03\",\n      \"hours\": 8,\n      \"type\": \"Regular\",\n      \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"status\": \"Approved\",\n      \"projectId\": \"proj_abc123\",\n      \"taskId\": \"task_xyz789\",\n      \"comment\": \"Working on Q2 planning\",\n      \"createdAt\": \"2002-04-14T23:48:59.714Z\",\n      \"modifiedAt\": \"1961-01-15T15:48:21.660Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea5ddc2c-ffa0-4b80-9a1e-a72754584b03",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "454fd6ac-693a-4060-bfc5-d174722fb031",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6beb68f7-f58d-4711-927b-946dba954e6f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c257d0d-411d-4bb8-9bd6-ffdf57f5395c",
+          "name": "Create Time Block",
+          "request": {
+            "name": "Create Time Block",
+            "description": {
+              "content": "Creates a new reported time block for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeBlocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"<string>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb4b8b6e-e81a-4565-9571-a8dbc5caabd0",
+              "name": "Time block created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"e3f2a1b0c8d7e6f5\",\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"status\": \"Approved\",\n  \"projectId\": \"proj_abc123\",\n  \"taskId\": \"task_xyz789\",\n  \"comment\": \"Working on Q2 planning\",\n  \"createdAt\": \"2024-07-10T01:36:09.174Z\",\n  \"modifiedAt\": \"2008-10-16T21:48:24.509Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e0c22a9-e6b8-4a73-b509-33f3cb239248",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f1693c8-8d7c-457d-bd17-bceb210484ae",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97bd0275-ac46-4c95-8aee-4eb31ce84e39",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a8bf77e-cffc-4093-9d26-4f3ea902c365",
+          "name": "Get Time Block",
+          "request": {
+            "name": "Get Time Block",
+            "description": {
+              "content": "Returns a specific time block for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeBlocks",
+                ":timeBlockId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeBlockId",
+                  "description": "(Required) The Workday ID of the time block"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcf50ec7-a7b4-4cf3-b75c-f32ac37879a3",
+              "name": "Time block retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"e3f2a1b0c8d7e6f5\",\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"status\": \"Approved\",\n  \"projectId\": \"proj_abc123\",\n  \"taskId\": \"task_xyz789\",\n  \"comment\": \"Working on Q2 planning\",\n  \"createdAt\": \"2024-07-10T01:36:09.174Z\",\n  \"modifiedAt\": \"2008-10-16T21:48:24.509Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6c6a9f5-cd48-4fe1-a80e-a64f92fb5e28",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2b69f8b-8346-470f-ba63-08a924b7fcff",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc37b9b6-a646-447d-85b1-08d52a709fba",
+          "name": "Update Time Block",
+          "request": {
+            "name": "Update Time Block",
+            "description": {
+              "content": "Updates an existing reported time block for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeBlocks",
+                ":timeBlockId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeBlockId",
+                  "description": "(Required) The Workday ID of the time block"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"<string>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94e90b21-6c9b-468a-9108-85061c9da3ec",
+              "name": "Time block updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"e3f2a1b0c8d7e6f5\",\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"status\": \"Approved\",\n  \"projectId\": \"proj_abc123\",\n  \"taskId\": \"task_xyz789\",\n  \"comment\": \"Working on Q2 planning\",\n  \"createdAt\": \"2024-07-10T01:36:09.174Z\",\n  \"modifiedAt\": \"2008-10-16T21:48:24.509Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1354992d-3504-405c-8c8a-2fb9bbc9275a",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3bf00d7-96ce-4066-8c0f-1e5fea948aef",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3eb8b8c-9c21-48de-bda2-15330015d6fc",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2026-05-03\",\n  \"hours\": 8,\n  \"type\": \"Regular\",\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"17:00:00\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8944f321-9939-45e4-8ed4-ed250804ebed",
+          "name": "Delete Time Block",
+          "request": {
+            "name": "Delete Time Block",
+            "description": {
+              "content": "Deletes a reported time block for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeBlocks",
+                ":timeBlockId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timeBlockId",
+                  "description": "(Required) The Workday ID of the time block"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd622ed8-3c11-4f2f-8612-766953df9ff4",
+              "name": "Time block deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19b355c0-5136-471d-a02d-003706ebd719",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58a61a05-dc70-486e-8f78-5de4347a7e8c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeBlocks",
+                    ":timeBlockId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timeBlockId",
+                      "description": "(Required) The Workday ID of the time block"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d976295f-7141-4743-8241-0d87717249f6",
+      "name": "Time Clock Events",
+      "description": {
+        "content": "Operations for importing and managing time clock events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e2738eff-325f-4728-b083-3dd0731bea08",
+          "name": "List Time Clock Events",
+          "request": {
+            "name": "List Time Clock Events",
+            "description": {
+              "content": "Returns time clock events for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeClockEvents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date for event retrieval (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date for event retrieval (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bee4e02-5320-4667-a9dc-56b83411a4e9",
+              "name": "Time clock events retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5552,\n  \"data\": [\n    {\n      \"workerId\": \"string\",\n      \"eventType\": \"ClockIn\",\n      \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n      \"id\": \"string\",\n      \"deviceId\": \"string\",\n      \"locationId\": \"string\",\n      \"status\": \"Processed\"\n    },\n    {\n      \"workerId\": \"string\",\n      \"eventType\": \"BreakEnd\",\n      \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n      \"id\": \"string\",\n      \"deviceId\": \"string\",\n      \"locationId\": \"string\",\n      \"status\": \"Failed\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40b38796-b4cc-4199-92c0-a731f32e8dec",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bb0a6b4-32cb-4890-b3c3-ffc4a305f50f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb0c313e-d2b8-4daa-8a0c-aca1e2b35f3f",
+          "name": "Create Time Clock Event",
+          "request": {
+            "name": "Create Time Clock Event",
+            "description": {
+              "content": "Adds a time clock event from a third-party time collection system. Workday Time Tracking processes these into reported and calculated time blocks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeClockEvents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"eventType\": \"<string>\",\n  \"eventDateTime\": \"<dateTime>\",\n  \"deviceId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e5f32c6-64a4-405e-816a-d9b3fed4f0ae",
+              "name": "Time clock event created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"ClockIn\",\n  \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n  \"deviceId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"string\",\n  \"eventType\": \"BreakStart\",\n  \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n  \"id\": \"string\",\n  \"deviceId\": \"string\",\n  \"locationId\": \"string\",\n  \"status\": \"Failed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c93883d-771d-42b5-8ac1-f581273c2a93",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"ClockIn\",\n  \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n  \"deviceId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "086b9424-ffa6-48a5-b8cf-5ea60e71778f",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeClockEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"eventType\": \"ClockIn\",\n  \"eventDateTime\": \"2026-05-03T09:00:00Z\",\n  \"deviceId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8eefe409-8b85-46e0-bfa4-d4fcebe03054",
+      "name": "Work Schedules",
+      "description": {
+        "content": "Operations for assigning and managing work schedules",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da7126fd-102b-4367-9911-961c7106a5e4",
+          "name": "Get Work Schedule",
+          "request": {
+            "name": "Get Work Schedule",
+            "description": {
+              "content": "Returns the current work schedule assignment for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "workSchedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asOfDate",
+                  "value": "<date>",
+                  "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39d8809a-799c-489b-85be-5360c6b17da0",
+              "name": "Work schedule retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asOfDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"string\",\n  \"scheduleName\": \"Standard 5-Day Week\",\n  \"effectiveDate\": \"2011-01-29\",\n  \"id\": \"string\",\n  \"scheduleType\": \"Fixed\",\n  \"endDate\": \"2006-09-17\",\n  \"hoursPerWeek\": 40,\n  \"shifts\": [\n    {\n      \"dayOfWeek\": \"Monday\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"hours\": 8\n    },\n    {\n      \"dayOfWeek\": \"Sunday\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"hours\": 8\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0e485da-c8ce-4ed8-8250-ef20bd2b56ee",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asOfDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "956a6c58-75bf-4d22-bc3c-abc838180ac7",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asOfDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3d08e16-f673-4624-a169-974bdcceebb9",
+          "name": "Assign Work Schedule",
+          "request": {
+            "name": "Assign Work Schedule",
+            "description": {
+              "content": "Imports work schedule assignments. Supports work schedule calendar assignments and assignments based on patterns specific to a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "workSchedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduleId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab270a33-02ee-458b-afcd-cce349c3b925",
+              "name": "Work schedule assigned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scheduleId\": \"sch_standard_5day\",\n  \"effectiveDate\": \"2026-05-01\",\n  \"endDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workerId\": \"string\",\n  \"scheduleName\": \"Standard 5-Day Week\",\n  \"effectiveDate\": \"1962-08-24\",\n  \"id\": \"string\",\n  \"scheduleType\": \"Flexible\",\n  \"endDate\": \"1973-03-31\",\n  \"hoursPerWeek\": 40,\n  \"shifts\": [\n    {\n      \"dayOfWeek\": \"Saturday\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"hours\": 8\n    },\n    {\n      \"dayOfWeek\": \"Friday\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"hours\": 8\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "276ea044-754b-401f-befe-d1888f504a8e",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scheduleId\": \"sch_standard_5day\",\n  \"effectiveDate\": \"2026-05-01\",\n  \"endDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "536a3314-258e-44d9-8b0f-28668b744261",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "workSchedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scheduleId\": \"sch_standard_5day\",\n  \"effectiveDate\": \"2026-05-01\",\n  \"endDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3aad437b-cc69-4ff2-b54f-40786a5b951c",
+      "name": "Time Requests",
+      "description": {
+        "content": "Operations for creating and retrieving time requests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5644890f-6b27-45f8-bc91-450ce1e04859",
+          "name": "List Time Requests",
+          "request": {
+            "name": "List Time Requests",
+            "description": {
+              "content": "Retrieves time requests for a worker.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeRequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date for time request retrieval (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date for time request retrieval (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ffcbeea-e09c-43ab-a600-ecb1d29504c2",
+              "name": "Time requests retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 6704,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"workerId\": \"string\",\n      \"requestDate\": \"1982-08-11\",\n      \"requestType\": \"Overtime\",\n      \"status\": \"Approved\",\n      \"comment\": \"string\",\n      \"approverComment\": \"string\",\n      \"createdAt\": \"1996-10-23T06:33:26.386Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"workerId\": \"string\",\n      \"requestDate\": \"1955-10-21\",\n      \"requestType\": \"AdjustmentRequest\",\n      \"status\": \"Approved\",\n      \"comment\": \"string\",\n      \"approverComment\": \"string\",\n      \"createdAt\": \"2014-06-15T00:48:15.245Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a4fbaa3-98fb-48e2-a73a-34dbc2a17397",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f89e82c-b8ca-4f61-8218-005b8b252480",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7fa9a25-1ae5-4fb4-9ab7-2213aa4457a2",
+          "name": "Create Time Request",
+          "request": {
+            "name": "Create Time Request",
+            "description": {
+              "content": "Creates a new user time request or updates an existing one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timeRequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30b2375c-debf-4465-8ff1-89653ab8e7b6",
+              "name": "Time request created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestDate\": \"2026-05-03\",\n  \"requestType\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"workerId\": \"string\",\n  \"requestDate\": \"1996-08-19\",\n  \"requestType\": \"Overtime\",\n  \"status\": \"Denied\",\n  \"comment\": \"string\",\n  \"approverComment\": \"string\",\n  \"createdAt\": \"1998-08-26T08:52:06.960Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af536677-b77c-4bab-9ddb-9470adba3948",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestDate\": \"2026-05-03\",\n  \"requestType\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6ea5643-2f62-4810-9d40-20708d6910b7",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timeRequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestDate\": \"2026-05-03\",\n  \"requestType\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f6471a9c-e25c-4eef-8c04-14f976aabbd9",
+      "name": "Timesheets",
+      "description": {
+        "content": "Operations for managing employee timesheets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ed53748-b406-4ca3-8572-bf56712fa865",
+          "name": "List Timesheets",
+          "request": {
+            "name": "List Timesheets",
+            "description": {
+              "content": "Returns timesheets for a worker within a date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timesheets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date for timesheet retrieval (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date for timesheet retrieval (YYYY-MM-DD)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48dc0d28-c6bb-49d2-bc66-fc9fbcc28dfa",
+              "name": "Timesheets retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 3122,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"workerId\": \"string\",\n      \"periodStartDate\": \"2026-04-27\",\n      \"periodEndDate\": \"2026-05-03\",\n      \"totalHours\": 40,\n      \"regularHours\": 40,\n      \"overtimeHours\": 0,\n      \"status\": \"Draft\",\n      \"timeBlocks\": [\n        {\n          \"workerId\": \"e3f2a1b0c8d7e6f5\",\n          \"date\": \"2026-05-03\",\n          \"hours\": 8,\n          \"type\": \"Regular\",\n          \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n          \"startTime\": \"09:00:00\",\n          \"endTime\": \"17:00:00\",\n          \"status\": \"Approved\",\n          \"projectId\": \"proj_abc123\",\n          \"taskId\": \"task_xyz789\",\n          \"comment\": \"Working on Q2 planning\",\n          \"createdAt\": \"1997-11-21T05:28:26.076Z\",\n          \"modifiedAt\": \"1993-06-05T01:13:51.635Z\"\n        },\n        {\n          \"workerId\": \"e3f2a1b0c8d7e6f5\",\n          \"date\": \"2026-05-03\",\n          \"hours\": 8,\n          \"type\": \"Regular\",\n          \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n          \"startTime\": \"09:00:00\",\n          \"endTime\": \"17:00:00\",\n          \"status\": \"Approved\",\n          \"projectId\": \"proj_abc123\",\n          \"taskId\": \"task_xyz789\",\n          \"comment\": \"Working on Q2 planning\",\n          \"createdAt\": \"2009-05-19T09:11:41.756Z\",\n          \"modifiedAt\": \"1953-04-28T08:35:08.651Z\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"workerId\": \"string\",\n      \"periodStartDate\": \"2026-04-27\",\n      \"periodEndDate\": \"2026-05-03\",\n      \"totalHours\": 40,\n      \"regularHours\": 40,\n      \"overtimeHours\": 0,\n      \"status\": \"Approved\",\n      \"timeBlocks\": [\n        {\n          \"workerId\": \"e3f2a1b0c8d7e6f5\",\n          \"date\": \"2026-05-03\",\n          \"hours\": 8,\n          \"type\": \"Regular\",\n          \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n          \"startTime\": \"09:00:00\",\n          \"endTime\": \"17:00:00\",\n          \"status\": \"Approved\",\n          \"projectId\": \"proj_abc123\",\n          \"taskId\": \"task_xyz789\",\n          \"comment\": \"Working on Q2 planning\",\n          \"createdAt\": \"1989-02-17T11:50:24.645Z\",\n          \"modifiedAt\": \"1985-07-21T00:48:50.348Z\"\n        },\n        {\n          \"workerId\": \"e3f2a1b0c8d7e6f5\",\n          \"date\": \"2026-05-03\",\n          \"hours\": 8,\n          \"type\": \"Regular\",\n          \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n          \"startTime\": \"09:00:00\",\n          \"endTime\": \"17:00:00\",\n          \"status\": \"Approved\",\n          \"projectId\": \"proj_abc123\",\n          \"taskId\": \"task_xyz789\",\n          \"comment\": \"Working on Q2 planning\",\n          \"createdAt\": \"2018-09-21T04:48:03.276Z\",\n          \"modifiedAt\": \"2013-01-07T12:32:24.730Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7df7898-a6b1-490a-b2b7-648a95c2e992",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df02dc8c-ac46-4020-8506-73826e5563f2",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24515afc-642a-433a-ac59-05df7a052419",
+          "name": "Submit Timesheet",
+          "request": {
+            "name": "Submit Timesheet",
+            "description": {
+              "content": "Submits a timesheet for approval.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workers",
+                ":workerId",
+                "timesheets",
+                ":timesheetId",
+                "submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workerId",
+                  "description": "(Required) The Workday ID of the worker"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "timesheetId",
+                  "description": "(Required) The Workday ID of the timesheet"
+                },
+                {
+                  "description": "Your Workday tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65a0f5d4-646b-4ea8-8e35-a67147a238ab",
+              "name": "Timesheet submitted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets",
+                    ":timesheetId",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timesheetId",
+                      "description": "(Required) The Workday ID of the timesheet"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"workerId\": \"string\",\n  \"periodStartDate\": \"2026-04-27\",\n  \"periodEndDate\": \"2026-05-03\",\n  \"totalHours\": 40,\n  \"regularHours\": 40,\n  \"overtimeHours\": 0,\n  \"status\": \"Approved\",\n  \"timeBlocks\": [\n    {\n      \"workerId\": \"e3f2a1b0c8d7e6f5\",\n      \"date\": \"2026-05-03\",\n      \"hours\": 8,\n      \"type\": \"Regular\",\n      \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"status\": \"Approved\",\n      \"projectId\": \"proj_abc123\",\n      \"taskId\": \"task_xyz789\",\n      \"comment\": \"Working on Q2 planning\",\n      \"createdAt\": \"1952-05-27T08:37:09.916Z\",\n      \"modifiedAt\": \"1948-06-21T01:51:16.043Z\"\n    },\n    {\n      \"workerId\": \"e3f2a1b0c8d7e6f5\",\n      \"date\": \"2026-05-03\",\n      \"hours\": 8,\n      \"type\": \"Regular\",\n      \"id\": \"3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2\",\n      \"startTime\": \"09:00:00\",\n      \"endTime\": \"17:00:00\",\n      \"status\": \"Approved\",\n      \"projectId\": \"proj_abc123\",\n      \"taskId\": \"task_xyz789\",\n      \"comment\": \"Working on Q2 planning\",\n      \"createdAt\": \"2005-01-23T09:31:28.946Z\",\n      \"modifiedAt\": \"1991-03-20T00:22:12.098Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc34378f-1c30-4f66-b425-0255de3414f9",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets",
+                    ":timesheetId",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timesheetId",
+                      "description": "(Required) The Workday ID of the timesheet"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dd1f4f3-5b21-415e-8728-6e65763c06a6",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets",
+                    ":timesheetId",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timesheetId",
+                      "description": "(Required) The Workday ID of the timesheet"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f2e63e8-0dc6-441e-9b6b-633c448091d7",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workers",
+                    ":workerId",
+                    "timesheets",
+                    ":timesheetId",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workerId",
+                      "description": "(Required) The Workday ID of the worker"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "timesheetId",
+                      "description": "(Required) The Workday ID of the timesheet"
+                    },
+                    {
+                      "description": "Your Workday tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_REQUEST\",\n  \"message\": \"The request is missing required fields\",\n  \"details\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Workday tenant identifier",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenant}}.workday.com/api/time-tracking/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "803e329a-44ef-4ed1-8357-bf549d4477ed",
+    "name": "Workday Time Tracking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage employee time entries, time blocks, time clock events, work schedule assignments, and time requests within the Workday platform. Supports both individual and batch operations for enterprise workforce management.\n\nContact Support:\n Name: Workday Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

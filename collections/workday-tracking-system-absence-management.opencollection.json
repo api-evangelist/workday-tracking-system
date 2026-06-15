@@ -1,0 +1,318 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Off",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Off Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOff",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approval status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns time off entries for a worker within a date range."
+        },
+        {
+          "info": {
+            "name": "Request Time Off",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOff",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new time off entries via the Request Time Off business process."
+        },
+        {
+          "info": {
+            "name": "Get Time Off Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOff/:timeOffId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeOffId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time off entry"
+              }
+            ]
+          },
+          "docs": "Returns a specific time off entry for a worker."
+        },
+        {
+          "info": {
+            "name": "Adjust Time Off",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOff/:timeOffId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeOffId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time off entry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adjusts an existing time off entry using the Correct Time Off business process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leave of Absence",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Leaves of Absence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/leaveOfAbsence",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by leave status"
+              }
+            ]
+          },
+          "docs": "Returns leave of absence records for a worker."
+        },
+        {
+          "info": {
+            "name": "Request Leave of Absence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/leaveOfAbsence",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new leave of absence request using associated business processes."
+        },
+        {
+          "info": {
+            "name": "Return from Leave of Absence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/leaveOfAbsence/:leaveId/return",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "leaveId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the leave of absence record"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a return from leave of absence request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Off Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOffBalances",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "asOfDate",
+                "value": "",
+                "type": "query",
+                "description": "Balance as-of date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieves dynamic time off plan balances for a worker across all enrolled time off plans."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accruals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Accrual Overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/accrualOverrides",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ]
+          },
+          "docs": "Retrieves accrual or time off adjustment/override information for a worker."
+        },
+        {
+          "info": {
+            "name": "Create Accrual Override",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/accrualOverrides",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new accrual or time off adjustment/override for a worker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

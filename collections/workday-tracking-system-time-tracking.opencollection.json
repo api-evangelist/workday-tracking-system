@@ -1,0 +1,419 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Time Tracking API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeBlocks",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for time block retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for time block retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by time block status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns calculated time blocks for a worker within a specified date range."
+        },
+        {
+          "info": {
+            "name": "Create Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeBlocks",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new reported time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Get Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ]
+          },
+          "docs": "Returns a specific time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Update Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing reported time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Delete Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ]
+          },
+          "docs": "Deletes a reported time block for a worker."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Clock Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Clock Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeClockEvents",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for event retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for event retrieval (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Returns time clock events for a worker."
+        },
+        {
+          "info": {
+            "name": "Create Time Clock Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeClockEvents",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a time clock event from a third-party time collection system. Workday Time Tracking processes these into reported and calculated time blocks."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Work Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Work Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/workSchedule",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "asOfDate",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Returns the current work schedule assignment for a worker."
+        },
+        {
+          "info": {
+            "name": "Assign Work Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/workSchedule",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Imports work schedule assignments. Supports work schedule calendar assignments and assignments based on patterns specific to a worker."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeRequests",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for time request retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for time request retrieval (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieves time requests for a worker."
+        },
+        {
+          "info": {
+            "name": "Create Time Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timeRequests",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user time request or updates an existing one."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Timesheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Timesheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timesheets",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for timesheet retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for timesheet retrieval (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Returns timesheets for a worker within a date range."
+        },
+        {
+          "info": {
+            "name": "Submit Timesheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/time-tracking/v1/workers/:workerId/timesheets/:timesheetId/submit",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timesheetId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the timesheet"
+              }
+            ]
+          },
+          "docs": "Submits a timesheet for approval."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

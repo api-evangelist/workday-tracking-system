@@ -1,0 +1,314 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Scheduling API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shifts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedule Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/scheduleShifts",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scheduling organization ID"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for shift retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for shift retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns shift information for specified scheduling organizations."
+        },
+        {
+          "info": {
+            "name": "Create Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/scheduleShifts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new schedule shift for a worker or position."
+        },
+        {
+          "info": {
+            "name": "Get Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ]
+          },
+          "docs": "Returns a specific schedule shift by ID."
+        },
+        {
+          "info": {
+            "name": "Update Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing schedule shift."
+        },
+        {
+          "info": {
+            "name": "Delete Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ]
+          },
+          "docs": "Deletes a schedule shift."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Scheduling Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scheduling Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/schedulingOrganizations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns scheduling organization data including high-level settings."
+        },
+        {
+          "info": {
+            "name": "Create Scheduling Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/schedulingOrganizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new scheduling organization."
+        },
+        {
+          "info": {
+            "name": "Get Scheduling Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/schedulingOrganizations/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the scheduling organization"
+              }
+            ]
+          },
+          "docs": "Returns a specific scheduling organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Labor Demand",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Labor Demand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/laborDemand",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scheduling organization ID"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for labor demand retrieval"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for labor demand retrieval"
+              }
+            ]
+          },
+          "docs": "Returns labor demand instances for scheduling planning."
+        },
+        {
+          "info": {
+            "name": "Create Labor Demand",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/laborDemand",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new labor demand entry for workforce planning."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Worker Preferences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Worker Scheduling Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/workers/:workerId/schedulingPreferences",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ]
+          },
+          "docs": "Returns scheduling preferences for a worker."
+        },
+        {
+          "info": {
+            "name": "Update Worker Scheduling Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/scheduling/v1/workers/:workerId/schedulingPreferences",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates scheduling preferences for a worker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
