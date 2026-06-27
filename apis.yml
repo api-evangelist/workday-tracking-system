@@ -319,33 +319,30 @@ apis:
       - FN: Workday Developer Support
         url: https://developer.workday.com
 common:
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/workday-tracking-system-assign-work-schedule-workflow.yml
-        name: Workday Assign Work Schedule
-        summary: Read a worker's current work schedule, assign a new schedule, and confirm the assignment took effect.
-      - url: arazzo/workday-tracking-system-clock-event-to-timesheet-workflow.yml
-        name: Workday Clock Event to Timesheet Submission
-        summary: Ingest a time clock event, poll for the resulting calculated time blocks, then submit the worker's timesheet.
-      - url: arazzo/workday-tracking-system-create-scheduling-org-and-shift-workflow.yml
-        name: Workday Create Scheduling Organization and Shift
-        summary: Create a scheduling organization, schedule a worker's shift within it, and confirm the shift.
-      - url: arazzo/workday-tracking-system-leave-of-absence-lifecycle-workflow.yml
-        name: Workday Leave of Absence Lifecycle
-        summary: Request a leave of absence for a worker, verify it appears in the list, and process the return from leave.
-      - url: arazzo/workday-tracking-system-request-time-off-with-balance-check-workflow.yml
-        name: Workday Request Time Off With Balance Check
-        summary: Verify a worker has enough time off balance, then submit a time off request and confirm it.
-      - url: arazzo/workday-tracking-system-staff-against-labor-demand-workflow.yml
-        name: Workday Staff Against Labor Demand
-        summary: Read labor demand for an organization, check existing coverage, and schedule a shift only when demand exists.
-      - url: arazzo/workday-tracking-system-time-block-lifecycle-workflow.yml
-        name: Workday Time Block Lifecycle
-        summary: Create a reported time block for a worker, fetch it back, and correct it with updated hours.
-      - url: arazzo/workday-tracking-system-update-scheduling-preferences-and-shift-workflow.yml
-        name: Workday Update Scheduling Preferences and Shift
-        summary: Read a worker's scheduling preferences, update them, and schedule a shift aligned to the preferred times.
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-assign-work-schedule-workflow.yml
+    name: Workday Assign Work Schedule
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-clock-event-to-timesheet-workflow.yml
+    name: Workday Clock Event to Timesheet Submission
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-create-scheduling-org-and-shift-workflow.yml
+    name: Workday Create Scheduling Organization and Shift
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-leave-of-absence-lifecycle-workflow.yml
+    name: Workday Leave of Absence Lifecycle
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-request-time-off-with-balance-check-workflow.yml
+    name: Workday Request Time Off With Balance Check
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-staff-against-labor-demand-workflow.yml
+    name: Workday Staff Against Labor Demand
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-time-block-lifecycle-workflow.yml
+    name: Workday Time Block Lifecycle
+  - type: Arazzo
+    url: arazzo/workday-tracking-system-update-scheduling-preferences-and-shift-workflow.yml
+    name: Workday Update Scheduling Preferences and Shift
   - type: Portal
     url: https://developer.workday.com
   - type: GettingStarted
@@ -354,7 +351,7 @@ common:
     url: https://docs.workday.com
   - type: Authentication
     url: https://docs.workday.com/authentication/oauth2
-  - type: SignUp
+  - type: Signup
     url: https://www.workday.com/en-us/forms/contact-sales.html
   - type: Pricing
     url: https://www.workday.com/en-us/pricing.html
