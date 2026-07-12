@@ -319,6 +319,12 @@ apis:
       - FN: Workday Developer Support
         url: https://developer.workday.com
 common:
+  - type: TrustCenter
+    url: security/workday-tracking-system-trust-center.yml
+  - type: DomainSecurity
+    url: security/workday-tracking-system-domain-security.yml
+  - type: Authentication
+    url: authentication/workday-tracking-system-authentication.yml
   - type: Arazzo
     url: arazzo/workday-tracking-system-assign-work-schedule-workflow.yml
     name: Workday Assign Work Schedule
