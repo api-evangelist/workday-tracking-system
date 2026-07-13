@@ -1,8 +1,25 @@
+# workday-tracking-system — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 3/3 servers on workday.com
+#   - path-params-casing: camel @ 100% (n=36)
+#   - query-params-casing: camel @ 62% (n=29)
+#   - operationid-casing: camel @ 100% (n=35)
+#   - schema-names-casing: pascal @ 100% (n=40)
+#   - schema-properties-casing: camel @ 53% (n=210)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: ErrorResponse
+#   - operation-documents-401: 100% adherence
+#   - pagination params observed: ['limit', 'offset']
+#   - merge: kept 68 existing, added 6 measured, upgraded 0
+#   - added: servers-expected-domain, path-params-casing, query-params-casing, schema-names-casing, schema-properties-casing, error-schema-defined
+extends:
+  - spectral:oas
 rules:
-
-  # =====================================================================
-  # INFO / METADATA
-  # =====================================================================
   info-title-format:
     description: API title should follow the "Workday ..." naming pattern
     severity: warn
@@ -10,8 +27,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^Workday .+ API$"
-
+        match: ^Workday .+ API$
   info-description-required:
     description: API info must have a description
     severity: error
@@ -19,7 +35,6 @@ rules:
     then:
       field: description
       function: truthy
-
   info-description-min-length:
     description: API description should be at least 50 characters
     severity: warn
@@ -28,7 +43,6 @@ rules:
       function: length
       functionOptions:
         min: 50
-
   info-version-required:
     description: API info must specify a version
     severity: error
@@ -36,7 +50,6 @@ rules:
     then:
       field: version
       function: truthy
-
   info-version-format:
     description: API version should follow the "v{N}" pattern (e.g. v1)
     severity: warn
@@ -44,8 +57,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^v[0-9]+$"
-
+        match: ^v[0-9]+$
   info-contact-required:
     description: API info should include contact information
     severity: warn
@@ -53,7 +65,6 @@ rules:
     then:
       field: contact
       function: truthy
-
   info-contact-name:
     description: Contact should include a name
     severity: warn
@@ -61,7 +72,6 @@ rules:
     then:
       field: name
       function: truthy
-
   info-contact-url:
     description: Contact should include a developer URL
     severity: warn
@@ -69,10 +79,6 @@ rules:
     then:
       field: url
       function: truthy
-
-  # =====================================================================
-  # OPENAPI VERSION
-  # =====================================================================
   openapi-version:
     description: APIs must use OpenAPI 3.0.x
     severity: error
@@ -80,11 +86,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^3\\.0\\."
-
-  # =====================================================================
-  # SERVERS
-  # =====================================================================
+        match: ^3\.0\.
   servers-defined:
     description: At least one server must be defined
     severity: error
@@ -92,7 +94,6 @@ rules:
     then:
       field: servers
       function: truthy
-
   servers-https-only:
     description: All server URLs must use HTTPS
     severity: error
@@ -100,8 +101,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://"
-
+        match: ^https://
   servers-tenant-pattern:
     description: Server URLs should follow the Workday tenant pattern (e.g. https://{tenant}.workday.com/api/{domain}/v{N})
     severity: warn
@@ -109,8 +109,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^https://\\{tenant\\}\\.workday\\.com/api/[a-z][a-z-]*/v[0-9]+$"
-
+        match: ^https://\{tenant\}\.workday\.com/api/[a-z][a-z-]*/v[0-9]+$
   servers-description-required:
     description: Servers should have descriptions
     severity: warn
@@ -118,10 +117,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # =====================================================================
-  # PATHS — NAMING CONVENTIONS
-  # =====================================================================
   paths-camel-case:
     description: Path segments should use camelCase (Workday convention)
     severity: warn
@@ -129,8 +124,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^(/([a-z][a-zA-Z0-9]*|\\{[a-zA-Z][a-zA-Z0-9]*\\}))+$"
-
+        match: ^(/([a-z][a-zA-Z0-9]*|\{[a-zA-Z][a-zA-Z0-9]*\}))+$
   paths-no-trailing-slash:
     description: Paths must not have trailing slashes
     severity: error
@@ -138,8 +132,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "/$"
-
+        notMatch: /$
   paths-no-query-string:
     description: Paths must not contain query strings
     severity: error
@@ -147,8 +140,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "\\?"
-
+        notMatch: \?
   paths-no-version-prefix:
     description: API version belongs in the server URL, not in the path
     severity: warn
@@ -156,8 +148,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "^/v[0-9]+(/|$)"
-
+        notMatch: ^/v[0-9]+(/|$)
   paths-worker-scoped-when-applicable:
     description: Worker-specific resources should be scoped under /workers/{workerId}
     severity: info
@@ -165,11 +156,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "^/(timeBlocks|timeOff|timeRequests|timesheets|timeClockEvents|workSchedule|leaveOfAbsence|balances|accruals)(/|$)"
-
-  # =====================================================================
-  # OPERATIONS
-  # =====================================================================
+        notMatch: ^/(timeBlocks|timeOff|timeRequests|timesheets|timeClockEvents|workSchedule|leaveOfAbsence|balances|accruals)(/|$)
   operation-summary-required:
     description: All operations must have a summary
     severity: error
@@ -177,7 +164,6 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-summary-title-case:
     description: Operation summaries should use Title Case (e.g., "List Time Blocks")
     severity: warn
@@ -185,8 +171,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[A-Z][A-Za-z0-9]*(\\s[A-Z0-9][A-Za-z0-9-]*)*$"
-
+        match: ^[A-Z][A-Za-z0-9]*(\s[A-Z0-9][A-Za-z0-9-]*)*$
   operation-description-required:
     description: All operations should have a description
     severity: warn
@@ -194,7 +179,6 @@ rules:
     then:
       field: description
       function: truthy
-
   operation-id-required:
     description: All operations must have an operationId
     severity: error
@@ -202,7 +186,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-id-camel-case:
     description: operationId should use camelCase
     severity: warn
@@ -210,17 +193,16 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]+$"
-
+        match: ^[a-z][a-zA-Z0-9]+$
   operation-id-verb-prefix:
-    description: operationId should start with a recognized verb (list, get, create, update, delete, request, submit, assign, import, override)
+    description: operationId should start with a recognized verb (list, get, create, update, delete, request,
+      submit, assign, import, override)
     severity: warn
     given: $.paths[*][get,post,put,patch,delete].operationId
     then:
       function: pattern
       functionOptions:
-        match: "^(list|get|create|update|delete|request|submit|assign|import|override|cancel|approve|deny|return)[A-Z][a-zA-Z0-9]+$"
-
+        match: ^(list|get|create|update|delete|request|submit|assign|import|override|cancel|approve|deny|return)[A-Z][a-zA-Z0-9]+$
   operation-tags-required:
     description: All operations must have at least one tag
     severity: error
@@ -228,7 +210,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   operation-single-tag:
     description: Operations should have exactly one tag for clean grouping
     severity: info
@@ -237,10 +218,6 @@ rules:
       function: length
       functionOptions:
         max: 1
-
-  # =====================================================================
-  # TAGS
-  # =====================================================================
   tags-defined-globally:
     description: Global tags array should be defined at the root
     severity: warn
@@ -248,7 +225,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   tags-title-case:
     description: Tags should use Title Case (e.g. "Time Blocks", "Leave of Absence")
     severity: warn
@@ -256,8 +232,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[A-Z][a-zA-Z]*(\\s(of|to|for|and|the|in|on)|\\s[A-Z][a-zA-Z]*)*$"
-
+        match: ^[A-Z][a-zA-Z]*(\s(of|to|for|and|the|in|on)|\s[A-Z][a-zA-Z]*)*$
   tags-description-required:
     description: All global tags should have descriptions
     severity: warn
@@ -265,10 +240,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # =====================================================================
-  # PARAMETERS
-  # =====================================================================
   parameter-description-required:
     description: All parameters must have descriptions
     severity: error
@@ -276,7 +247,6 @@ rules:
     then:
       field: description
       function: truthy
-
   parameter-camel-case:
     description: Parameter names should use camelCase (Workday convention)
     severity: warn
@@ -284,8 +254,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   parameter-schema-required:
     description: All parameters must define a schema
     severity: error
@@ -293,7 +262,6 @@ rules:
     then:
       field: schema
       function: truthy
-
   parameter-pagination-offset:
     description: Use "offset" (not "skip", "from", or "page") for pagination offset
     severity: warn
@@ -301,8 +269,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "^(skip|from|page|pageNumber|pageNum)$"
-
+        notMatch: ^(skip|from|page|pageNumber|pageNum)$
   parameter-pagination-limit:
     description: Use "limit" (not "size", "count", or "perPage") for pagination size
     severity: warn
@@ -310,8 +277,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "^(size|count|perPage|pageSize)$"
-
+        notMatch: ^(size|count|perPage|pageSize)$
   parameter-date-range-naming:
     description: Date range filters should use startDate/endDate (Workday convention)
     severity: info
@@ -319,8 +285,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: "^(fromDate|toDate|dateFrom|dateTo|begin|end)$"
-
+        notMatch: ^(fromDate|toDate|dateFrom|dateTo|begin|end)$
   parameter-worker-id-naming:
     description: Worker identifier path parameter should be named "workerId"
     severity: warn
@@ -329,11 +294,7 @@ rules:
       function: enumeration
       functionOptions:
         values:
-          - workerId
-
-  # =====================================================================
-  # REQUEST BODIES
-  # =====================================================================
+        - workerId
   request-body-description:
     description: Request bodies should have descriptions
     severity: warn
@@ -341,7 +302,6 @@ rules:
     then:
       field: description
       function: truthy
-
   request-body-json-content:
     description: Request bodies must support application/json
     severity: error
@@ -349,7 +309,6 @@ rules:
     then:
       field: application/json
       function: truthy
-
   request-body-schema-ref:
     description: Request body schemas should reference a named component (not be inlined)
     severity: warn
@@ -357,10 +316,6 @@ rules:
     then:
       field: $ref
       function: truthy
-
-  # =====================================================================
-  # RESPONSES
-  # =====================================================================
   response-success-required:
     description: All operations must define at least one response
     severity: error
@@ -371,7 +326,6 @@ rules:
         schema:
           type: object
           minProperties: 1
-
   response-description-required:
     description: All responses must have a description
     severity: error
@@ -379,7 +333,6 @@ rules:
     then:
       field: description
       function: truthy
-
   response-401-required:
     description: All operations should define a 401 Unauthorized response
     severity: warn
@@ -387,7 +340,6 @@ rules:
     then:
       field: '401'
       function: truthy
-
   response-404-required-for-resource-paths:
     description: GET/PUT/DELETE on resource paths should define a 404 Not Found response
     severity: warn
@@ -395,7 +347,6 @@ rules:
     then:
       field: '404'
       function: truthy
-
   response-400-for-mutations:
     description: POST/PUT/PATCH operations should define a 400 Bad Request response
     severity: warn
@@ -403,7 +354,6 @@ rules:
     then:
       field: '400'
       function: truthy
-
   response-success-json-content:
     description: 2xx responses with content should use application/json
     severity: warn
@@ -411,7 +361,6 @@ rules:
     then:
       field: application/json
       function: truthy
-
   response-error-schema:
     description: Error responses should reference an error schema with message and error fields
     severity: info
@@ -422,9 +371,8 @@ rules:
         schema:
           type: object
           required:
-            - error
-            - message
-
+          - error
+          - message
   response-delete-204:
     description: DELETE operations should return 204 No Content
     severity: info
@@ -432,10 +380,6 @@ rules:
     then:
       field: '204'
       function: truthy
-
-  # =====================================================================
-  # SCHEMAS — PROPERTY NAMING
-  # =====================================================================
   schema-property-camel-case:
     description: Schema property names should use camelCase (Workday convention)
     severity: warn
@@ -443,8 +387,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   schema-type-defined:
     description: Top-level schemas must define a type
     severity: warn
@@ -452,7 +395,6 @@ rules:
     then:
       field: type
       function: truthy
-
   schema-description-required:
     description: Top-level schemas should have a description
     severity: warn
@@ -460,7 +402,6 @@ rules:
     then:
       field: description
       function: truthy
-
   schema-id-property-naming:
     description: Identifier properties should be named "id" or end with "Id" (e.g., workerId, timeBlockId)
     severity: info
@@ -468,8 +409,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: ".*"
-
+        notMatch: .*
   schema-timestamp-naming:
     description: Timestamp properties should follow the createdAt/modifiedAt convention
     severity: info
@@ -477,8 +417,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        notMatch: ".*"
-
+        notMatch: .*
   schema-required-array:
     description: Required fields should be declared in a "required" array, not on individual properties
     severity: info
@@ -486,10 +425,6 @@ rules:
     then:
       field: required
       function: falsy
-
-  # =====================================================================
-  # SECURITY
-  # =====================================================================
   security-global-defined:
     description: Global security requirements should be defined
     severity: warn
@@ -497,7 +432,6 @@ rules:
     then:
       field: security
       function: truthy
-
   security-schemes-defined:
     description: Security schemes must be defined under components
     severity: error
@@ -505,7 +439,6 @@ rules:
     then:
       field: components.securitySchemes
       function: truthy
-
   security-bearer-scheme:
     description: Workday APIs should expose a BearerAuth scheme using Bearer/JWT
     severity: warn
@@ -516,14 +449,13 @@ rules:
         schema:
           type: object
           required:
-            - type
-            - scheme
+          - type
+          - scheme
           properties:
             type:
               const: http
             scheme:
               const: bearer
-
   security-bearer-format:
     description: Bearer security schemes should declare bearerFormat (e.g. JWT)
     severity: warn
@@ -531,7 +463,6 @@ rules:
     then:
       field: bearerFormat
       function: truthy
-
   security-scheme-description:
     description: Security schemes should have a description
     severity: warn
@@ -539,10 +470,6 @@ rules:
     then:
       field: description
       function: truthy
-
-  # =====================================================================
-  # HTTP METHOD CONVENTIONS
-  # =====================================================================
   get-no-request-body:
     description: GET operations must not have a request body
     severity: error
@@ -550,7 +477,6 @@ rules:
     then:
       field: requestBody
       function: falsy
-
   delete-no-request-body:
     description: DELETE operations should not have a request body
     severity: warn
@@ -558,7 +484,6 @@ rules:
     then:
       field: requestBody
       function: falsy
-
   post-has-request-body:
     description: POST operations should have a request body
     severity: warn
@@ -566,7 +491,6 @@ rules:
     then:
       field: requestBody
       function: truthy
-
   put-has-request-body:
     description: PUT operations should have a request body
     severity: warn
@@ -574,7 +498,6 @@ rules:
     then:
       field: requestBody
       function: truthy
-
   patch-has-request-body:
     description: PATCH operations should have a request body
     severity: warn
@@ -582,10 +505,6 @@ rules:
     then:
       field: requestBody
       function: truthy
-
-  # =====================================================================
-  # GENERAL QUALITY
-  # =====================================================================
   no-empty-descriptions:
     description: Descriptions must not be empty strings
     severity: error
@@ -593,8 +512,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: ".+"
-
+        match: .+
   schema-properties-have-descriptions:
     description: Schema properties should have descriptions
     severity: info
@@ -602,7 +520,6 @@ rules:
     then:
       field: description
       function: truthy
-
   schema-properties-have-examples:
     description: Schema properties should include examples
     severity: info
@@ -610,7 +527,6 @@ rules:
     then:
       field: example
       function: truthy
-
   deprecation-documented:
     description: Deprecated operations should explain the deprecation in the description
     severity: warn
@@ -618,11 +534,60 @@ rules:
     then:
       field: description
       function: truthy
-
   external-docs-encouraged:
     description: APIs should link to external documentation
     severity: info
     given: $
     then:
       field: externalDocs
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the workday.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: workday\.com
+  path-params-casing:
+    description: Path parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  query-params-casing:
+    description: Query parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: camel
+  error-schema-defined:
+    description: A shared error schema (ErrorResponse) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: ErrorResponse
       function: truthy
