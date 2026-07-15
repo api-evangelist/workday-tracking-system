@@ -319,6 +319,8 @@ apis:
       - FN: Workday Developer Support
         url: https://developer.workday.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/workday-tracking-system-agentic-access.yml
   - type: TrustCenter
     url: security/workday-tracking-system-trust-center.yml
   - type: DomainSecurity
