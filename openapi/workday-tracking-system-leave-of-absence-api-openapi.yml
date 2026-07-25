@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Leave of Absence API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Leave of Absence
+  description: Operations for managing leave of absence requests
+paths:
+  /workers/{workerId}/leaveOfAbsence:
+    get:
+      operationId: listLeavesOfAbsence
+      summary: List Leaves of Absence
+      description: Returns leave of absence records for a worker.
+      tags:
+      - Leave of Absence
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        description: Filter by leave status
+        schema:
+          type: string
+          enum:
+          - Pending
+          - Approved
+          - Active
+          - Completed
+          - Cancelled
+      responses:
+        '200':
+          description: Leaves of absence retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeavesOfAbsenceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: requestLeaveOfAbsence
+      summary: Request Leave of Absence
+      description: Adds a new leave of absence request using associated business processes.
+      tags:
+      - Leave of Absence
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveOfAbsenceInput'
+      responses:
+        '201':
+          description: Leave of absence request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveOfAbsence'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/leaveOfAbsence/{leaveId}/return:
+    post:
+      operationId: returnFromLeaveOfAbsence
+      summary: Return from Leave of Absence
+      description: Submits a return from leave of absence request.
+      tags:
+      - Leave of Absence
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: leaveId
+        in: path
+        required: true
+        description: The Workday ID of the leave of absence record
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnFromLeaveInput'
+      responses:
+        '200':
+          description: Return from leave processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveOfAbsence'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    LeavesOfAbsenceResponse:
+      type: object
+      description: Response containing leaves of absence
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveOfAbsence'
+    LeaveOfAbsenceInput:
+      type: object
+      description: Input for creating a leave of absence request
+      properties:
+        leaveType:
+          type: string
+          description: Type of leave
+          example: FMLA
+        startDate:
+          type: string
+          format: date
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
+          type: string
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        reason:
+          type: string
+          description: Reason for the leave
+        continuousOrIntermittent:
+          type: string
+          description: Leave continuity type
+          enum:
+          - Continuous
+          - Intermittent
+          default: Continuous
+      required:
+      - leaveType
+      - startDate
+      - expectedEndDate
+    ReturnFromLeaveInput:
+      type: object
+      description: Input for processing a return from leave
+      properties:
+        returnDate:
+          type: string
+          format: date
+          description: Actual date of return
+          example: '2026-06-30'
+        comment:
+          type: string
+          description: Optional comment on the return
+      required:
+      - returnDate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    LeaveOfAbsence:
+      type: object
+      description: A leave of absence record
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the leave record
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        leaveType:
+          type: string
+          description: Type of leave (e.g., FMLA, Military, Personal)
+          example: FMLA
+        startDate:
+          type: string
+          format: date
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
+          type: string
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        actualReturnDate:
+          type: string
+          format: date
+          description: Actual date of return from leave
+        status:
+          type: string
+          description: Status of the leave
+          enum:
+          - Pending
+          - Approved
+          - Active
+          - Completed
+          - Cancelled
+        reason:
+          type: string
+          description: Reason for the leave of absence
+        continuousOrIntermittent:
+          type: string
+          description: Whether leave is continuous or intermittent
+          enum:
+          - Continuous
+          - Intermittent
+          example: Continuous
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

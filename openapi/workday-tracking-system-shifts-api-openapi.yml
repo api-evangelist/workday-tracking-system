@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Shifts API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Shifts
+  description: Operations for managing schedule shifts
+paths:
+  /scheduleShifts:
+    get:
+      operationId: listScheduleShifts
+      summary: List Schedule Shifts
+      description: Returns shift information for specified scheduling organizations.
+      tags:
+      - Shifts
+      parameters:
+      - name: organizationId
+        in: query
+        required: false
+        description: Filter by scheduling organization ID
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        description: Start date for shift retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: false
+        description: End date for shift retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of records to return
+        schema:
+          type: integer
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for pagination
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Schedule shifts retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScheduleShift
+      summary: Create Schedule Shift
+      description: Creates a new schedule shift for a worker or position.
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftInput'
+      responses:
+        '201':
+          description: Schedule shift created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduleShifts/{shiftId}:
+    get:
+      operationId: getScheduleShift
+      summary: Get Schedule Shift
+      description: Returns a specific schedule shift by ID.
+      tags:
+      - Shifts
+      parameters:
+      - name: shiftId
+        in: path
+        required: true
+        description: The Workday ID of the schedule shift
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule shift retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateScheduleShift
+      summary: Update Schedule Shift
+      description: Updates an existing schedule shift.
+      tags:
+      - Shifts
+      parameters:
+      - name: shiftId
+        in: path
+        required: true
+        description: The Workday ID of the schedule shift
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftInput'
+      responses:
+        '200':
+          description: Schedule shift updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteScheduleShift
+      summary: Delete Schedule Shift
+      description: Deletes a schedule shift.
+      tags:
+      - Shifts
+      parameters:
+      - name: shiftId
+        in: path
+        required: true
+        description: The Workday ID of the schedule shift
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Schedule shift deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ScheduleShiftsResponse:
+      type: object
+      description: Paginated list of schedule shifts
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShift'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    ScheduleShiftInput:
+      type: object
+      description: Input for creating or updating a schedule shift
+      properties:
+        workerId:
+          type: string
+          description: Worker ID to assign to the shift
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+          - Regular
+          - Overtime
+          - OnCall
+          - Split
+          default: Regular
+        notes:
+          type: string
+          description: Optional notes
+      required:
+      - workerId
+      - shiftDate
+      - startTime
+      - endTime
+    ScheduleShift:
+      type: object
+      description: A schedule shift assigned to a worker or position
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the shift
+        workerId:
+          type: string
+          description: Worker assigned to this shift
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+          example: '2026-05-05'
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+          example: 08:00:00
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+          example: '16:00:00'
+        hours:
+          type: number
+          format: float
+          description: Scheduled hours for the shift
+          example: 8.0
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+          - Regular
+          - Overtime
+          - OnCall
+          - Split
+          example: Regular
+        status:
+          type: string
+          description: Shift status
+          enum:
+          - Scheduled
+          - Confirmed
+          - Cancelled
+          - Completed
+        notes:
+          type: string
+          description: Optional shift notes
+      required:
+      - workerId
+      - shiftDate
+      - startTime
+      - endTime
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Balances API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Balances
+  description: Operations for managing time off plan balances and overrides
+paths:
+  /workers/{workerId}/timeOffBalances:
+    get:
+      operationId: listTimeOffBalances
+      summary: List Time Off Balances
+      description: Retrieves dynamic time off plan balances for a worker across all enrolled time off plans.
+      tags:
+      - Balances
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: asOfDate
+        in: query
+        required: false
+        description: Balance as-of date (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Time off balances retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffBalancesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    TimeOffBalance:
+      type: object
+      description: A worker's balance for a specific time off plan
+      properties:
+        planId:
+          type: string
+          description: Workday ID of the time off plan
+        planName:
+          type: string
+          description: Name of the time off plan
+          example: Vacation
+        balance:
+          type: number
+          format: float
+          description: Current available balance in hours
+          example: 80.0
+        accrued:
+          type: number
+          format: float
+          description: Total hours accrued year-to-date
+          example: 96.0
+        used:
+          type: number
+          format: float
+          description: Total hours used year-to-date
+          example: 16.0
+        pending:
+          type: number
+          format: float
+          description: Hours pending approval
+          example: 8.0
+        unit:
+          type: string
+          description: Unit of measurement
+          enum:
+          - Hours
+          - Days
+          example: Hours
+        asOfDate:
+          type: string
+          format: date
+          description: Date the balance was calculated
+    TimeOffBalancesResponse:
+      type: object
+      description: Response containing time off balances
+      properties:
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        balances:
+          type: array
+          description: Array of time off plan balances
+          items:
+            $ref: '#/components/schemas/TimeOffBalance'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

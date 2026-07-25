@@ -1,0 +1,229 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Work Schedules API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Work Schedules
+  description: Operations for assigning and managing work schedules
+paths:
+  /workers/{workerId}/workSchedule:
+    get:
+      operationId: getWorkSchedule
+      summary: Get Work Schedule
+      description: Returns the current work schedule assignment for a worker.
+      tags:
+      - Work Schedules
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: asOfDate
+        in: query
+        required: false
+        description: Retrieve schedule effective as of this date (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Work schedule retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkSchedule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: assignWorkSchedule
+      summary: Assign Work Schedule
+      description: Imports work schedule assignments. Supports work schedule calendar assignments and assignments based on patterns specific to a worker.
+      tags:
+      - Work Schedules
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkScheduleAssignment'
+      responses:
+        '200':
+          description: Work schedule assigned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkSchedule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    WorkSchedule:
+      type: object
+      description: A worker's work schedule assignment
+      properties:
+        id:
+          type: string
+          description: Unique ID of the schedule assignment
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        scheduleName:
+          type: string
+          description: Name of the assigned work schedule
+          example: Standard 5-Day Week
+        scheduleType:
+          type: string
+          description: Type of schedule
+          enum:
+          - Fixed
+          - Flexible
+          - Rotating
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the schedule assignment takes effect
+        endDate:
+          type: string
+          format: date
+          description: Date the schedule assignment ends (optional)
+        hoursPerWeek:
+          type: number
+          format: float
+          description: Scheduled hours per week
+          example: 40.0
+        shifts:
+          type: array
+          description: Daily shift schedule
+          items:
+            $ref: '#/components/schemas/Shift'
+      required:
+      - workerId
+      - scheduleName
+      - effectiveDate
+    WorkScheduleAssignment:
+      type: object
+      description: Input for assigning a work schedule to a worker
+      properties:
+        scheduleId:
+          type: string
+          description: Workday ID of the schedule to assign
+          example: sch_standard_5day
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the assignment becomes effective
+          example: '2026-05-01'
+        endDate:
+          type: string
+          format: date
+          description: Optional end date for the assignment
+      required:
+      - scheduleId
+      - effectiveDate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+    Shift:
+      type: object
+      description: A single shift within a work schedule
+      properties:
+        dayOfWeek:
+          type: string
+          description: Day of the week for this shift
+          enum:
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+          - Sunday
+        startTime:
+          type: string
+          format: time
+          description: Shift start time (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: Shift end time (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours for this shift
+          example: 8.0
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Timesheets API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Timesheets
+  description: Operations for managing employee timesheets
+paths:
+  /workers/{workerId}/timesheets:
+    get:
+      operationId: listTimesheets
+      summary: List Timesheets
+      description: Returns timesheets for a worker within a date range.
+      tags:
+      - Timesheets
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        description: Start date for timesheet retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: false
+        description: End date for timesheet retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Timesheets retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesheetsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/timesheets/{timesheetId}/submit:
+    post:
+      operationId: submitTimesheet
+      summary: Submit Timesheet
+      description: Submits a timesheet for approval.
+      tags:
+      - Timesheets
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: timesheetId
+        in: path
+        required: true
+        description: The Workday ID of the timesheet
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Timesheet submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timesheet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    TimesheetsResponse:
+      type: object
+      description: Response containing timesheets
+      properties:
+        total:
+          type: integer
+          description: Total count of timesheets
+        data:
+          type: array
+          description: Array of timesheets
+          items:
+            $ref: '#/components/schemas/Timesheet'
+    TimeBlock:
+      type: object
+      description: A reported or calculated time block representing hours worked
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time block
+          example: 3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2
+        workerId:
+          type: string
+          description: Workday ID of the worker
+          example: e3f2a1b0c8d7e6f5
+        date:
+          type: string
+          format: date
+          description: Date of the time block
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours in the time block
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+          - Regular
+          - Overtime
+          - Holiday
+          - Leave
+          example: Regular
+        status:
+          type: string
+          description: Status of the time block
+          enum:
+          - Reported
+          - Calculated
+          - Approved
+          - Rejected
+          example: Approved
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+          example: proj_abc123
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+          example: task_xyz789
+        comment:
+          type: string
+          description: Optional comment for the time block
+          example: Working on Q2 planning
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was created
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was last modified
+          readOnly: true
+      required:
+      - workerId
+      - date
+      - hours
+      - type
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+    Timesheet:
+      type: object
+      description: An employee timesheet for a pay period
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the timesheet
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        periodStartDate:
+          type: string
+          format: date
+          description: Start date of the pay period
+          example: '2026-04-27'
+        periodEndDate:
+          type: string
+          format: date
+          description: End date of the pay period
+          example: '2026-05-03'
+        totalHours:
+          type: number
+          format: float
+          description: Total hours recorded in the timesheet
+          example: 40.0
+        regularHours:
+          type: number
+          format: float
+          description: Regular hours worked
+          example: 40.0
+        overtimeHours:
+          type: number
+          format: float
+          description: Overtime hours worked
+          example: 0.0
+        status:
+          type: string
+          description: Timesheet status
+          enum:
+          - Draft
+          - Submitted
+          - Approved
+          - Rejected
+        timeBlocks:
+          type: array
+          description: Time blocks in this timesheet
+          items:
+            $ref: '#/components/schemas/TimeBlock'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

@@ -1,0 +1,418 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Time Blocks API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Time Blocks
+  description: Operations for managing reported and calculated time blocks
+paths:
+  /workers/{workerId}/timeBlocks:
+    get:
+      operationId: listTimeBlocks
+      summary: List Time Blocks
+      description: Returns calculated time blocks for a worker within a specified date range.
+      tags:
+      - Time Blocks
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        description: Start date for time block retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: false
+        description: End date for time block retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: status
+        in: query
+        required: false
+        description: Filter by time block status
+        schema:
+          type: string
+          enum:
+          - Reported
+          - Calculated
+          - Approved
+          - Rejected
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of records to return
+        schema:
+          type: integer
+          default: 100
+          maximum: 1000
+      - name: offset
+        in: query
+        required: false
+        description: Offset for pagination
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: List of time blocks retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlocksResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTimeBlock
+      summary: Create Time Block
+      description: Creates a new reported time block for a worker.
+      tags:
+      - Time Blocks
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeBlockInput'
+      responses:
+        '201':
+          description: Time block created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /workers/{workerId}/timeBlocks/{timeBlockId}:
+    get:
+      operationId: getTimeBlock
+      summary: Get Time Block
+      description: Returns a specific time block for a worker.
+      tags:
+      - Time Blocks
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: timeBlockId
+        in: path
+        required: true
+        description: The Workday ID of the time block
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Time block retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTimeBlock
+      summary: Update Time Block
+      description: Updates an existing reported time block for a worker.
+      tags:
+      - Time Blocks
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: timeBlockId
+        in: path
+        required: true
+        description: The Workday ID of the time block
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeBlockInput'
+      responses:
+        '200':
+          description: Time block updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeBlock'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTimeBlock
+      summary: Delete Time Block
+      description: Deletes a reported time block for a worker.
+      tags:
+      - Time Blocks
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: timeBlockId
+        in: path
+        required: true
+        description: The Workday ID of the time block
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Time block deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    TimeBlocksResponse:
+      type: object
+      description: Paginated response containing time blocks
+      properties:
+        total:
+          type: integer
+          description: Total number of time blocks matching the query
+          example: 42
+        offset:
+          type: integer
+          description: Current pagination offset
+          example: 0
+        limit:
+          type: integer
+          description: Maximum records returned per page
+          example: 100
+        data:
+          type: array
+          description: Array of time blocks
+          items:
+            $ref: '#/components/schemas/TimeBlock'
+    TimeBlock:
+      type: object
+      description: A reported or calculated time block representing hours worked
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time block
+          example: 3c5c2e9cd6bd4a74b1a6b8c8e0a7f3d2
+        workerId:
+          type: string
+          description: Workday ID of the worker
+          example: e3f2a1b0c8d7e6f5
+        date:
+          type: string
+          format: date
+          description: Date of the time block
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours in the time block
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+          - Regular
+          - Overtime
+          - Holiday
+          - Leave
+          example: Regular
+        status:
+          type: string
+          description: Status of the time block
+          enum:
+          - Reported
+          - Calculated
+          - Approved
+          - Rejected
+          example: Approved
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+          example: proj_abc123
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+          example: task_xyz789
+        comment:
+          type: string
+          description: Optional comment for the time block
+          example: Working on Q2 planning
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was created
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the time block was last modified
+          readOnly: true
+      required:
+      - workerId
+      - date
+      - hours
+      - type
+    TimeBlockInput:
+      type: object
+      description: Input payload for creating or updating a time block
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date of the time block (YYYY-MM-DD)
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours worked
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+          - Regular
+          - Overtime
+          - Holiday
+          - Leave
+          example: Regular
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+        comment:
+          type: string
+          description: Optional comment
+      required:
+      - date
+      - hours
+      - type
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication

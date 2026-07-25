@@ -1,0 +1,222 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management Accruals Time Clock Events API
+  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+- url: https://{tenant}.workday.com/api/absence-management/v1
+  description: Workday tenant-specific Absence Management REST API
+  variables:
+    tenant:
+      default: your-tenant
+      description: Your Workday tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Time Clock Events
+  description: Operations for importing and managing time clock events
+paths:
+  /workers/{workerId}/timeClockEvents:
+    get:
+      operationId: listTimeClockEvents
+      summary: List Time Clock Events
+      description: Returns time clock events for a worker.
+      tags:
+      - Time Clock Events
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        description: Start date for event retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: false
+        description: End date for event retrieval (YYYY-MM-DD)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Time clock events retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEventsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTimeClockEvent
+      summary: Create Time Clock Event
+      description: Adds a time clock event from a third-party time collection system. Workday Time Tracking processes these into reported and calculated time blocks.
+      tags:
+      - Time Clock Events
+      parameters:
+      - name: workerId
+        in: path
+        required: true
+        description: The Workday ID of the worker
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeClockEventInput'
+      responses:
+        '201':
+          description: Time clock event created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEvent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TimeClockEventInput:
+      type: object
+      description: Input for creating a time clock event
+      properties:
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+          - ClockIn
+          - ClockOut
+          - BreakStart
+          - BreakEnd
+          example: ClockIn
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device (optional)
+        locationId:
+          type: string
+          description: Location identifier (optional)
+      required:
+      - eventType
+      - eventDateTime
+    TimeClockEvent:
+      type: object
+      description: A time clock event recording a punch-in or punch-out
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time clock event
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+          - ClockIn
+          - ClockOut
+          - BreakStart
+          - BreakEnd
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device
+        locationId:
+          type: string
+          description: Location identifier for the clock event
+        status:
+          type: string
+          description: Processing status of the event
+          enum:
+          - Pending
+          - Processed
+          - Failed
+      required:
+      - workerId
+      - eventType
+      - eventDateTime
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+    TimeClockEventsResponse:
+      type: object
+      description: Response containing time clock events
+      properties:
+        total:
+          type: integer
+          description: Total count of events
+        data:
+          type: array
+          description: Array of time clock events
+          items:
+            $ref: '#/components/schemas/TimeClockEvent'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication
