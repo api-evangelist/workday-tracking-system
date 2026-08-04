@@ -1,0 +1,277 @@
+{
+  "info": {
+    "_postman_id": "9a756e7d-2cdb-46e4-a5ea-e366fd7284ef",
+    "name": "Workday Absence Management Accruals Balances API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:52.000Z",
+    "updatedAt": "2026-07-28T03:32:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a756e7d-2cdb-46e4-a5ea-e366fd7284ef"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "timeOffBalances",
+              "item": [
+                {
+                  "name": "List Time Off Balances",
+                  "id": "51316b2f-e677-4601-8a22-57d3020fc365",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timeOffBalances?asOfDate=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timeOffBalances"
+                      ],
+                      "query": [
+                        {
+                          "description": "Balance as-of date (YYYY-MM-DD)",
+                          "key": "asOfDate",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c84c6fc8-57b5-4292-bce1-95bd2cbbc095",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves dynamic time off plan balances for a worker across all enrolled time off plans."
+                  },
+                  "response": [
+                    {
+                      "id": "5f31e627-2b59-4019-a918-16dcfeb1aeb2",
+                      "name": "Time off balances retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeOffBalances?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeOffBalances"
+                          ],
+                          "query": [
+                            {
+                              "description": "Balance as-of date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"balances\": [\n    {\n      \"planId\": \"<string>\",\n      \"planName\": \"<string>\",\n      \"balance\": \"<float>\",\n      \"accrued\": \"<float>\",\n      \"used\": \"<float>\",\n      \"pending\": \"<float>\",\n      \"unit\": \"Hours\",\n      \"asOfDate\": \"<date>\"\n    },\n    {\n      \"planId\": \"<string>\",\n      \"planName\": \"<string>\",\n      \"balance\": \"<float>\",\n      \"accrued\": \"<float>\",\n      \"used\": \"<float>\",\n      \"pending\": \"<float>\",\n      \"unit\": \"Hours\",\n      \"asOfDate\": \"<date>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-5f31e627-2b59-4019-a918-16dcfeb1aeb2"
+                    },
+                    {
+                      "id": "2f77747f-800e-4d9a-acee-8e1ffcc5cc0b",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeOffBalances?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeOffBalances"
+                          ],
+                          "query": [
+                            {
+                              "description": "Balance as-of date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-2f77747f-800e-4d9a-acee-8e1ffcc5cc0b"
+                    },
+                    {
+                      "id": "624d3625-548e-4293-b189-4145533e02d2",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeOffBalances?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeOffBalances"
+                          ],
+                          "query": [
+                            {
+                              "description": "Balance as-of date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-624d3625-548e-4293-b189-4145533e02d2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:52.000Z",
+                  "updatedAt": "2026-07-28T03:32:52.000Z",
+                  "uid": "35240-51316b2f-e677-4601-8a22-57d3020fc365"
+                }
+              ],
+              "id": "8df357e1-b8b0-449e-b87f-c7c92d9bdc76",
+              "createdAt": "2026-07-28T03:32:52.000Z",
+              "updatedAt": "2026-07-28T03:32:52.000Z",
+              "uid": "35240-8df357e1-b8b0-449e-b87f-c7c92d9bdc76"
+            }
+          ],
+          "id": "a757374d-aa06-4a33-a02e-cdc9bc587f39",
+          "createdAt": "2026-07-28T03:32:52.000Z",
+          "updatedAt": "2026-07-28T03:32:52.000Z",
+          "uid": "35240-a757374d-aa06-4a33-a02e-cdc9bc587f39"
+        }
+      ],
+      "id": "8d8a61f8-95c8-4df4-9a7d-dc1dd95aefc3",
+      "createdAt": "2026-07-28T03:32:52.000Z",
+      "updatedAt": "2026-07-28T03:32:52.000Z",
+      "uid": "35240-8d8a61f8-95c8-4df4-9a7d-dc1dd95aefc3"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

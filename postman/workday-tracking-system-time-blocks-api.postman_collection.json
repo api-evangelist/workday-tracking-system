@@ -1,0 +1,1484 @@
+{
+  "info": {
+    "_postman_id": "6c617612-59f7-4b32-9ab9-27834018ce90",
+    "name": "Workday Absence Management Accruals Time Blocks API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:56.000Z",
+    "updatedAt": "2026-07-28T03:32:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6c617612-59f7-4b32-9ab9-27834018ce90"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "timeBlocks",
+              "item": [
+                {
+                  "name": "{timeBlockId}",
+                  "item": [
+                    {
+                      "name": "Get Time Block",
+                      "id": "2b7a2761-ba03-43ba-a9e2-beee1b1d5343",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks",
+                            ":timeBlockId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4817f058-7a4e-466f-ab5f-84d789653280",
+                              "key": "workerId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the worker"
+                            },
+                            {
+                              "id": "c053ac12-6d59-4ebd-8386-85f9bc7f2439",
+                              "key": "timeBlockId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the time block"
+                            }
+                          ]
+                        },
+                        "description": "Returns a specific time block for a worker."
+                      },
+                      "response": [
+                        {
+                          "id": "7a99eada-950c-49e2-bd04-e09f86490d8f",
+                          "name": "Time block retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"workerId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Regular\",\n  \"id\": \"<string>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"status\": \"Reported\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"modifiedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-7a99eada-950c-49e2-bd04-e09f86490d8f"
+                        },
+                        {
+                          "id": "8112857c-2f14-468f-ae40-b59f15be41d2",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-8112857c-2f14-468f-ae40-b59f15be41d2"
+                        },
+                        {
+                          "id": "c834e092-bc15-401d-b513-cd1363d63143",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-c834e092-bc15-401d-b513-cd1363d63143"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-2b7a2761-ba03-43ba-a9e2-beee1b1d5343"
+                    },
+                    {
+                      "name": "Update Time Block",
+                      "id": "9319b6e6-9280-46d2-ae74-bfe046b56b5e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks",
+                            ":timeBlockId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e1f948bb-d738-423d-ba7d-cc62d8d0a4b1",
+                              "key": "workerId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the worker"
+                            },
+                            {
+                              "id": "e8439cd7-d90a-4e8d-b69f-fe319774a097",
+                              "key": "timeBlockId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the time block"
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing reported time block for a worker."
+                      },
+                      "response": [
+                        {
+                          "id": "f29c0fa4-64bb-4cef-be42-d8d6fa8b2ca6",
+                          "name": "Time block updated successfully",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"workerId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Regular\",\n  \"id\": \"<string>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"status\": \"Reported\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"modifiedAt\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-f29c0fa4-64bb-4cef-be42-d8d6fa8b2ca6"
+                        },
+                        {
+                          "id": "b40e7c2b-9bbd-49b0-ab73-b181f2c04050",
+                          "name": "Bad request - invalid input",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-b40e7c2b-9bbd-49b0-ab73-b181f2c04050"
+                        },
+                        {
+                          "id": "687d93ee-6a4d-4b07-ad6f-d0538d41f704",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-687d93ee-6a4d-4b07-ad6f-d0538d41f704"
+                        },
+                        {
+                          "id": "b7bbda34-b21c-4720-964f-dbfcba2a62d7",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-b7bbda34-b21c-4720-964f-dbfcba2a62d7"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-9319b6e6-9280-46d2-ae74-bfe046b56b5e"
+                    },
+                    {
+                      "name": "Delete Time Block",
+                      "id": "48c74476-8a62-4404-be86-8b09a456c6c4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks",
+                            ":timeBlockId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c37bed81-04a7-4f12-9dde-c5a28dc9e0ab",
+                              "key": "workerId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the worker"
+                            },
+                            {
+                              "id": "09f087e8-41ea-49c1-aa36-6ff02619bc0b",
+                              "key": "timeBlockId",
+                              "value": "<string>",
+                              "description": "(Required) The Workday ID of the time block"
+                            }
+                          ]
+                        },
+                        "description": "Deletes a reported time block for a worker."
+                      },
+                      "response": [
+                        {
+                          "id": "2700eb14-64f7-4af4-abd7-fac9e7b985b5",
+                          "name": "Time block deleted successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-2700eb14-64f7-4af4-abd7-fac9e7b985b5"
+                        },
+                        {
+                          "id": "b1875a64-ea01-4d3c-9285-9057673c8f47",
+                          "name": "Authentication required",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-b1875a64-ea01-4d3c-9285-9057673c8f47"
+                        },
+                        {
+                          "id": "ec279b54-091d-4212-8fc0-7b59c182194e",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timeBlocks/:timeBlockId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timeBlocks",
+                                ":timeBlockId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workerId"
+                                },
+                                {
+                                  "key": "timeBlockId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:32:57.000Z",
+                          "updatedAt": "2026-07-28T03:32:57.000Z",
+                          "uid": "35240-ec279b54-091d-4212-8fc0-7b59c182194e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-48c74476-8a62-4404-be86-8b09a456c6c4"
+                    }
+                  ],
+                  "id": "d0d44de1-c571-4829-be1f-823f84ca9f19",
+                  "createdAt": "2026-07-28T03:32:57.000Z",
+                  "updatedAt": "2026-07-28T03:32:57.000Z",
+                  "uid": "35240-d0d44de1-c571-4829-be1f-823f84ca9f19"
+                },
+                {
+                  "name": "List Time Blocks",
+                  "id": "16c8d81f-6cce-40a4-b293-7137810275dc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timeBlocks?startDate=<date>&endDate=<date>&status=Calculated&limit=100&offset=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timeBlocks"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start date for time block retrieval (YYYY-MM-DD)",
+                          "key": "startDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for time block retrieval (YYYY-MM-DD)",
+                          "key": "endDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "Filter by time block status",
+                          "key": "status",
+                          "value": "Calculated"
+                        },
+                        {
+                          "description": "Maximum number of records to return",
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "description": "Offset for pagination",
+                          "key": "offset",
+                          "value": "0"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "456f76a7-2a98-43fa-a61e-73705b342260",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Returns calculated time blocks for a worker within a specified date range."
+                  },
+                  "response": [
+                    {
+                      "id": "bb67df65-0f78-484f-961a-8fb84e2d4146",
+                      "name": "List of time blocks retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks?startDate=<date>&endDate=<date>&status=Calculated&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time block retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time block retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by time block status",
+                              "key": "status",
+                              "value": "Calculated"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Offset for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"data\": [\n    {\n      \"workerId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hours\": \"<float>\",\n      \"type\": \"Holiday\",\n      \"id\": \"<string>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"status\": \"Rejected\",\n      \"projectId\": \"<string>\",\n      \"taskId\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"modifiedAt\": \"<dateTime>\"\n    },\n    {\n      \"workerId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hours\": \"<float>\",\n      \"type\": \"Holiday\",\n      \"id\": \"<string>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"status\": \"Rejected\",\n      \"projectId\": \"<string>\",\n      \"taskId\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"modifiedAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-bb67df65-0f78-484f-961a-8fb84e2d4146"
+                    },
+                    {
+                      "id": "ab63e143-b11c-4170-9688-31f3d1279621",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks?startDate=<date>&endDate=<date>&status=Calculated&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time block retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time block retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by time block status",
+                              "key": "status",
+                              "value": "Calculated"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Offset for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-ab63e143-b11c-4170-9688-31f3d1279621"
+                    },
+                    {
+                      "id": "5f94a051-5414-452d-95dd-e70756a743e2",
+                      "name": "Insufficient permissions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks?startDate=<date>&endDate=<date>&status=Calculated&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time block retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time block retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by time block status",
+                              "key": "status",
+                              "value": "Calculated"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Offset for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-5f94a051-5414-452d-95dd-e70756a743e2"
+                    },
+                    {
+                      "id": "2664fe45-ac75-454d-9a8b-214e31fe3227",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks?startDate=<date>&endDate=<date>&status=Calculated&limit=100&offset=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time block retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time block retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "Filter by time block status",
+                              "key": "status",
+                              "value": "Calculated"
+                            },
+                            {
+                              "description": "Maximum number of records to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Offset for pagination",
+                              "key": "offset",
+                              "value": "0"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-2664fe45-ac75-454d-9a8b-214e31fe3227"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:57.000Z",
+                  "updatedAt": "2026-07-28T03:32:57.000Z",
+                  "uid": "35240-16c8d81f-6cce-40a4-b293-7137810275dc"
+                },
+                {
+                  "name": "Create Time Block",
+                  "id": "46eb7205-5adc-4961-ad10-c4f505ed171f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timeBlocks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timeBlocks"
+                      ],
+                      "variable": [
+                        {
+                          "id": "57570cc5-cc22-47fb-b7eb-118ca79eda9c",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Creates a new reported time block for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "ea579a1c-7b9d-4853-b4e6-f6951b62d660",
+                      "name": "Time block created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Regular\",\n  \"id\": \"<string>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"status\": \"Reported\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"modifiedAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-ea579a1c-7b9d-4853-b4e6-f6951b62d660"
+                    },
+                    {
+                      "id": "d48b0f8c-fe67-44c5-babc-36582e4c702f",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-d48b0f8c-fe67-44c5-babc-36582e4c702f"
+                    },
+                    {
+                      "id": "5d393321-989e-4d98-8c9a-22a0cfd7f5de",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-5d393321-989e-4d98-8c9a-22a0cfd7f5de"
+                    },
+                    {
+                      "id": "ec4fb3bd-ec75-46fa-a501-7baccfd36897",
+                      "name": "Insufficient permissions",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"date\": \"<date>\",\n  \"hours\": \"<float>\",\n  \"type\": \"Leave\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"projectId\": \"<string>\",\n  \"taskId\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeBlocks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeBlocks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:57.000Z",
+                      "updatedAt": "2026-07-28T03:32:57.000Z",
+                      "uid": "35240-ec4fb3bd-ec75-46fa-a501-7baccfd36897"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:57.000Z",
+                  "updatedAt": "2026-07-28T03:32:57.000Z",
+                  "uid": "35240-46eb7205-5adc-4961-ad10-c4f505ed171f"
+                }
+              ],
+              "id": "c2ee3f51-89f7-4894-8747-cac4efecca93",
+              "createdAt": "2026-07-28T03:32:57.000Z",
+              "updatedAt": "2026-07-28T03:32:57.000Z",
+              "uid": "35240-c2ee3f51-89f7-4894-8747-cac4efecca93"
+            }
+          ],
+          "id": "04837a48-1c29-4ce9-ab82-4f9203e44c81",
+          "createdAt": "2026-07-28T03:32:57.000Z",
+          "updatedAt": "2026-07-28T03:32:57.000Z",
+          "uid": "35240-04837a48-1c29-4ce9-ab82-4f9203e44c81"
+        }
+      ],
+      "id": "04c02138-21c6-4e96-ac1b-556502ed5590",
+      "createdAt": "2026-07-28T03:32:57.000Z",
+      "updatedAt": "2026-07-28T03:32:57.000Z",
+      "uid": "35240-04c02138-21c6-4e96-ac1b-556502ed5590"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

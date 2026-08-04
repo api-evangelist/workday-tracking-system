@@ -1,0 +1,600 @@
+{
+  "info": {
+    "_postman_id": "b44e9d35-3737-42de-b4d0-4d72e23145bd",
+    "name": "Workday Absence Management Accruals Scheduling Organizations API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:54.000Z",
+    "updatedAt": "2026-07-28T03:32:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b44e9d35-3737-42de-b4d0-4d72e23145bd"
+  },
+  "item": [
+    {
+      "name": "schedulingOrganizations",
+      "item": [
+        {
+          "name": "{orgId}",
+          "item": [
+            {
+              "name": "Get Scheduling Organization",
+              "id": "b77bacb4-9e3d-464d-b2ce-89d1d0b2ea04",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations/:orgId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations",
+                    ":orgId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "4798c0e2-6a0c-4fb6-9396-5979031cab11",
+                      "key": "orgId",
+                      "value": "<string>",
+                      "description": "(Required) The Workday ID of the scheduling organization"
+                    }
+                  ]
+                },
+                "description": "Returns a specific scheduling organization."
+              },
+              "response": [
+                {
+                  "id": "9f148408-677a-4107-9c24-634fbd7b50c0",
+                  "name": "Scheduling organization retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/schedulingOrganizations/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "schedulingOrganizations",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "orgId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"operatingHours\": {\n    \"openTime\": \"<time>\",\n    \"closeTime\": \"<time>\",\n    \"daysOfOperation\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T03:32:55.000Z",
+                  "updatedAt": "2026-07-28T03:32:55.000Z",
+                  "uid": "35240-9f148408-677a-4107-9c24-634fbd7b50c0"
+                },
+                {
+                  "id": "d7b386e4-00dd-4977-ba6d-fc51ba740eba",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/schedulingOrganizations/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "schedulingOrganizations",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "orgId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:55.000Z",
+                  "updatedAt": "2026-07-28T03:32:55.000Z",
+                  "uid": "35240-d7b386e4-00dd-4977-ba6d-fc51ba740eba"
+                },
+                {
+                  "id": "dc96e0aa-84ec-4dd9-b42c-c7b9a3c20381",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/schedulingOrganizations/:orgId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "schedulingOrganizations",
+                        ":orgId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "orgId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:55.000Z",
+                  "updatedAt": "2026-07-28T03:32:55.000Z",
+                  "uid": "35240-dc96e0aa-84ec-4dd9-b42c-c7b9a3c20381"
+                }
+              ],
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-b77bacb4-9e3d-464d-b2ce-89d1d0b2ea04"
+            }
+          ],
+          "id": "60060cec-c71e-411c-a2df-920d0179aad6",
+          "createdAt": "2026-07-28T03:32:55.000Z",
+          "updatedAt": "2026-07-28T03:32:55.000Z",
+          "uid": "35240-60060cec-c71e-411c-a2df-920d0179aad6"
+        },
+        {
+          "name": "List Scheduling Organizations",
+          "id": "2343cd1b-4f0b-4b1d-9653-541c3de8d638",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/schedulingOrganizations?limit=100&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedulingOrganizations"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of records to return",
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "description": "Offset for pagination",
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Returns scheduling organization data including high-level settings."
+          },
+          "response": [
+            {
+              "id": "bc2c5a7f-53e1-4179-b8dd-05be8e5f50df",
+              "name": "Scheduling organizations retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations?limit=100&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "description": "Offset for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"total\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"Team\",\n      \"parentOrganizationId\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"operatingHours\": {\n        \"openTime\": \"<time>\",\n        \"closeTime\": \"<time>\",\n        \"daysOfOperation\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"Team\",\n      \"parentOrganizationId\": \"<string>\",\n      \"timezone\": \"<string>\",\n      \"operatingHours\": {\n        \"openTime\": \"<time>\",\n        \"closeTime\": \"<time>\",\n        \"daysOfOperation\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-bc2c5a7f-53e1-4179-b8dd-05be8e5f50df"
+            },
+            {
+              "id": "ad53385f-038e-49ae-8a62-48137cd9544c",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations?limit=100&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "description": "Offset for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-ad53385f-038e-49ae-8a62-48137cd9544c"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:55.000Z",
+          "updatedAt": "2026-07-28T03:32:55.000Z",
+          "uid": "35240-2343cd1b-4f0b-4b1d-9653-541c3de8d638"
+        },
+        {
+          "name": "Create Scheduling Organization",
+          "id": "26898035-77ec-49f5-9e90-aff8ac0de3cd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schedulingOrganizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "schedulingOrganizations"
+              ]
+            },
+            "description": "Creates a new scheduling organization."
+          },
+          "response": [
+            {
+              "id": "7b509f57-0625-4381-899a-c177f3452d67",
+              "name": "Scheduling organization created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"operatingHours\": {\n    \"openTime\": \"<time>\",\n    \"closeTime\": \"<time>\",\n    \"daysOfOperation\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-7b509f57-0625-4381-899a-c177f3452d67"
+            },
+            {
+              "id": "943d6751-2bb0-4f11-bedd-038bf4b5ca6b",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-943d6751-2bb0-4f11-bedd-038bf4b5ca6b"
+            },
+            {
+              "id": "e49c120e-755b-4769-8500-8fd6e12ff139",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"Team\",\n  \"parentOrganizationId\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/schedulingOrganizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "schedulingOrganizations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:55.000Z",
+              "updatedAt": "2026-07-28T03:32:55.000Z",
+              "uid": "35240-e49c120e-755b-4769-8500-8fd6e12ff139"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:55.000Z",
+          "updatedAt": "2026-07-28T03:32:55.000Z",
+          "uid": "35240-26898035-77ec-49f5-9e90-aff8ac0de3cd"
+        }
+      ],
+      "id": "00630860-77f9-419a-b87d-117158c67a79",
+      "createdAt": "2026-07-28T03:32:55.000Z",
+      "updatedAt": "2026-07-28T03:32:55.000Z",
+      "uid": "35240-00630860-77f9-419a-b87d-117158c67a79"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

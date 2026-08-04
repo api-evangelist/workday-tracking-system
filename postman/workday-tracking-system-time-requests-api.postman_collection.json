@@ -1,0 +1,541 @@
+{
+  "info": {
+    "_postman_id": "2110e402-1a9d-4858-ad73-a2d0277c68ae",
+    "name": "Workday Absence Management Accruals Time Requests API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:59.000Z",
+    "updatedAt": "2026-07-28T03:32:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2110e402-1a9d-4858-ad73-a2d0277c68ae"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "timeRequests",
+              "item": [
+                {
+                  "name": "List Time Requests",
+                  "id": "ad3dc117-e60b-487b-9741-efd00f8e05af",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timeRequests?startDate=<date>&endDate=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timeRequests"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start date for time request retrieval (YYYY-MM-DD)",
+                          "key": "startDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for time request retrieval (YYYY-MM-DD)",
+                          "key": "endDate",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "092b230c-2c7c-4f0a-a373-309d25e5522f",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves time requests for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "1211f52d-b00b-4b9e-a019-a5954054da18",
+                      "name": "Time requests retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time request retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time request retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"requestDate\": \"<date>\",\n      \"requestType\": \"AdjustmentRequest\",\n      \"status\": \"Draft\",\n      \"comment\": \"<string>\",\n      \"approverComment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"requestDate\": \"<date>\",\n      \"requestType\": \"ScheduleChange\",\n      \"status\": \"Draft\",\n      \"comment\": \"<string>\",\n      \"approverComment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-1211f52d-b00b-4b9e-a019-a5954054da18"
+                    },
+                    {
+                      "id": "2a3937ae-eb28-4ede-89d9-6d5e59e4c30a",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time request retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time request retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-2a3937ae-eb28-4ede-89d9-6d5e59e4c30a"
+                    },
+                    {
+                      "id": "31341cce-f435-4335-aaa2-3acd1b151f9e",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for time request retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for time request retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-31341cce-f435-4335-aaa2-3acd1b151f9e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:00.000Z",
+                  "updatedAt": "2026-07-28T03:33:00.000Z",
+                  "uid": "35240-ad3dc117-e60b-487b-9741-efd00f8e05af"
+                },
+                {
+                  "name": "Create Time Request",
+                  "id": "63062bac-1160-4db5-9378-f6334e33c141",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"AdjustmentRequest\",\n  \"comment\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timeRequests",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timeRequests"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e3f916d5-5b50-4353-812a-f30238e5b3f4",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Creates a new user time request or updates an existing one."
+                  },
+                  "response": [
+                    {
+                      "id": "f654ad23-c352-4e17-ad7c-8d3c4f1d049b",
+                      "name": "Time request created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"AdjustmentRequest\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"Overtime\",\n  \"status\": \"Approved\",\n  \"comment\": \"<string>\",\n  \"approverComment\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-f654ad23-c352-4e17-ad7c-8d3c4f1d049b"
+                    },
+                    {
+                      "id": "7601ce0e-228d-439c-8347-1a3c7580e00f",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"AdjustmentRequest\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-7601ce0e-228d-439c-8347-1a3c7580e00f"
+                    },
+                    {
+                      "id": "616403d2-fae9-4967-88fd-32f6058cb799",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"requestDate\": \"<date>\",\n  \"requestType\": \"AdjustmentRequest\",\n  \"comment\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timeRequests",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timeRequests"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:00.000Z",
+                      "updatedAt": "2026-07-28T03:33:00.000Z",
+                      "uid": "35240-616403d2-fae9-4967-88fd-32f6058cb799"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:00.000Z",
+                  "updatedAt": "2026-07-28T03:33:00.000Z",
+                  "uid": "35240-63062bac-1160-4db5-9378-f6334e33c141"
+                }
+              ],
+              "id": "546e5a47-1f17-4662-9ce3-3b1047c82109",
+              "createdAt": "2026-07-28T03:33:00.000Z",
+              "updatedAt": "2026-07-28T03:33:00.000Z",
+              "uid": "35240-546e5a47-1f17-4662-9ce3-3b1047c82109"
+            }
+          ],
+          "id": "51690a23-efdd-4fee-8daa-9decb08a87d1",
+          "createdAt": "2026-07-28T03:33:00.000Z",
+          "updatedAt": "2026-07-28T03:33:00.000Z",
+          "uid": "35240-51690a23-efdd-4fee-8daa-9decb08a87d1"
+        }
+      ],
+      "id": "bc1577f5-5f79-46e6-bc7f-5e613840ae15",
+      "createdAt": "2026-07-28T03:33:00.000Z",
+      "updatedAt": "2026-07-28T03:33:00.000Z",
+      "uid": "35240-bc1577f5-5f79-46e6-bc7f-5e613840ae15"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

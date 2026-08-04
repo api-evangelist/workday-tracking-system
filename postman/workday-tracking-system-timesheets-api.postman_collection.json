@@ -1,0 +1,580 @@
+{
+  "info": {
+    "_postman_id": "cca63b5b-9596-47d2-854f-334d0b591463",
+    "name": "Workday Absence Management Accruals Timesheets API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:33:00.000Z",
+    "updatedAt": "2026-07-28T03:33:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cca63b5b-9596-47d2-854f-334d0b591463"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "timesheets",
+              "item": [
+                {
+                  "name": "{timesheetId}",
+                  "item": [
+                    {
+                      "name": "submit",
+                      "item": [
+                        {
+                          "name": "Submit Timesheet",
+                          "id": "d6ffa6e5-8ff7-4d35-a78f-0828fe2651a1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/timesheets/:timesheetId/submit",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "timesheets",
+                                ":timesheetId",
+                                "submit"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e1d38a7c-feb5-404d-8546-13d91dfed84e",
+                                  "key": "workerId",
+                                  "value": "<string>",
+                                  "description": "(Required) The Workday ID of the worker"
+                                },
+                                {
+                                  "id": "a3038092-c16b-4bd7-8049-67ac2a5b0a05",
+                                  "key": "timesheetId",
+                                  "value": "<string>",
+                                  "description": "(Required) The Workday ID of the timesheet"
+                                }
+                              ]
+                            },
+                            "description": "Submits a timesheet for approval."
+                          },
+                          "response": [
+                            {
+                              "id": "9e9e76bc-d026-4ae4-b132-3337a47e2664",
+                              "name": "Timesheet submitted successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/timesheets/:timesheetId/submit",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "timesheets",
+                                    ":timesheetId",
+                                    "submit"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "timesheetId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"periodStartDate\": \"<date>\",\n  \"periodEndDate\": \"<date>\",\n  \"totalHours\": \"<float>\",\n  \"regularHours\": \"<float>\",\n  \"overtimeHours\": \"<float>\",\n  \"status\": \"Rejected\",\n  \"timeBlocks\": [\n    {\n      \"workerId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hours\": \"<float>\",\n      \"type\": \"Overtime\",\n      \"id\": \"<string>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"status\": \"Reported\",\n      \"projectId\": \"<string>\",\n      \"taskId\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"modifiedAt\": \"<dateTime>\"\n    },\n    {\n      \"workerId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hours\": \"<float>\",\n      \"type\": \"Leave\",\n      \"id\": \"<string>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"status\": \"Calculated\",\n      \"projectId\": \"<string>\",\n      \"taskId\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"modifiedAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:33:01.000Z",
+                              "updatedAt": "2026-07-28T03:33:01.000Z",
+                              "uid": "35240-9e9e76bc-d026-4ae4-b132-3337a47e2664"
+                            },
+                            {
+                              "id": "bf3e26b8-8953-4be5-8086-433b6924f19c",
+                              "name": "Bad request - invalid input",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/timesheets/:timesheetId/submit",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "timesheets",
+                                    ":timesheetId",
+                                    "submit"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "timesheetId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:33:01.000Z",
+                              "updatedAt": "2026-07-28T03:33:01.000Z",
+                              "uid": "35240-bf3e26b8-8953-4be5-8086-433b6924f19c"
+                            },
+                            {
+                              "id": "d6f52e2d-ee80-4083-9142-ab07a25c06a2",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/timesheets/:timesheetId/submit",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "timesheets",
+                                    ":timesheetId",
+                                    "submit"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "timesheetId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:33:01.000Z",
+                              "updatedAt": "2026-07-28T03:33:01.000Z",
+                              "uid": "35240-d6f52e2d-ee80-4083-9142-ab07a25c06a2"
+                            },
+                            {
+                              "id": "bee09cab-c0e9-4b28-82e5-6642a15c45a1",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/timesheets/:timesheetId/submit",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "timesheets",
+                                    ":timesheetId",
+                                    "submit"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "timesheetId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:33:01.000Z",
+                              "updatedAt": "2026-07-28T03:33:01.000Z",
+                              "uid": "35240-bee09cab-c0e9-4b28-82e5-6642a15c45a1"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:33:01.000Z",
+                          "updatedAt": "2026-07-28T03:33:01.000Z",
+                          "uid": "35240-d6ffa6e5-8ff7-4d35-a78f-0828fe2651a1"
+                        }
+                      ],
+                      "id": "70f83bf9-a481-4ee5-baa9-62064de6108d",
+                      "createdAt": "2026-07-28T03:33:01.000Z",
+                      "updatedAt": "2026-07-28T03:33:01.000Z",
+                      "uid": "35240-70f83bf9-a481-4ee5-baa9-62064de6108d"
+                    }
+                  ],
+                  "id": "f6d18147-948a-4fb4-96fc-d4096390d9a8",
+                  "createdAt": "2026-07-28T03:33:01.000Z",
+                  "updatedAt": "2026-07-28T03:33:01.000Z",
+                  "uid": "35240-f6d18147-948a-4fb4-96fc-d4096390d9a8"
+                },
+                {
+                  "name": "List Timesheets",
+                  "id": "9859ba00-ab9b-4ee3-a668-6606d5b6304a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/timesheets?startDate=<date>&endDate=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "timesheets"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start date for timesheet retrieval (YYYY-MM-DD)",
+                          "key": "startDate",
+                          "value": "<date>"
+                        },
+                        {
+                          "description": "End date for timesheet retrieval (YYYY-MM-DD)",
+                          "key": "endDate",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d63b4345-8507-46ce-abdf-f374b890ec53",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Returns timesheets for a worker within a date range."
+                  },
+                  "response": [
+                    {
+                      "id": "ef268d2b-a544-4bf5-87e9-e045a42004e6",
+                      "name": "Timesheets retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timesheets?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timesheets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"periodStartDate\": \"<date>\",\n      \"periodEndDate\": \"<date>\",\n      \"totalHours\": \"<float>\",\n      \"regularHours\": \"<float>\",\n      \"overtimeHours\": \"<float>\",\n      \"status\": \"Rejected\",\n      \"timeBlocks\": [\n        {\n          \"workerId\": \"<string>\",\n          \"date\": \"<date>\",\n          \"hours\": \"<float>\",\n          \"type\": \"Leave\",\n          \"id\": \"<string>\",\n          \"startTime\": \"<time>\",\n          \"endTime\": \"<time>\",\n          \"status\": \"Rejected\",\n          \"projectId\": \"<string>\",\n          \"taskId\": \"<string>\",\n          \"comment\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"modifiedAt\": \"<dateTime>\"\n        },\n        {\n          \"workerId\": \"<string>\",\n          \"date\": \"<date>\",\n          \"hours\": \"<float>\",\n          \"type\": \"Overtime\",\n          \"id\": \"<string>\",\n          \"startTime\": \"<time>\",\n          \"endTime\": \"<time>\",\n          \"status\": \"Calculated\",\n          \"projectId\": \"<string>\",\n          \"taskId\": \"<string>\",\n          \"comment\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"modifiedAt\": \"<dateTime>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"periodStartDate\": \"<date>\",\n      \"periodEndDate\": \"<date>\",\n      \"totalHours\": \"<float>\",\n      \"regularHours\": \"<float>\",\n      \"overtimeHours\": \"<float>\",\n      \"status\": \"Rejected\",\n      \"timeBlocks\": [\n        {\n          \"workerId\": \"<string>\",\n          \"date\": \"<date>\",\n          \"hours\": \"<float>\",\n          \"type\": \"Regular\",\n          \"id\": \"<string>\",\n          \"startTime\": \"<time>\",\n          \"endTime\": \"<time>\",\n          \"status\": \"Rejected\",\n          \"projectId\": \"<string>\",\n          \"taskId\": \"<string>\",\n          \"comment\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"modifiedAt\": \"<dateTime>\"\n        },\n        {\n          \"workerId\": \"<string>\",\n          \"date\": \"<date>\",\n          \"hours\": \"<float>\",\n          \"type\": \"Overtime\",\n          \"id\": \"<string>\",\n          \"startTime\": \"<time>\",\n          \"endTime\": \"<time>\",\n          \"status\": \"Calculated\",\n          \"projectId\": \"<string>\",\n          \"taskId\": \"<string>\",\n          \"comment\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"modifiedAt\": \"<dateTime>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:01.000Z",
+                      "updatedAt": "2026-07-28T03:33:01.000Z",
+                      "uid": "35240-ef268d2b-a544-4bf5-87e9-e045a42004e6"
+                    },
+                    {
+                      "id": "e985aa41-1356-4356-851b-646c620bcac2",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timesheets?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timesheets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:01.000Z",
+                      "updatedAt": "2026-07-28T03:33:01.000Z",
+                      "uid": "35240-e985aa41-1356-4356-851b-646c620bcac2"
+                    },
+                    {
+                      "id": "ab612ef5-458e-4eb0-a43f-4d3d414b87af",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/timesheets?startDate=<date>&endDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "timesheets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "startDate",
+                              "value": "<date>"
+                            },
+                            {
+                              "description": "End date for timesheet retrieval (YYYY-MM-DD)",
+                              "key": "endDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:01.000Z",
+                      "updatedAt": "2026-07-28T03:33:01.000Z",
+                      "uid": "35240-ab612ef5-458e-4eb0-a43f-4d3d414b87af"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:01.000Z",
+                  "updatedAt": "2026-07-28T03:33:01.000Z",
+                  "uid": "35240-9859ba00-ab9b-4ee3-a668-6606d5b6304a"
+                }
+              ],
+              "id": "93d05af2-fa10-4e47-b65b-bc479a9e59a7",
+              "createdAt": "2026-07-28T03:33:01.000Z",
+              "updatedAt": "2026-07-28T03:33:01.000Z",
+              "uid": "35240-93d05af2-fa10-4e47-b65b-bc479a9e59a7"
+            }
+          ],
+          "id": "2ac53364-2f58-4c17-a66b-7e92cef78ab3",
+          "createdAt": "2026-07-28T03:33:01.000Z",
+          "updatedAt": "2026-07-28T03:33:01.000Z",
+          "uid": "35240-2ac53364-2f58-4c17-a66b-7e92cef78ab3"
+        }
+      ],
+      "id": "465b959d-738b-4884-b422-f984ccea9b4f",
+      "createdAt": "2026-07-28T03:33:01.000Z",
+      "updatedAt": "2026-07-28T03:33:01.000Z",
+      "uid": "35240-465b959d-738b-4884-b422-f984ccea9b4f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

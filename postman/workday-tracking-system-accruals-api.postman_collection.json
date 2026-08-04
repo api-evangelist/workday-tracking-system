@@ -1,0 +1,493 @@
+{
+  "info": {
+    "_postman_id": "681d37eb-c382-419b-8c82-1ba8e00bff3e",
+    "name": "Workday Absence Management Accruals API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:51.000Z",
+    "updatedAt": "2026-07-28T03:32:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-681d37eb-c382-419b-8c82-1ba8e00bff3e"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "accrualOverrides",
+              "item": [
+                {
+                  "name": "List Accrual Overrides",
+                  "id": "4f52b199-2d61-4cb9-bdc1-35724c7eeca9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "accrualOverrides"
+                      ],
+                      "variable": [
+                        {
+                          "id": "75b82a75-5e97-40ff-84d1-af047ba9b3f7",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves accrual or time off adjustment/override information for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "c5f16c35-bd9f-4ac0-b91b-84c403d1917c",
+                      "name": "Accrual overrides retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"planId\": \"<string>\",\n      \"overrideType\": \"Override\",\n      \"hours\": \"<float>\",\n      \"effectiveDate\": \"<date>\",\n      \"expirationDate\": \"<date>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"planId\": \"<string>\",\n      \"overrideType\": \"Expiration\",\n      \"hours\": \"<float>\",\n      \"effectiveDate\": \"<date>\",\n      \"expirationDate\": \"<date>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-c5f16c35-bd9f-4ac0-b91b-84c403d1917c"
+                    },
+                    {
+                      "id": "a80f58bc-9300-4f30-a2f1-542332e6b9fb",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-a80f58bc-9300-4f30-a2f1-542332e6b9fb"
+                    },
+                    {
+                      "id": "91a8ab03-b90f-498c-a417-74392a49ffe1",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-91a8ab03-b90f-498c-a417-74392a49ffe1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:51.000Z",
+                  "updatedAt": "2026-07-28T03:32:51.000Z",
+                  "uid": "35240-4f52b199-2d61-4cb9-bdc1-35724c7eeca9"
+                },
+                {
+                  "name": "Create Accrual Override",
+                  "id": "14ef619a-c8c2-45c4-ae94-692508869ebd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"planId\": \"<string>\",\n  \"overrideType\": \"Override\",\n  \"hours\": \"<float>\",\n  \"effectiveDate\": \"<date>\",\n  \"expirationDate\": \"<date>\",\n  \"reason\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "accrualOverrides"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ecd04ecc-16b0-4d84-adf6-79b707452a15",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Adds a new accrual or time off adjustment/override for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "ed24aa83-8f25-49f7-bc48-4c57aa950110",
+                      "name": "Accrual override created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"planId\": \"<string>\",\n  \"overrideType\": \"Override\",\n  \"hours\": \"<float>\",\n  \"effectiveDate\": \"<date>\",\n  \"expirationDate\": \"<date>\",\n  \"reason\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"planId\": \"<string>\",\n  \"overrideType\": \"Adjustment\",\n  \"hours\": \"<float>\",\n  \"effectiveDate\": \"<date>\",\n  \"expirationDate\": \"<date>\",\n  \"reason\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-ed24aa83-8f25-49f7-bc48-4c57aa950110"
+                    },
+                    {
+                      "id": "c3bbb725-f637-4774-8c5a-ab674d6a7f57",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"planId\": \"<string>\",\n  \"overrideType\": \"Override\",\n  \"hours\": \"<float>\",\n  \"effectiveDate\": \"<date>\",\n  \"expirationDate\": \"<date>\",\n  \"reason\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-c3bbb725-f637-4774-8c5a-ab674d6a7f57"
+                    },
+                    {
+                      "id": "28fe003a-8375-4c5e-82a4-ba50904754a4",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"planId\": \"<string>\",\n  \"overrideType\": \"Override\",\n  \"hours\": \"<float>\",\n  \"effectiveDate\": \"<date>\",\n  \"expirationDate\": \"<date>\",\n  \"reason\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/accrualOverrides",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "accrualOverrides"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:52.000Z",
+                      "updatedAt": "2026-07-28T03:32:52.000Z",
+                      "uid": "35240-28fe003a-8375-4c5e-82a4-ba50904754a4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:51.000Z",
+                  "updatedAt": "2026-07-28T03:32:51.000Z",
+                  "uid": "35240-14ef619a-c8c2-45c4-ae94-692508869ebd"
+                }
+              ],
+              "id": "a021c323-6a2e-4603-9860-7de1ea33f231",
+              "createdAt": "2026-07-28T03:32:51.000Z",
+              "updatedAt": "2026-07-28T03:32:51.000Z",
+              "uid": "35240-a021c323-6a2e-4603-9860-7de1ea33f231"
+            }
+          ],
+          "id": "cafe587a-0cee-49d5-8a3a-9e343745c37e",
+          "createdAt": "2026-07-28T03:32:51.000Z",
+          "updatedAt": "2026-07-28T03:32:51.000Z",
+          "uid": "35240-cafe587a-0cee-49d5-8a3a-9e343745c37e"
+        }
+      ],
+      "id": "19955ef1-8eae-4cad-b79b-eec39628edfe",
+      "createdAt": "2026-07-28T03:32:51.000Z",
+      "updatedAt": "2026-07-28T03:32:51.000Z",
+      "uid": "35240-19955ef1-8eae-4cad-b79b-eec39628edfe"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

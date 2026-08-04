@@ -1,0 +1,755 @@
+openapi: 3.0.3
+info:
+  title: Workday Scheduling API
+  description: >-
+    Create and manage employee work schedules, shifts, scheduling organizations,
+    and labor demand within the Workday platform. Supports importing schedule
+    data, managing shift assignments, and configuring scheduling settings.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+  - url: https://{tenant}.workday.com/api/scheduling/v1
+    description: Workday tenant-specific Scheduling REST API
+    variables:
+      tenant:
+        default: your-tenant
+        description: Your Workday tenant identifier
+security:
+  - BearerAuth: []
+tags:
+  - name: Shifts
+    description: Operations for managing schedule shifts
+  - name: Scheduling Organizations
+    description: Operations for managing scheduling organizations and settings
+  - name: Labor Demand
+    description: Operations for managing labor demand data
+  - name: Worker Preferences
+    description: Operations for managing worker scheduling preferences
+paths:
+  /scheduleShifts:
+    get:
+      operationId: listScheduleShifts
+      summary: List Schedule Shifts
+      description: Returns shift information for specified scheduling organizations.
+      tags:
+        - Shifts
+      parameters:
+        - name: organizationId
+          in: query
+          required: false
+          description: Filter by scheduling organization ID
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for shift retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for shift retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          required: false
+          description: Offset for pagination
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Schedule shifts retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScheduleShift
+      summary: Create Schedule Shift
+      description: Creates a new schedule shift for a worker or position.
+      tags:
+        - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftInput'
+      responses:
+        '201':
+          description: Schedule shift created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduleShifts/{shiftId}:
+    get:
+      operationId: getScheduleShift
+      summary: Get Schedule Shift
+      description: Returns a specific schedule shift by ID.
+      tags:
+        - Shifts
+      parameters:
+        - name: shiftId
+          in: path
+          required: true
+          description: The Workday ID of the schedule shift
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule shift retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateScheduleShift
+      summary: Update Schedule Shift
+      description: Updates an existing schedule shift.
+      tags:
+        - Shifts
+      parameters:
+        - name: shiftId
+          in: path
+          required: true
+          description: The Workday ID of the schedule shift
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftInput'
+      responses:
+        '200':
+          description: Schedule shift updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShift'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteScheduleShift
+      summary: Delete Schedule Shift
+      description: Deletes a schedule shift.
+      tags:
+        - Shifts
+      parameters:
+        - name: shiftId
+          in: path
+          required: true
+          description: The Workday ID of the schedule shift
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Schedule shift deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /schedulingOrganizations:
+    get:
+      operationId: listSchedulingOrganizations
+      summary: List Scheduling Organizations
+      description: Returns scheduling organization data including high-level settings.
+      tags:
+        - Scheduling Organizations
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          required: false
+          description: Offset for pagination
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Scheduling organizations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulingOrganizationsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSchedulingOrganization
+      summary: Create Scheduling Organization
+      description: Creates a new scheduling organization.
+      tags:
+        - Scheduling Organizations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchedulingOrganizationInput'
+      responses:
+        '201':
+          description: Scheduling organization created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulingOrganization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /schedulingOrganizations/{orgId}:
+    get:
+      operationId: getSchedulingOrganization
+      summary: Get Scheduling Organization
+      description: Returns a specific scheduling organization.
+      tags:
+        - Scheduling Organizations
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          description: The Workday ID of the scheduling organization
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scheduling organization retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulingOrganization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /laborDemand:
+    get:
+      operationId: listLaborDemand
+      summary: List Labor Demand
+      description: Returns labor demand instances for scheduling planning.
+      tags:
+        - Labor Demand
+      parameters:
+        - name: organizationId
+          in: query
+          required: false
+          description: Filter by scheduling organization ID
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for labor demand retrieval
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for labor demand retrieval
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Labor demand retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaborDemandResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createLaborDemand
+      summary: Create Labor Demand
+      description: Creates a new labor demand entry for workforce planning.
+      tags:
+        - Labor Demand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaborDemandInput'
+      responses:
+        '201':
+          description: Labor demand created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaborDemand'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/schedulingPreferences:
+    get:
+      operationId: getWorkerSchedulingPreferences
+      summary: Get Worker Scheduling Preferences
+      description: Returns scheduling preferences for a worker.
+      tags:
+        - Worker Preferences
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Worker preferences retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerSchedulingPreferences'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWorkerSchedulingPreferences
+      summary: Update Worker Scheduling Preferences
+      description: Updates scheduling preferences for a worker.
+      tags:
+        - Worker Preferences
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkerSchedulingPreferencesInput'
+      responses:
+        '200':
+          description: Worker preferences updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerSchedulingPreferences'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication
+  schemas:
+    ScheduleShift:
+      type: object
+      description: A schedule shift assigned to a worker or position
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the shift
+        workerId:
+          type: string
+          description: Worker assigned to this shift
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+          example: '2026-05-05'
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+          example: '08:00:00'
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+          example: '16:00:00'
+        hours:
+          type: number
+          format: float
+          description: Scheduled hours for the shift
+          example: 8.0
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+            - Regular
+            - Overtime
+            - OnCall
+            - Split
+          example: Regular
+        status:
+          type: string
+          description: Shift status
+          enum:
+            - Scheduled
+            - Confirmed
+            - Cancelled
+            - Completed
+        notes:
+          type: string
+          description: Optional shift notes
+      required:
+        - workerId
+        - shiftDate
+        - startTime
+        - endTime
+    ScheduleShiftInput:
+      type: object
+      description: Input for creating or updating a schedule shift
+      properties:
+        workerId:
+          type: string
+          description: Worker ID to assign to the shift
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+            - Regular
+            - Overtime
+            - OnCall
+            - Split
+          default: Regular
+        notes:
+          type: string
+          description: Optional notes
+      required:
+        - workerId
+        - shiftDate
+        - startTime
+        - endTime
+    ScheduleShiftsResponse:
+      type: object
+      description: Paginated list of schedule shifts
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShift'
+    SchedulingOrganization:
+      type: object
+      description: A scheduling organization unit
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the scheduling organization
+        name:
+          type: string
+          description: Name of the scheduling organization
+          example: North America Operations
+        type:
+          type: string
+          description: Type of scheduling organization
+          enum:
+            - Site
+            - Department
+            - Team
+        parentOrganizationId:
+          type: string
+          description: Parent organization ID (if hierarchical)
+        timezone:
+          type: string
+          description: Timezone for the organization
+          example: America/New_York
+        operatingHours:
+          type: object
+          description: Operating hours configuration
+          properties:
+            openTime:
+              type: string
+              format: time
+              description: Daily opening time
+            closeTime:
+              type: string
+              format: time
+              description: Daily closing time
+            daysOfOperation:
+              type: array
+              description: Days when the location operates
+              items:
+                type: string
+    SchedulingOrganizationInput:
+      type: object
+      description: Input for creating a scheduling organization
+      properties:
+        name:
+          type: string
+          description: Name of the organization
+        type:
+          type: string
+          description: Organization type
+          enum:
+            - Site
+            - Department
+            - Team
+        parentOrganizationId:
+          type: string
+          description: Parent organization ID (optional)
+        timezone:
+          type: string
+          description: Timezone identifier
+      required:
+        - name
+        - type
+    SchedulingOrganizationsResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchedulingOrganization'
+    LaborDemand:
+      type: object
+      description: A labor demand entry for workforce planning
+      properties:
+        id:
+          type: string
+          description: Unique ID of the labor demand entry
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        date:
+          type: string
+          format: date
+          description: Date for the labor demand
+        hour:
+          type: integer
+          description: Hour of the day (0-23) for the demand
+          minimum: 0
+          maximum: 23
+        requiredHeadcount:
+          type: integer
+          description: Number of workers required
+          example: 5
+        jobProfileId:
+          type: string
+          description: Job profile/role required
+        notes:
+          type: string
+          description: Optional notes
+    LaborDemandInput:
+      type: object
+      description: Input for creating a labor demand entry
+      properties:
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        date:
+          type: string
+          format: date
+          description: Date for the demand
+        hour:
+          type: integer
+          description: Hour of the day (0-23)
+          minimum: 0
+          maximum: 23
+        requiredHeadcount:
+          type: integer
+          description: Number of workers required
+        jobProfileId:
+          type: string
+          description: Job profile ID (optional)
+      required:
+        - organizationId
+        - date
+        - requiredHeadcount
+    LaborDemandResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborDemand'
+    WorkerSchedulingPreferences:
+      type: object
+      description: A worker's scheduling preferences
+      properties:
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        preferredStartTime:
+          type: string
+          format: time
+          description: Preferred shift start time
+          example: '08:00:00'
+        preferredEndTime:
+          type: string
+          format: time
+          description: Preferred shift end time
+          example: '16:00:00'
+        preferredDaysOff:
+          type: array
+          description: Preferred days off
+          items:
+            type: string
+            enum:
+              - Monday
+              - Tuesday
+              - Wednesday
+              - Thursday
+              - Friday
+              - Saturday
+              - Sunday
+        maxHoursPerWeek:
+          type: number
+          format: float
+          description: Maximum hours per week
+          example: 40.0
+        minHoursPerWeek:
+          type: number
+          format: float
+          description: Minimum hours per week
+          example: 32.0
+        availability:
+          type: object
+          description: Worker availability by day of week
+          additionalProperties:
+            type: object
+            properties:
+              available:
+                type: boolean
+              startTime:
+                type: string
+                format: time
+              endTime:
+                type: string
+                format: time
+    WorkerSchedulingPreferencesInput:
+      type: object
+      description: Input for updating scheduling preferences
+      properties:
+        preferredStartTime:
+          type: string
+          format: time
+        preferredEndTime:
+          type: string
+          format: time
+        preferredDaysOff:
+          type: array
+          items:
+            type: string
+        maxHoursPerWeek:
+          type: number
+          format: float
+        minHoursPerWeek:
+          type: number
+          format: float
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

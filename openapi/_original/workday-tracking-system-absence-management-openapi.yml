@@ -1,0 +1,780 @@
+openapi: 3.0.3
+info:
+  title: Workday Absence Management API
+  description: >-
+    Track employee attendance, absences, leave requests, and time off balances
+    in the Workday platform. Supports entering time off, requesting leave of
+    absence, managing accrual balances, and processing return-from-leave events.
+  version: v1
+  contact:
+    name: Workday Developer Support
+    url: https://developer.workday.com
+  x-generated-from: documentation
+  x-last-validated: '2026-05-03'
+servers:
+  - url: https://{tenant}.workday.com/api/absence-management/v1
+    description: Workday tenant-specific Absence Management REST API
+    variables:
+      tenant:
+        default: your-tenant
+        description: Your Workday tenant identifier
+security:
+  - BearerAuth: []
+tags:
+  - name: Time Off
+    description: Operations for managing employee time off requests
+  - name: Leave of Absence
+    description: Operations for managing leave of absence requests
+  - name: Balances
+    description: Operations for managing time off plan balances and overrides
+  - name: Accruals
+    description: Operations for managing accrual overrides and balances
+paths:
+  /workers/{workerId}/timeOff:
+    get:
+      operationId: listTimeOff
+      summary: List Time Off Entries
+      description: Returns time off entries for a worker within a date range.
+      tags:
+        - Time Off
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: false
+          description: Start date for retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          description: End date for retrieval (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          required: false
+          description: Filter by approval status
+          schema:
+            type: string
+            enum:
+              - Draft
+              - Submitted
+              - Approved
+              - Denied
+              - Cancelled
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          required: false
+          description: Offset for pagination
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Time off entries retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: requestTimeOff
+      summary: Request Time Off
+      description: >-
+        Adds new time off entries via the Request Time Off business process.
+      tags:
+        - Time Off
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeOffInput'
+      responses:
+        '201':
+          description: Time off request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/timeOff/{timeOffId}:
+    get:
+      operationId: getTimeOff
+      summary: Get Time Off Entry
+      description: Returns a specific time off entry for a worker.
+      tags:
+        - Time Off
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timeOffId
+          in: path
+          required: true
+          description: The Workday ID of the time off entry
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Time off entry retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: adjustTimeOff
+      summary: Adjust Time Off
+      description: >-
+        Adjusts an existing time off entry using the Correct Time Off
+        business process.
+      tags:
+        - Time Off
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: timeOffId
+          in: path
+          required: true
+          description: The Workday ID of the time off entry
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeOffInput'
+      responses:
+        '200':
+          description: Time off entry adjusted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/leaveOfAbsence:
+    get:
+      operationId: listLeavesOfAbsence
+      summary: List Leaves of Absence
+      description: Returns leave of absence records for a worker.
+      tags:
+        - Leave of Absence
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          description: Filter by leave status
+          schema:
+            type: string
+            enum:
+              - Pending
+              - Approved
+              - Active
+              - Completed
+              - Cancelled
+      responses:
+        '200':
+          description: Leaves of absence retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeavesOfAbsenceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: requestLeaveOfAbsence
+      summary: Request Leave of Absence
+      description: >-
+        Adds a new leave of absence request using associated business processes.
+      tags:
+        - Leave of Absence
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveOfAbsenceInput'
+      responses:
+        '201':
+          description: Leave of absence request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveOfAbsence'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /workers/{workerId}/leaveOfAbsence/{leaveId}/return:
+    post:
+      operationId: returnFromLeaveOfAbsence
+      summary: Return from Leave of Absence
+      description: >-
+        Submits a return from leave of absence request.
+      tags:
+        - Leave of Absence
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: leaveId
+          in: path
+          required: true
+          description: The Workday ID of the leave of absence record
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnFromLeaveInput'
+      responses:
+        '200':
+          description: Return from leave processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveOfAbsence'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/timeOffBalances:
+    get:
+      operationId: listTimeOffBalances
+      summary: List Time Off Balances
+      description: >-
+        Retrieves dynamic time off plan balances for a worker across all
+        enrolled time off plans.
+      tags:
+        - Balances
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+        - name: asOfDate
+          in: query
+          required: false
+          description: Balance as-of date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Time off balances retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffBalancesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workers/{workerId}/accrualOverrides:
+    get:
+      operationId: listAccrualOverrides
+      summary: List Accrual Overrides
+      description: Retrieves accrual or time off adjustment/override information for a worker.
+      tags:
+        - Accruals
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Accrual overrides retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccrualOverridesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createAccrualOverride
+      summary: Create Accrual Override
+      description: Adds a new accrual or time off adjustment/override for a worker.
+      tags:
+        - Accruals
+      parameters:
+        - name: workerId
+          in: path
+          required: true
+          description: The Workday ID of the worker
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccrualOverrideInput'
+      responses:
+        '201':
+          description: Accrual override created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccrualOverride'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token authentication
+  schemas:
+    TimeOffEntry:
+      type: object
+      description: An employee time off entry
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time off entry
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        timeOffType:
+          type: string
+          description: Type of time off (e.g., Vacation, Sick, Personal)
+          example: Vacation
+        startDate:
+          type: string
+          format: date
+          description: Start date of the time off
+          example: '2026-05-10'
+        endDate:
+          type: string
+          format: date
+          description: End date of the time off
+          example: '2026-05-14'
+        hours:
+          type: number
+          format: float
+          description: Total hours of time off
+          example: 40.0
+        days:
+          type: number
+          format: float
+          description: Total days of time off
+          example: 5.0
+        status:
+          type: string
+          description: Approval status of the time off request
+          enum:
+            - Draft
+            - Submitted
+            - Approved
+            - Denied
+            - Cancelled
+        comment:
+          type: string
+          description: Worker's note on the request
+        approverComment:
+          type: string
+          description: Manager's comment on approval/denial
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - workerId
+        - timeOffType
+        - startDate
+        - endDate
+    TimeOffInput:
+      type: object
+      description: Input for creating or adjusting a time off entry
+      properties:
+        timeOffType:
+          type: string
+          description: Type of time off plan
+          example: Vacation
+        startDate:
+          type: string
+          format: date
+          description: Start date of the time off
+          example: '2026-05-10'
+        endDate:
+          type: string
+          format: date
+          description: End date of the time off
+          example: '2026-05-14'
+        comment:
+          type: string
+          description: Optional comment
+      required:
+        - timeOffType
+        - startDate
+        - endDate
+    TimeOffResponse:
+      type: object
+      description: Paginated list of time off entries
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeOffEntry'
+    LeaveOfAbsence:
+      type: object
+      description: A leave of absence record
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the leave record
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        leaveType:
+          type: string
+          description: Type of leave (e.g., FMLA, Military, Personal)
+          example: FMLA
+        startDate:
+          type: string
+          format: date
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
+          type: string
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        actualReturnDate:
+          type: string
+          format: date
+          description: Actual date of return from leave
+        status:
+          type: string
+          description: Status of the leave
+          enum:
+            - Pending
+            - Approved
+            - Active
+            - Completed
+            - Cancelled
+        reason:
+          type: string
+          description: Reason for the leave of absence
+        continuousOrIntermittent:
+          type: string
+          description: Whether leave is continuous or intermittent
+          enum:
+            - Continuous
+            - Intermittent
+          example: Continuous
+    LeaveOfAbsenceInput:
+      type: object
+      description: Input for creating a leave of absence request
+      properties:
+        leaveType:
+          type: string
+          description: Type of leave
+          example: FMLA
+        startDate:
+          type: string
+          format: date
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
+          type: string
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        reason:
+          type: string
+          description: Reason for the leave
+        continuousOrIntermittent:
+          type: string
+          description: Leave continuity type
+          enum:
+            - Continuous
+            - Intermittent
+          default: Continuous
+      required:
+        - leaveType
+        - startDate
+        - expectedEndDate
+    LeavesOfAbsenceResponse:
+      type: object
+      description: Response containing leaves of absence
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveOfAbsence'
+    ReturnFromLeaveInput:
+      type: object
+      description: Input for processing a return from leave
+      properties:
+        returnDate:
+          type: string
+          format: date
+          description: Actual date of return
+          example: '2026-06-30'
+        comment:
+          type: string
+          description: Optional comment on the return
+      required:
+        - returnDate
+    TimeOffBalance:
+      type: object
+      description: A worker's balance for a specific time off plan
+      properties:
+        planId:
+          type: string
+          description: Workday ID of the time off plan
+        planName:
+          type: string
+          description: Name of the time off plan
+          example: Vacation
+        balance:
+          type: number
+          format: float
+          description: Current available balance in hours
+          example: 80.0
+        accrued:
+          type: number
+          format: float
+          description: Total hours accrued year-to-date
+          example: 96.0
+        used:
+          type: number
+          format: float
+          description: Total hours used year-to-date
+          example: 16.0
+        pending:
+          type: number
+          format: float
+          description: Hours pending approval
+          example: 8.0
+        unit:
+          type: string
+          description: Unit of measurement
+          enum:
+            - Hours
+            - Days
+          example: Hours
+        asOfDate:
+          type: string
+          format: date
+          description: Date the balance was calculated
+    TimeOffBalancesResponse:
+      type: object
+      description: Response containing time off balances
+      properties:
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        balances:
+          type: array
+          description: Array of time off plan balances
+          items:
+            $ref: '#/components/schemas/TimeOffBalance'
+    AccrualOverride:
+      type: object
+      description: An accrual override record
+      properties:
+        id:
+          type: string
+          description: Unique ID of the accrual override
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        planId:
+          type: string
+          description: ID of the time off plan
+        overrideType:
+          type: string
+          description: Type of override
+          enum:
+            - Adjustment
+            - Override
+            - Expiration
+        hours:
+          type: number
+          format: float
+          description: Hours of the override
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the override takes effect
+        expirationDate:
+          type: string
+          format: date
+          description: Date the override expires (if applicable)
+        reason:
+          type: string
+          description: Reason for the override
+    AccrualOverrideInput:
+      type: object
+      description: Input for creating an accrual override
+      properties:
+        planId:
+          type: string
+          description: ID of the time off plan
+        overrideType:
+          type: string
+          description: Type of override
+          enum:
+            - Adjustment
+            - Override
+        hours:
+          type: number
+          format: float
+          description: Hours to adjust or override
+        effectiveDate:
+          type: string
+          format: date
+          description: Effective date of the override
+        expirationDate:
+          type: string
+          format: date
+          description: Optional expiration date
+        reason:
+          type: string
+          description: Reason for the override
+      required:
+        - planId
+        - overrideType
+        - hours
+        - effectiveDate
+    AccrualOverridesResponse:
+      type: object
+      description: Response containing accrual overrides
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccrualOverride'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

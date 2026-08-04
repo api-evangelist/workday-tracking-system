@@ -1,0 +1,556 @@
+{
+  "info": {
+    "_postman_id": "66468dbb-e68e-4c2e-8207-69bb8b363479",
+    "name": "Workday Absence Management Accruals Worker Preferences API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:33:02.000Z",
+    "updatedAt": "2026-07-28T03:33:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-66468dbb-e68e-4c2e-8207-69bb8b363479"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "schedulingPreferences",
+              "item": [
+                {
+                  "name": "Get Worker Scheduling Preferences",
+                  "id": "058c7a49-f35f-4bae-a279-bf90274dbbf5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "schedulingPreferences"
+                      ],
+                      "variable": [
+                        {
+                          "id": "da23155b-b586-4696-8c6c-be0e7b5e846b",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Returns scheduling preferences for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "0cac8e53-d7e6-44b0-af08-3a5e2ce5eb4e",
+                      "name": "Worker preferences retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"Wednesday\",\n    \"Thursday\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\",\n  \"availability\": {\n    \"ipsumc\": {\n      \"available\": \"<boolean>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-0cac8e53-d7e6-44b0-af08-3a5e2ce5eb4e"
+                    },
+                    {
+                      "id": "47a33e70-9940-4bbb-8b51-e16fbea39836",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-47a33e70-9940-4bbb-8b51-e16fbea39836"
+                    },
+                    {
+                      "id": "58d6cca3-354c-4677-a8c8-fca5c6afe5fb",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-58d6cca3-354c-4677-a8c8-fca5c6afe5fb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:03.000Z",
+                  "updatedAt": "2026-07-28T03:33:03.000Z",
+                  "uid": "35240-058c7a49-f35f-4bae-a279-bf90274dbbf5"
+                },
+                {
+                  "name": "Update Worker Scheduling Preferences",
+                  "id": "b4fe82eb-1983-4ed6-a6b8-a0491263c08e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "schedulingPreferences"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dba0c72c-1d0e-4fec-90b6-2d26f2fd25d2",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Updates scheduling preferences for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "0ce737b4-6a83-42f6-bd9b-5bd4b9f18ff5",
+                      "name": "Worker preferences updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"Wednesday\",\n    \"Thursday\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\",\n  \"availability\": {\n    \"ipsumc\": {\n      \"available\": \"<boolean>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-0ce737b4-6a83-42f6-bd9b-5bd4b9f18ff5"
+                    },
+                    {
+                      "id": "b110a741-6d7b-4d80-8290-a90350298063",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-b110a741-6d7b-4d80-8290-a90350298063"
+                    },
+                    {
+                      "id": "9a3b7f96-e3ad-424e-bfb2-0b26fe2f043f",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-9a3b7f96-e3ad-424e-bfb2-0b26fe2f043f"
+                    },
+                    {
+                      "id": "b49793cd-c3d1-4e0b-b8d4-70e847bbf7c7",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"preferredStartTime\": \"<time>\",\n  \"preferredEndTime\": \"<time>\",\n  \"preferredDaysOff\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxHoursPerWeek\": \"<float>\",\n  \"minHoursPerWeek\": \"<float>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/schedulingPreferences",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "schedulingPreferences"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:03.000Z",
+                      "updatedAt": "2026-07-28T03:33:03.000Z",
+                      "uid": "35240-b49793cd-c3d1-4e0b-b8d4-70e847bbf7c7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:03.000Z",
+                  "updatedAt": "2026-07-28T03:33:03.000Z",
+                  "uid": "35240-b4fe82eb-1983-4ed6-a6b8-a0491263c08e"
+                }
+              ],
+              "id": "4e251e4b-c835-45e3-9fa5-7cc1e4fe879a",
+              "createdAt": "2026-07-28T03:33:03.000Z",
+              "updatedAt": "2026-07-28T03:33:03.000Z",
+              "uid": "35240-4e251e4b-c835-45e3-9fa5-7cc1e4fe879a"
+            }
+          ],
+          "id": "a1a8ce73-10ff-4850-b0b6-1fbfe4efb9fb",
+          "createdAt": "2026-07-28T03:33:03.000Z",
+          "updatedAt": "2026-07-28T03:33:03.000Z",
+          "uid": "35240-a1a8ce73-10ff-4850-b0b6-1fbfe4efb9fb"
+        }
+      ],
+      "id": "73e1fc28-e4e4-4197-841e-b08b5fc7379c",
+      "createdAt": "2026-07-28T03:33:03.000Z",
+      "updatedAt": "2026-07-28T03:33:03.000Z",
+      "uid": "35240-73e1fc28-e4e4-4197-841e-b08b5fc7379c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

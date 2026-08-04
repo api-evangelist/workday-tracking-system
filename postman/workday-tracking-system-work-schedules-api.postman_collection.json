@@ -1,0 +1,521 @@
+{
+  "info": {
+    "_postman_id": "b6278328-520d-4f65-86d1-8f76d8373ea2",
+    "name": "Workday Absence Management Accruals Work Schedules API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:33:01.000Z",
+    "updatedAt": "2026-07-28T03:33:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b6278328-520d-4f65-86d1-8f76d8373ea2"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "workSchedule",
+              "item": [
+                {
+                  "name": "Get Work Schedule",
+                  "id": "a5b6bd8c-5379-4e56-8098-41d5f8223c9c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/workSchedule?asOfDate=<date>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "workSchedule"
+                      ],
+                      "query": [
+                        {
+                          "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)",
+                          "key": "asOfDate",
+                          "value": "<date>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "196c3f07-7c72-4a92-9ff7-c780b42f041c",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Returns the current work schedule assignment for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "ddda08bc-e302-4910-8d59-9f5af36b0aa6",
+                      "name": "Work schedule retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "query": [
+                            {
+                              "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"scheduleName\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"id\": \"<string>\",\n  \"scheduleType\": \"Rotating\",\n  \"endDate\": \"<date>\",\n  \"hoursPerWeek\": \"<float>\",\n  \"shifts\": [\n    {\n      \"dayOfWeek\": \"Monday\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"hours\": \"<float>\"\n    },\n    {\n      \"dayOfWeek\": \"Wednesday\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"hours\": \"<float>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-ddda08bc-e302-4910-8d59-9f5af36b0aa6"
+                    },
+                    {
+                      "id": "2e2c8245-f6fe-4d51-9935-0afe5c4694d8",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "query": [
+                            {
+                              "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-2e2c8245-f6fe-4d51-9935-0afe5c4694d8"
+                    },
+                    {
+                      "id": "d53d6ac7-77ac-4c92-ae53-ead5db8f7432",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule?asOfDate=<date>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "query": [
+                            {
+                              "description": "Retrieve schedule effective as of this date (YYYY-MM-DD)",
+                              "key": "asOfDate",
+                              "value": "<date>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-d53d6ac7-77ac-4c92-ae53-ead5db8f7432"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:01.000Z",
+                  "updatedAt": "2026-07-28T03:33:01.000Z",
+                  "uid": "35240-a5b6bd8c-5379-4e56-8098-41d5f8223c9c"
+                },
+                {
+                  "name": "Assign Work Schedule",
+                  "id": "8a62624b-260e-4b75-be50-22ea5a2ec3a6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"scheduleId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/workSchedule",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "workSchedule"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f1cd8994-3763-44f9-970d-d3942abdcb3a",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Imports work schedule assignments. Supports work schedule calendar assignments and assignments based on patterns specific to a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "fa7a2bef-267b-4112-8ec5-a1234e560f35",
+                      "name": "Work schedule assigned successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scheduleId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workerId\": \"<string>\",\n  \"scheduleName\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"id\": \"<string>\",\n  \"scheduleType\": \"Rotating\",\n  \"endDate\": \"<date>\",\n  \"hoursPerWeek\": \"<float>\",\n  \"shifts\": [\n    {\n      \"dayOfWeek\": \"Monday\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"hours\": \"<float>\"\n    },\n    {\n      \"dayOfWeek\": \"Wednesday\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"hours\": \"<float>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-fa7a2bef-267b-4112-8ec5-a1234e560f35"
+                    },
+                    {
+                      "id": "651777b1-4af1-4154-8ad9-a87d80278f24",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scheduleId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-651777b1-4af1-4154-8ad9-a87d80278f24"
+                    },
+                    {
+                      "id": "6f249538-c302-4052-9cb7-569746c3db4c",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"scheduleId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/workSchedule",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "workSchedule"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:33:02.000Z",
+                      "updatedAt": "2026-07-28T03:33:02.000Z",
+                      "uid": "35240-6f249538-c302-4052-9cb7-569746c3db4c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:33:01.000Z",
+                  "updatedAt": "2026-07-28T03:33:01.000Z",
+                  "uid": "35240-8a62624b-260e-4b75-be50-22ea5a2ec3a6"
+                }
+              ],
+              "id": "5ba81146-0e73-4c3d-b71f-80412cc16559",
+              "createdAt": "2026-07-28T03:33:01.000Z",
+              "updatedAt": "2026-07-28T03:33:01.000Z",
+              "uid": "35240-5ba81146-0e73-4c3d-b71f-80412cc16559"
+            }
+          ],
+          "id": "052e7d18-38fe-4e96-afb2-c71d01612463",
+          "createdAt": "2026-07-28T03:33:01.000Z",
+          "updatedAt": "2026-07-28T03:33:01.000Z",
+          "uid": "35240-052e7d18-38fe-4e96-afb2-c71d01612463"
+        }
+      ],
+      "id": "10dceb2d-55ca-4405-b62e-2d130a0d6bb5",
+      "createdAt": "2026-07-28T03:33:01.000Z",
+      "updatedAt": "2026-07-28T03:33:01.000Z",
+      "uid": "35240-10dceb2d-55ca-4405-b62e-2d130a0d6bb5"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

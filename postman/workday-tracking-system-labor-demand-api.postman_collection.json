@@ -1,0 +1,422 @@
+{
+  "info": {
+    "_postman_id": "a34f183a-6f6a-47c7-abe2-35955193d2cb",
+    "name": "Workday Absence Management Accruals Labor Demand API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:53.000Z",
+    "updatedAt": "2026-07-28T03:32:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a34f183a-6f6a-47c7-abe2-35955193d2cb"
+  },
+  "item": [
+    {
+      "name": "laborDemand",
+      "item": [
+        {
+          "name": "List Labor Demand",
+          "id": "8d3688a3-0626-4ab1-a55d-3fa7e7257961",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/laborDemand?organizationId=<string>&startDate=<date>&endDate=<date>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "laborDemand"
+              ],
+              "query": [
+                {
+                  "description": "Filter by scheduling organization ID",
+                  "key": "organizationId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Start date for labor demand retrieval",
+                  "key": "startDate",
+                  "value": "<date>"
+                },
+                {
+                  "description": "End date for labor demand retrieval",
+                  "key": "endDate",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "description": "Returns labor demand instances for scheduling planning."
+          },
+          "response": [
+            {
+              "id": "aea4e933-9ebc-4167-acaa-b699e674fe26",
+              "name": "Labor demand retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/laborDemand?organizationId=<string>&startDate=<date>&endDate=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "laborDemand"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by scheduling organization ID",
+                      "key": "organizationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date for labor demand retrieval",
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date for labor demand retrieval",
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hour\": \"<integer>\",\n      \"requiredHeadcount\": \"<integer>\",\n      \"jobProfileId\": \"<string>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"date\": \"<date>\",\n      \"hour\": \"<integer>\",\n      \"requiredHeadcount\": \"<integer>\",\n      \"jobProfileId\": \"<string>\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:53.000Z",
+              "updatedAt": "2026-07-28T03:32:53.000Z",
+              "uid": "35240-aea4e933-9ebc-4167-acaa-b699e674fe26"
+            },
+            {
+              "id": "2e15994d-59ac-4fa2-99fa-5606df332fc8",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/laborDemand?organizationId=<string>&startDate=<date>&endDate=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "laborDemand"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by scheduling organization ID",
+                      "key": "organizationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date for labor demand retrieval",
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date for labor demand retrieval",
+                      "key": "endDate",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:53.000Z",
+              "updatedAt": "2026-07-28T03:32:53.000Z",
+              "uid": "35240-2e15994d-59ac-4fa2-99fa-5606df332fc8"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:53.000Z",
+          "updatedAt": "2026-07-28T03:32:53.000Z",
+          "uid": "35240-8d3688a3-0626-4ab1-a55d-3fa7e7257961"
+        },
+        {
+          "name": "Create Labor Demand",
+          "id": "a10144a6-0f4b-435f-8d9a-e5f6b8cbc7b1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organizationId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"requiredHeadcount\": \"<integer>\",\n  \"hour\": \"<integer>\",\n  \"jobProfileId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/laborDemand",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "laborDemand"
+              ]
+            },
+            "description": "Creates a new labor demand entry for workforce planning."
+          },
+          "response": [
+            {
+              "id": "af2417c6-f6fa-47d4-b4bf-d05c935dd379",
+              "name": "Labor demand created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organizationId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"requiredHeadcount\": \"<integer>\",\n  \"hour\": \"<integer>\",\n  \"jobProfileId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/laborDemand",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "laborDemand"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"hour\": \"<integer>\",\n  \"requiredHeadcount\": \"<integer>\",\n  \"jobProfileId\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:32:53.000Z",
+              "updatedAt": "2026-07-28T03:32:53.000Z",
+              "uid": "35240-af2417c6-f6fa-47d4-b4bf-d05c935dd379"
+            },
+            {
+              "id": "b95648ab-de26-4a4d-9b2d-bece961fadab",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organizationId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"requiredHeadcount\": \"<integer>\",\n  \"hour\": \"<integer>\",\n  \"jobProfileId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/laborDemand",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "laborDemand"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:53.000Z",
+              "updatedAt": "2026-07-28T03:32:53.000Z",
+              "uid": "35240-b95648ab-de26-4a4d-9b2d-bece961fadab"
+            },
+            {
+              "id": "0f1190c6-9ace-443b-9386-e769875ac844",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organizationId\": \"<string>\",\n  \"date\": \"<date>\",\n  \"requiredHeadcount\": \"<integer>\",\n  \"hour\": \"<integer>\",\n  \"jobProfileId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/laborDemand",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "laborDemand"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:53.000Z",
+              "updatedAt": "2026-07-28T03:32:53.000Z",
+              "uid": "35240-0f1190c6-9ace-443b-9386-e769875ac844"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:53.000Z",
+          "updatedAt": "2026-07-28T03:32:53.000Z",
+          "uid": "35240-a10144a6-0f4b-435f-8d9a-e5f6b8cbc7b1"
+        }
+      ],
+      "id": "0797de3c-e702-4ff7-8d53-53f1cc842211",
+      "createdAt": "2026-07-28T03:32:53.000Z",
+      "updatedAt": "2026-07-28T03:32:53.000Z",
+      "uid": "35240-0797de3c-e702-4ff7-8d53-53f1cc842211"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

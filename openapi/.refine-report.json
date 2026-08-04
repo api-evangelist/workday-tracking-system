@@ -1,0 +1,38 @@
+{
+  "provider": "workday-tracking-system",
+  "sources": [
+    "workday-tracking-system-accruals-api-openapi.yml",
+    "workday-tracking-system-balances-api-openapi.yml",
+    "workday-tracking-system-labor-demand-api-openapi.yml",
+    "workday-tracking-system-leave-of-absence-api-openapi.yml",
+    "workday-tracking-system-scheduling-organizations-api-openapi.yml",
+    "workday-tracking-system-shifts-api-openapi.yml",
+    "workday-tracking-system-time-blocks-api-openapi.yml",
+    "workday-tracking-system-time-clock-events-api-openapi.yml",
+    "workday-tracking-system-time-off-api-openapi.yml",
+    "workday-tracking-system-time-requests-api-openapi.yml",
+    "workday-tracking-system-timesheets-api-openapi.yml",
+    "workday-tracking-system-work-schedules-api-openapi.yml",
+    "workday-tracking-system-worker-preferences-api-openapi.yml"
+  ],
+  "outputs": [
+    "workday-tracking-system-accruals-api-openapi.yml",
+    "workday-tracking-system-balances-api-openapi.yml",
+    "workday-tracking-system-labor-demand-api-openapi.yml",
+    "workday-tracking-system-leave-of-absence-api-openapi.yml",
+    "workday-tracking-system-scheduling-organizations-api-openapi.yml",
+    "workday-tracking-system-shifts-api-openapi.yml",
+    "workday-tracking-system-time-blocks-api-openapi.yml",
+    "workday-tracking-system-time-clock-events-api-openapi.yml",
+    "workday-tracking-system-time-off-api-openapi.yml",
+    "workday-tracking-system-time-requests-api-openapi.yml",
+    "workday-tracking-system-timesheets-api-openapi.yml",
+    "workday-tracking-system-work-schedules-api-openapi.yml",
+    "workday-tracking-system-worker-preferences-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

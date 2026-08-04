@@ -1,0 +1,1122 @@
+{
+  "info": {
+    "_postman_id": "024d42ed-fc77-45f6-b799-f0af9f1754b4",
+    "name": "Workday Absence Management Accruals Shifts API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:55.000Z",
+    "updatedAt": "2026-07-28T03:32:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-024d42ed-fc77-45f6-b799-f0af9f1754b4"
+  },
+  "item": [
+    {
+      "name": "scheduleShifts",
+      "item": [
+        {
+          "name": "{shiftId}",
+          "item": [
+            {
+              "name": "Get Schedule Shift",
+              "id": "cd132cd4-7010-4433-bfde-dfad6869630f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts",
+                    ":shiftId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fd2e9d8b-666f-41da-bb99-6bb57c691d45",
+                      "key": "shiftId",
+                      "value": "<string>",
+                      "description": "(Required) The Workday ID of the schedule shift"
+                    }
+                  ]
+                },
+                "description": "Returns a specific schedule shift by ID."
+              },
+              "response": [
+                {
+                  "id": "b5c68ed2-e031-47e7-b2dd-7d8b8a79f381",
+                  "name": "Schedule shift retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"id\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"hours\": \"<float>\",\n  \"shiftType\": \"Split\",\n  \"status\": \"Completed\",\n  \"notes\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-b5c68ed2-e031-47e7-b2dd-7d8b8a79f381"
+                },
+                {
+                  "id": "b93b5f0c-e737-4e9d-b3bb-7af8e8f09c76",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-b93b5f0c-e737-4e9d-b3bb-7af8e8f09c76"
+                },
+                {
+                  "id": "d205b6e5-dd1c-4d05-8f4e-e10ac9e75988",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-d205b6e5-dd1c-4d05-8f4e-e10ac9e75988"
+                }
+              ],
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-cd132cd4-7010-4433-bfde-dfad6869630f"
+            },
+            {
+              "name": "Update Schedule Shift",
+              "id": "b721e0ed-819a-4fc6-bdeb-2c3ea607809b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts",
+                    ":shiftId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5bcdc294-a24d-43d9-962e-a8c7243b0652",
+                      "key": "shiftId",
+                      "value": "<string>",
+                      "description": "(Required) The Workday ID of the schedule shift"
+                    }
+                  ]
+                },
+                "description": "Updates an existing schedule shift."
+              },
+              "response": [
+                {
+                  "id": "865201bd-b28e-4c55-93b4-31182bf66cd0",
+                  "name": "Schedule shift updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"id\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"hours\": \"<float>\",\n  \"shiftType\": \"Split\",\n  \"status\": \"Completed\",\n  \"notes\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-865201bd-b28e-4c55-93b4-31182bf66cd0"
+                },
+                {
+                  "id": "f0a9336b-abe9-472c-be56-600870aef6cb",
+                  "name": "Bad request - invalid input",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-f0a9336b-abe9-472c-be56-600870aef6cb"
+                },
+                {
+                  "id": "094ee544-a825-42a0-b2ef-6d45e1560c8a",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-094ee544-a825-42a0-b2ef-6d45e1560c8a"
+                },
+                {
+                  "id": "fae20874-4bbd-4adc-bbaa-507338ba82b9",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-fae20874-4bbd-4adc-bbaa-507338ba82b9"
+                }
+              ],
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-b721e0ed-819a-4fc6-bdeb-2c3ea607809b"
+            },
+            {
+              "name": "Delete Schedule Shift",
+              "id": "825a4e81-e867-4ee7-9dcf-380d114f0d3d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts",
+                    ":shiftId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7f9bab4e-9ede-49ee-b490-84251df72c52",
+                      "key": "shiftId",
+                      "value": "<string>",
+                      "description": "(Required) The Workday ID of the schedule shift"
+                    }
+                  ]
+                },
+                "description": "Deletes a schedule shift."
+              },
+              "response": [
+                {
+                  "id": "e239efe7-c8b6-428b-9c9b-d7ed48b0d4c4",
+                  "name": "Schedule shift deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-e239efe7-c8b6-428b-9c9b-d7ed48b0d4c4"
+                },
+                {
+                  "id": "1a04f4e8-9f4d-4a2d-ac75-6a8e9e5b3c1b",
+                  "name": "Authentication required",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-1a04f4e8-9f4d-4a2d-ac75-6a8e9e5b3c1b"
+                },
+                {
+                  "id": "3142c78d-59be-49d5-92f7-16580d8518ff",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduleShifts/:shiftId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduleShifts",
+                        ":shiftId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "shiftId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:32:56.000Z",
+                  "updatedAt": "2026-07-28T03:32:56.000Z",
+                  "uid": "35240-3142c78d-59be-49d5-92f7-16580d8518ff"
+                }
+              ],
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-825a4e81-e867-4ee7-9dcf-380d114f0d3d"
+            }
+          ],
+          "id": "325e318f-286a-4ddf-b9f3-bf3c2a9c62ba",
+          "createdAt": "2026-07-28T03:32:56.000Z",
+          "updatedAt": "2026-07-28T03:32:56.000Z",
+          "uid": "35240-325e318f-286a-4ddf-b9f3-bf3c2a9c62ba"
+        },
+        {
+          "name": "List Schedule Shifts",
+          "id": "1385cfdd-ea68-4fda-a07a-328a554e9460",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/scheduleShifts?organizationId=<string>&startDate=<date>&endDate=<date>&limit=100&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduleShifts"
+              ],
+              "query": [
+                {
+                  "description": "Filter by scheduling organization ID",
+                  "key": "organizationId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Start date for shift retrieval (YYYY-MM-DD)",
+                  "key": "startDate",
+                  "value": "<date>"
+                },
+                {
+                  "description": "End date for shift retrieval (YYYY-MM-DD)",
+                  "key": "endDate",
+                  "value": "<date>"
+                },
+                {
+                  "description": "Maximum number of records to return",
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "description": "Offset for pagination",
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Returns shift information for specified scheduling organizations."
+          },
+          "response": [
+            {
+              "id": "8faf0405-ed9c-4ebd-91cd-5fe3f39fb2e2",
+              "name": "Schedule shifts retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts?organizationId=<string>&startDate=<date>&endDate=<date>&limit=100&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by scheduling organization ID",
+                      "key": "organizationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date for shift retrieval (YYYY-MM-DD)",
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date for shift retrieval (YYYY-MM-DD)",
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "description": "Offset for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"total\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"data\": [\n    {\n      \"workerId\": \"<string>\",\n      \"shiftDate\": \"<date>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"id\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"hours\": \"<float>\",\n      \"shiftType\": \"OnCall\",\n      \"status\": \"Scheduled\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"workerId\": \"<string>\",\n      \"shiftDate\": \"<date>\",\n      \"startTime\": \"<time>\",\n      \"endTime\": \"<time>\",\n      \"id\": \"<string>\",\n      \"organizationId\": \"<string>\",\n      \"hours\": \"<float>\",\n      \"shiftType\": \"Overtime\",\n      \"status\": \"Cancelled\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-8faf0405-ed9c-4ebd-91cd-5fe3f39fb2e2"
+            },
+            {
+              "id": "897d0158-a066-4f58-9177-da1472cac099",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts?organizationId=<string>&startDate=<date>&endDate=<date>&limit=100&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by scheduling organization ID",
+                      "key": "organizationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start date for shift retrieval (YYYY-MM-DD)",
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "End date for shift retrieval (YYYY-MM-DD)",
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "description": "Offset for pagination",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-897d0158-a066-4f58-9177-da1472cac099"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:56.000Z",
+          "updatedAt": "2026-07-28T03:32:56.000Z",
+          "uid": "35240-1385cfdd-ea68-4fda-a07a-328a554e9460"
+        },
+        {
+          "name": "Create Schedule Shift",
+          "id": "6eb524c5-f757-4883-870e-4a2238248774",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/scheduleShifts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduleShifts"
+              ]
+            },
+            "description": "Creates a new schedule shift for a worker or position."
+          },
+          "response": [
+            {
+              "id": "3468a58d-4c25-461c-82ab-c2a9accec2ee",
+              "name": "Schedule shift created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"id\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"hours\": \"<float>\",\n  \"shiftType\": \"Split\",\n  \"status\": \"Completed\",\n  \"notes\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-3468a58d-4c25-461c-82ab-c2a9accec2ee"
+            },
+            {
+              "id": "81dda653-2387-470a-87e8-230d067e6849",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-81dda653-2387-470a-87e8-230d067e6849"
+            },
+            {
+              "id": "e54567fd-4b9f-4629-8d87-cbe215faa19e",
+              "name": "Authentication required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workerId\": \"<string>\",\n  \"shiftDate\": \"<date>\",\n  \"startTime\": \"<time>\",\n  \"endTime\": \"<time>\",\n  \"organizationId\": \"<string>\",\n  \"shiftType\": \"Regular\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduleShifts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduleShifts"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:32:56.000Z",
+              "updatedAt": "2026-07-28T03:32:56.000Z",
+              "uid": "35240-e54567fd-4b9f-4629-8d87-cbe215faa19e"
+            }
+          ],
+          "createdAt": "2026-07-28T03:32:56.000Z",
+          "updatedAt": "2026-07-28T03:32:56.000Z",
+          "uid": "35240-6eb524c5-f757-4883-870e-4a2238248774"
+        }
+      ],
+      "id": "e183d089-bc82-4ef5-84be-a6852a289283",
+      "createdAt": "2026-07-28T03:32:56.000Z",
+      "updatedAt": "2026-07-28T03:32:56.000Z",
+      "uid": "35240-e183d089-bc82-4ef5-84be-a6852a289283"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}

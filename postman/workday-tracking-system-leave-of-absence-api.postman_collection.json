@@ -1,0 +1,874 @@
+{
+  "info": {
+    "_postman_id": "d0dea29f-4305-43b1-866f-130bf15f1cee",
+    "name": "Workday Absence Management Accruals Leave of Absence API",
+    "description": "Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.\n\nContact Support:\n Name: Workday Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:32:54.000Z",
+    "updatedAt": "2026-07-28T03:32:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d0dea29f-4305-43b1-866f-130bf15f1cee"
+  },
+  "item": [
+    {
+      "name": "workers",
+      "item": [
+        {
+          "name": "{workerId}",
+          "item": [
+            {
+              "name": "leaveOfAbsence",
+              "item": [
+                {
+                  "name": "{leaveId}",
+                  "item": [
+                    {
+                      "name": "return",
+                      "item": [
+                        {
+                          "name": "Return from Leave of Absence",
+                          "id": "d3230866-f30e-4fae-942b-0781d357f3a6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"returnDate\": \"<date>\",\n  \"comment\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence/:leaveId/return",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workers",
+                                ":workerId",
+                                "leaveOfAbsence",
+                                ":leaveId",
+                                "return"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e8bd079c-4669-45ea-9ce4-a92e457bcf97",
+                                  "key": "workerId",
+                                  "value": "<string>",
+                                  "description": "(Required) The Workday ID of the worker"
+                                },
+                                {
+                                  "id": "09acdbca-1b5d-4d44-a5f8-e8c6637ba35e",
+                                  "key": "leaveId",
+                                  "value": "<string>",
+                                  "description": "(Required) The Workday ID of the leave of absence record"
+                                }
+                              ]
+                            },
+                            "description": "Submits a return from leave of absence request."
+                          },
+                          "response": [
+                            {
+                              "id": "afb6e6bc-c39b-4d6a-9c60-a2dee4c52f40",
+                              "name": "Return from leave processed successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"returnDate\": \"<date>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence/:leaveId/return",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "leaveOfAbsence",
+                                    ":leaveId",
+                                    "return"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "leaveId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"actualReturnDate\": \"<date>\",\n  \"status\": \"Active\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Intermittent\"\n}",
+                              "createdAt": "2026-07-28T03:32:54.000Z",
+                              "updatedAt": "2026-07-28T03:32:54.000Z",
+                              "uid": "35240-afb6e6bc-c39b-4d6a-9c60-a2dee4c52f40"
+                            },
+                            {
+                              "id": "ed3565ad-2b48-4c65-88d8-bf21d217ffc5",
+                              "name": "Bad request - invalid input",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"returnDate\": \"<date>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence/:leaveId/return",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "leaveOfAbsence",
+                                    ":leaveId",
+                                    "return"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "leaveId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:32:54.000Z",
+                              "updatedAt": "2026-07-28T03:32:54.000Z",
+                              "uid": "35240-ed3565ad-2b48-4c65-88d8-bf21d217ffc5"
+                            },
+                            {
+                              "id": "4a5f0374-fd75-48d9-909f-79395182c886",
+                              "name": "Authentication required",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"returnDate\": \"<date>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence/:leaveId/return",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "leaveOfAbsence",
+                                    ":leaveId",
+                                    "return"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "leaveId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:32:54.000Z",
+                              "updatedAt": "2026-07-28T03:32:54.000Z",
+                              "uid": "35240-4a5f0374-fd75-48d9-909f-79395182c886"
+                            },
+                            {
+                              "id": "c31e2df4-0502-4091-b686-8cbcbe4e4e58",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"returnDate\": \"<date>\",\n  \"comment\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence/:leaveId/return",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "workers",
+                                    ":workerId",
+                                    "leaveOfAbsence",
+                                    ":leaveId",
+                                    "return"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workerId"
+                                    },
+                                    {
+                                      "key": "leaveId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:32:54.000Z",
+                              "updatedAt": "2026-07-28T03:32:54.000Z",
+                              "uid": "35240-c31e2df4-0502-4091-b686-8cbcbe4e4e58"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:32:54.000Z",
+                          "updatedAt": "2026-07-28T03:32:54.000Z",
+                          "uid": "35240-d3230866-f30e-4fae-942b-0781d357f3a6"
+                        }
+                      ],
+                      "id": "3ffa8cba-ab9b-42e0-9812-26b766a4a23f",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-3ffa8cba-ab9b-42e0-9812-26b766a4a23f"
+                    }
+                  ],
+                  "id": "158ee61a-56c7-48e8-a2e8-947b710c06de",
+                  "createdAt": "2026-07-28T03:32:54.000Z",
+                  "updatedAt": "2026-07-28T03:32:54.000Z",
+                  "uid": "35240-158ee61a-56c7-48e8-a2e8-947b710c06de"
+                },
+                {
+                  "name": "List Leaves of Absence",
+                  "id": "75a564a8-9256-4463-8381-25fb6beb6b2d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence?status=Approved",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "leaveOfAbsence"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by leave status",
+                          "key": "status",
+                          "value": "Approved"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "fb5d2654-3b91-4681-bc6f-1cde152da974",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Returns leave of absence records for a worker."
+                  },
+                  "response": [
+                    {
+                      "id": "96da1c66-ce7f-4024-8f11-468e1ca729d4",
+                      "name": "Leaves of absence retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence?status=Approved",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by leave status",
+                              "key": "status",
+                              "value": "Approved"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total\": \"<integer>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"leaveType\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"expectedEndDate\": \"<date>\",\n      \"actualReturnDate\": \"<date>\",\n      \"status\": \"Pending\",\n      \"reason\": \"<string>\",\n      \"continuousOrIntermittent\": \"Intermittent\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"leaveType\": \"<string>\",\n      \"startDate\": \"<date>\",\n      \"expectedEndDate\": \"<date>\",\n      \"actualReturnDate\": \"<date>\",\n      \"status\": \"Approved\",\n      \"reason\": \"<string>\",\n      \"continuousOrIntermittent\": \"Continuous\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-96da1c66-ce7f-4024-8f11-468e1ca729d4"
+                    },
+                    {
+                      "id": "650843ad-debd-40c3-8a96-a9ee3d78080f",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence?status=Approved",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by leave status",
+                              "key": "status",
+                              "value": "Approved"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-650843ad-debd-40c3-8a96-a9ee3d78080f"
+                    },
+                    {
+                      "id": "1954c71a-57a1-40b6-836c-fec459c2f962",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence?status=Approved",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by leave status",
+                              "key": "status",
+                              "value": "Approved"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-1954c71a-57a1-40b6-836c-fec459c2f962"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:54.000Z",
+                  "updatedAt": "2026-07-28T03:32:54.000Z",
+                  "uid": "35240-75a564a8-9256-4463-8381-25fb6beb6b2d"
+                },
+                {
+                  "name": "Request Leave of Absence",
+                  "id": "56595471-0c4e-4fd1-98ea-7f5b65a462fb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Continuous\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workers",
+                        ":workerId",
+                        "leaveOfAbsence"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a4e34c78-e5d3-45e4-83ae-1d66cc7fc186",
+                          "key": "workerId",
+                          "value": "<string>",
+                          "description": "(Required) The Workday ID of the worker"
+                        }
+                      ]
+                    },
+                    "description": "Adds a new leave of absence request using associated business processes."
+                  },
+                  "response": [
+                    {
+                      "id": "d39b2358-5a52-4098-9af1-d04c739b339c",
+                      "name": "Leave of absence request created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Continuous\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"actualReturnDate\": \"<date>\",\n  \"status\": \"Active\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Intermittent\"\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-d39b2358-5a52-4098-9af1-d04c739b339c"
+                    },
+                    {
+                      "id": "1d79020d-9a5d-45c5-b622-5ef357135e6c",
+                      "name": "Bad request - invalid input",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Continuous\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-1d79020d-9a5d-45c5-b622-5ef357135e6c"
+                    },
+                    {
+                      "id": "5cc86e2b-653b-4e71-b9b9-47050793f5ad",
+                      "name": "Authentication required",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"leaveType\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"expectedEndDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"continuousOrIntermittent\": \"Continuous\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workers/:workerId/leaveOfAbsence",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workers",
+                            ":workerId",
+                            "leaveOfAbsence"
+                          ],
+                          "variable": [
+                            {
+                              "key": "workerId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": [\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:32:54.000Z",
+                      "updatedAt": "2026-07-28T03:32:54.000Z",
+                      "uid": "35240-5cc86e2b-653b-4e71-b9b9-47050793f5ad"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:32:54.000Z",
+                  "updatedAt": "2026-07-28T03:32:54.000Z",
+                  "uid": "35240-56595471-0c4e-4fd1-98ea-7f5b65a462fb"
+                }
+              ],
+              "id": "9f0ecf53-5399-4dfb-8f8d-2abae73085c1",
+              "createdAt": "2026-07-28T03:32:54.000Z",
+              "updatedAt": "2026-07-28T03:32:54.000Z",
+              "uid": "35240-9f0ecf53-5399-4dfb-8f8d-2abae73085c1"
+            }
+          ],
+          "id": "822dda0f-6192-4cc1-935c-4c6728bb398a",
+          "createdAt": "2026-07-28T03:32:54.000Z",
+          "updatedAt": "2026-07-28T03:32:54.000Z",
+          "uid": "35240-822dda0f-6192-4cc1-935c-4c6728bb398a"
+        }
+      ],
+      "id": "d1ed624a-781b-4d35-a8db-95086bacde95",
+      "createdAt": "2026-07-28T03:32:54.000Z",
+      "updatedAt": "2026-07-28T03:32:54.000Z",
+      "uid": "35240-d1ed624a-781b-4d35-a8db-95086bacde95"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.workday.com/api/absence-management/v1"
+    }
+  ]
+}
