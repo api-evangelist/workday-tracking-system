@@ -21,7 +21,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/workday-tr
 url: https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/apis.yml
 created: '2024-01-15'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: workday-tracking-system:workday-tracking-system-accruals-api
   name: Workday Tracking System Accruals API
