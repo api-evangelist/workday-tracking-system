@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Time Blocks API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Blocks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeBlocks",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for time block retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for time block retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by time block status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns calculated time blocks for a worker within a specified date range."
+        },
+        {
+          "info": {
+            "name": "Create Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeBlocks",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new reported time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Get Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ]
+          },
+          "docs": "Returns a specific time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Update Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing reported time block for a worker."
+        },
+        {
+          "info": {
+            "name": "Delete Time Block",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeBlocks/:timeBlockId",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timeBlockId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the time block"
+              }
+            ]
+          },
+          "docs": "Deletes a reported time block for a worker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Scheduling Organizations API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduling Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scheduling Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/schedulingOrganizations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns scheduling organization data including high-level settings."
+        },
+        {
+          "info": {
+            "name": "Create Scheduling Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/schedulingOrganizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new scheduling organization."
+        },
+        {
+          "info": {
+            "name": "Get Scheduling Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/schedulingOrganizations/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the scheduling organization"
+              }
+            ]
+          },
+          "docs": "Returns a specific scheduling organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

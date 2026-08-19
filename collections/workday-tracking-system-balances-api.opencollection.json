@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Balances API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Off Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timeOffBalances",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "asOfDate",
+                "value": "",
+                "type": "query",
+                "description": "Balance as-of date (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Retrieves dynamic time off plan balances for a worker across all enrolled time off plans."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

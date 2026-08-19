@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Timesheets API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timesheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Timesheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timesheets",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for timesheet retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for timesheet retrieval (YYYY-MM-DD)"
+              }
+            ]
+          },
+          "docs": "Returns timesheets for a worker within a date range."
+        },
+        {
+          "info": {
+            "name": "Submit Timesheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/timesheets/:timesheetId/submit",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              },
+              {
+                "name": "timesheetId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the timesheet"
+              }
+            ]
+          },
+          "docs": "Submits a timesheet for approval."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

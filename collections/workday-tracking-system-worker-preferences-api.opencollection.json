@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Worker Preferences API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Worker Preferences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Worker Scheduling Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/schedulingPreferences",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ]
+          },
+          "docs": "Returns scheduling preferences for a worker."
+        },
+        {
+          "info": {
+            "name": "Update Worker Scheduling Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/workers/:workerId/schedulingPreferences",
+            "params": [
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the worker"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates scheduling preferences for a worker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Absence Management Accruals Shifts API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shifts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedule Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/scheduleShifts",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scheduling organization ID"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for shift retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for shift retrieval (YYYY-MM-DD)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns shift information for specified scheduling organizations."
+        },
+        {
+          "info": {
+            "name": "Create Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/scheduleShifts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new schedule shift for a worker or position."
+        },
+        {
+          "info": {
+            "name": "Get Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ]
+          },
+          "docs": "Returns a specific schedule shift by ID."
+        },
+        {
+          "info": {
+            "name": "Update Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing schedule shift."
+        },
+        {
+          "info": {
+            "name": "Delete Schedule Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.workday.com/api/absence-management/v1/scheduleShifts/:shiftId",
+            "params": [
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "path",
+                "description": "The Workday ID of the schedule shift"
+              }
+            ]
+          },
+          "docs": "Deletes a schedule shift."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
