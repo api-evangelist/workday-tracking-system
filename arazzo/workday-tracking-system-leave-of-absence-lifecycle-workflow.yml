@@ -10,8 +10,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: absenceManagementApi
-  url: ../openapi/workday-tracking-system-absence-management-openapi.yml
+- name: leaveOfAbsenceApi
+  url: ../openapi/workday-tracking-system-leave-of-absence-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: leave-of-absence-lifecycle

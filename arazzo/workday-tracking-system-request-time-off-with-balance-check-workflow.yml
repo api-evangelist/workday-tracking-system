@@ -12,8 +12,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: absenceManagementApi
-  url: ../openapi/workday-tracking-system-absence-management-openapi.yml
+- name: balancesApi
+  url: ../openapi/workday-tracking-system-balances-api-openapi.yml
+  type: openapi
+- name: timeOffApi
+  url: ../openapi/workday-tracking-system-time-off-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: request-time-off-with-balance-check

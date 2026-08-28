@@ -11,8 +11,11 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: schedulingApi
-  url: ../openapi/workday-tracking-system-scheduling-openapi.yml
+- name: laborDemandApi
+  url: ../openapi/workday-tracking-system-labor-demand-api-openapi.yml
+  type: openapi
+- name: shiftsApi
+  url: ../openapi/workday-tracking-system-shifts-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: staff-against-labor-demand

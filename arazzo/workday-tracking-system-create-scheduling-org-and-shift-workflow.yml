@@ -10,8 +10,11 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: schedulingApi
-  url: ../openapi/workday-tracking-system-scheduling-openapi.yml
+- name: schedulingOrganizationsApi
+  url: ../openapi/workday-tracking-system-scheduling-organizations-api-openapi.yml
+  type: openapi
+- name: shiftsApi
+  url: ../openapi/workday-tracking-system-shifts-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-scheduling-org-and-shift

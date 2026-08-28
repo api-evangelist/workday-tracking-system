@@ -11,8 +11,11 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: schedulingApi
-  url: ../openapi/workday-tracking-system-scheduling-openapi.yml
+- name: shiftsApi
+  url: ../openapi/workday-tracking-system-shifts-api-openapi.yml
+  type: openapi
+- name: workerPreferencesApi
+  url: ../openapi/workday-tracking-system-worker-preferences-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: update-scheduling-preferences-and-shift
