@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Work Schedules API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -85,6 +85,56 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    WorkScheduleAssignment:
+      type: object
+      description: Input for assigning a work schedule to a worker
+      properties:
+        scheduleId:
+          type: string
+          description: Workday ID of the schedule to assign
+          example: sch_standard_5day
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the assignment becomes effective
+          example: '2026-05-01'
+        endDate:
+          type: string
+          format: date
+          description: Optional end date for the assignment
+      required:
+      - scheduleId
+      - effectiveDate
+    Shift:
+      type: object
+      description: A single shift within a work schedule
+      properties:
+        dayOfWeek:
+          type: string
+          description: Day of the week for this shift
+          enum:
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+          - Sunday
+        startTime:
+          type: string
+          format: time
+          description: Shift start time (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: Shift end time (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours for this shift
+          example: 8.0
     WorkSchedule:
       type: object
       description: A worker's work schedule assignment
@@ -128,26 +178,6 @@ components:
       - workerId
       - scheduleName
       - effectiveDate
-    WorkScheduleAssignment:
-      type: object
-      description: Input for assigning a work schedule to a worker
-      properties:
-        scheduleId:
-          type: string
-          description: Workday ID of the schedule to assign
-          example: sch_standard_5day
-        effectiveDate:
-          type: string
-          format: date
-          description: Date the assignment becomes effective
-          example: '2026-05-01'
-        endDate:
-          type: string
-          format: date
-          description: Optional end date for the assignment
-      required:
-      - scheduleId
-      - effectiveDate
     ErrorResponse:
       type: object
       description: Standard error response
@@ -172,45 +202,15 @@ components:
               message:
                 type: string
                 description: Field-level error message
-    Shift:
-      type: object
-      description: A single shift within a work schedule
-      properties:
-        dayOfWeek:
-          type: string
-          description: Day of the week for this shift
-          enum:
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-          - Sunday
-        startTime:
-          type: string
-          format: time
-          description: Shift start time (HH:MM:SS)
-          example: 09:00:00
-        endTime:
-          type: string
-          format: time
-          description: Shift end time (HH:MM:SS)
-          example: '17:00:00'
-        hours:
-          type: number
-          format: float
-          description: Total hours for this shift
-          example: 8.0
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

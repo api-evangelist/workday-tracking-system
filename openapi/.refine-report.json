@@ -33,6 +33,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "workday-tracking-system-accruals-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-balances-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-labor-demand-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-leave-of-absence-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-scheduling-organizations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-shifts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-time-blocks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-time-clock-events-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-time-off-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-time-requests-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-timesheets-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-work-schedules-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "workday-tracking-system-worker-preferences-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

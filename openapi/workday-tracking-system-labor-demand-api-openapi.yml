@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Labor Demand API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -83,6 +83,35 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    LaborDemand:
+      type: object
+      description: A labor demand entry for workforce planning
+      properties:
+        id:
+          type: string
+          description: Unique ID of the labor demand entry
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        date:
+          type: string
+          format: date
+          description: Date for the labor demand
+        hour:
+          type: integer
+          description: Hour of the day (0-23) for the demand
+          minimum: 0
+          maximum: 23
+        requiredHeadcount:
+          type: integer
+          description: Number of workers required
+          example: 5
+        jobProfileId:
+          type: string
+          description: Job profile/role required
+        notes:
+          type: string
+          description: Optional notes
     LaborDemandResponse:
       type: object
       properties:
@@ -134,35 +163,6 @@ components:
       - organizationId
       - date
       - requiredHeadcount
-    LaborDemand:
-      type: object
-      description: A labor demand entry for workforce planning
-      properties:
-        id:
-          type: string
-          description: Unique ID of the labor demand entry
-        organizationId:
-          type: string
-          description: Scheduling organization ID
-        date:
-          type: string
-          format: date
-          description: Date for the labor demand
-        hour:
-          type: integer
-          description: Hour of the day (0-23) for the demand
-          minimum: 0
-          maximum: 23
-        requiredHeadcount:
-          type: integer
-          description: Number of workers required
-          example: 5
-        jobProfileId:
-          type: string
-          description: Job profile/role required
-        notes:
-          type: string
-          description: Optional notes
   responses:
     Unauthorized:
       description: Authentication required

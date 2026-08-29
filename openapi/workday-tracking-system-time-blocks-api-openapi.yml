@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Time Blocks API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -216,32 +216,53 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    TimeBlockInput:
+      type: object
+      description: Input payload for creating or updating a time block
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date of the time block (YYYY-MM-DD)
+          example: '2026-05-03'
+        startTime:
+          type: string
+          format: time
+          description: Start time of the time block (HH:MM:SS)
+          example: 09:00:00
+        endTime:
+          type: string
+          format: time
+          description: End time of the time block (HH:MM:SS)
+          example: '17:00:00'
+        hours:
+          type: number
+          format: float
+          description: Total hours worked
+          example: 8.0
+        type:
+          type: string
+          description: Type of time block
+          enum:
+          - Regular
+          - Overtime
+          - Holiday
+          - Leave
+          example: Regular
+        projectId:
+          type: string
+          description: Associated project ID (optional)
+        taskId:
+          type: string
+          description: Associated task ID (optional)
+        comment:
+          type: string
+          description: Optional comment
+      required:
+      - date
+      - hours
+      - type
     TimeBlocksResponse:
       type: object
       description: Paginated response containing time blocks
@@ -263,6 +284,30 @@ components:
           description: Array of time blocks
           items:
             $ref: '#/components/schemas/TimeBlock'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
     TimeBlock:
       type: object
       description: A reported or calculated time block representing hours worked
@@ -340,76 +385,31 @@ components:
       - date
       - hours
       - type
-    TimeBlockInput:
-      type: object
-      description: Input payload for creating or updating a time block
-      properties:
-        date:
-          type: string
-          format: date
-          description: Date of the time block (YYYY-MM-DD)
-          example: '2026-05-03'
-        startTime:
-          type: string
-          format: time
-          description: Start time of the time block (HH:MM:SS)
-          example: 09:00:00
-        endTime:
-          type: string
-          format: time
-          description: End time of the time block (HH:MM:SS)
-          example: '17:00:00'
-        hours:
-          type: number
-          format: float
-          description: Total hours worked
-          example: 8.0
-        type:
-          type: string
-          description: Type of time block
-          enum:
-          - Regular
-          - Overtime
-          - Holiday
-          - Leave
-          example: Regular
-        projectId:
-          type: string
-          description: Associated project ID (optional)
-        taskId:
-          type: string
-          description: Associated task ID (optional)
-        comment:
-          type: string
-          description: Optional comment
-      required:
-      - date
-      - hours
-      - type
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: INVALID_REQUEST
-        message:
-          type: string
-          description: Human-readable error message
-          example: The request is missing required fields
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Field-level error message
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

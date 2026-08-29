@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Time Clock Events API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -92,33 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TimeClockEventInput:
-      type: object
-      description: Input for creating a time clock event
-      properties:
-        eventType:
-          type: string
-          description: Type of clock event
-          enum:
-          - ClockIn
-          - ClockOut
-          - BreakStart
-          - BreakEnd
-          example: ClockIn
-        eventDateTime:
-          type: string
-          format: date-time
-          description: Date and time of the clock event
-          example: '2026-05-03T09:00:00Z'
-        deviceId:
-          type: string
-          description: ID of the time clock device (optional)
-        locationId:
-          type: string
-          description: Location identifier (optional)
-      required:
-      - eventType
-      - eventDateTime
     TimeClockEvent:
       type: object
       description: A time clock event recording a punch-in or punch-out
@@ -159,6 +132,33 @@ components:
       - workerId
       - eventType
       - eventDateTime
+    TimeClockEventInput:
+      type: object
+      description: Input for creating a time clock event
+      properties:
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+          - ClockIn
+          - ClockOut
+          - BreakStart
+          - BreakEnd
+          example: ClockIn
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device (optional)
+        locationId:
+          type: string
+          description: Location identifier (optional)
+      required:
+      - eventType
+      - eventDateTime
     ErrorResponse:
       type: object
       description: Standard error response
@@ -196,14 +196,14 @@ components:
           items:
             $ref: '#/components/schemas/TimeClockEvent'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

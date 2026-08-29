@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Leave of Absence API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -128,36 +128,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    LeavesOfAbsenceResponse:
-      type: object
-      description: Response containing leaves of absence
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveOfAbsence'
     LeaveOfAbsenceInput:
       type: object
       description: Input for creating a leave of absence request
@@ -190,39 +161,6 @@ components:
       - leaveType
       - startDate
       - expectedEndDate
-    ReturnFromLeaveInput:
-      type: object
-      description: Input for processing a return from leave
-      properties:
-        returnDate:
-          type: string
-          format: date
-          description: Actual date of return
-          example: '2026-06-30'
-        comment:
-          type: string
-          description: Optional comment on the return
-      required:
-      - returnDate
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
     LeaveOfAbsence:
       type: object
       description: A leave of absence record
@@ -270,6 +208,68 @@ components:
           - Continuous
           - Intermittent
           example: Continuous
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    ReturnFromLeaveInput:
+      type: object
+      description: Input for processing a return from leave
+      properties:
+        returnDate:
+          type: string
+          format: date
+          description: Actual date of return
+          example: '2026-06-30'
+        comment:
+          type: string
+          description: Optional comment on the return
+      required:
+      - returnDate
+    LeavesOfAbsenceResponse:
+      type: object
+      description: Response containing leaves of absence
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveOfAbsence'
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

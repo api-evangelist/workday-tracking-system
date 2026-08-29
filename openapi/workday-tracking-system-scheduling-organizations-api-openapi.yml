@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Workday Absence Management Accruals Scheduling Organizations API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
@@ -102,14 +102,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -121,29 +121,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    SchedulingOrganizationInput:
-      type: object
-      description: Input for creating a scheduling organization
-      properties:
-        name:
-          type: string
-          description: Name of the organization
-        type:
-          type: string
-          description: Organization type
-          enum:
-          - Site
-          - Department
-          - Team
-        parentOrganizationId:
-          type: string
-          description: Parent organization ID (optional)
-        timezone:
-          type: string
-          description: Timezone identifier
-      required:
-      - name
-      - type
     ErrorResponse:
       type: object
       properties:
@@ -202,6 +179,29 @@ components:
               description: Days when the location operates
               items:
                 type: string
+    SchedulingOrganizationInput:
+      type: object
+      description: Input for creating a scheduling organization
+      properties:
+        name:
+          type: string
+          description: Name of the organization
+        type:
+          type: string
+          description: Organization type
+          enum:
+          - Site
+          - Department
+          - Team
+        parentOrganizationId:
+          type: string
+          description: Parent organization ID (optional)
+        timezone:
+          type: string
+          description: Timezone identifier
+      required:
+      - name
+      - type
     SchedulingOrganizationsResponse:
       type: object
       properties:
