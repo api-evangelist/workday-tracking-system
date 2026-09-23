@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Workday Absence Management Accruals Labor Demand API
-  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  title: Workday Scheduling Labor Demand API
+  description: Create and manage employee work schedules, shifts, scheduling organizations, and labor demand within the Workday platform. Supports importing schedule data, managing shift assignments, and configuring scheduling settings.
   version: v1
   contact:
     name: Workday Developer Support
@@ -9,8 +9,8 @@ info:
   x-generated-from: documentation
   x-last-validated: '2026-05-03'
 servers:
-- url: https://{tenant}.workday.com/api/absence-management/v1
-  description: Workday tenant-specific Absence Management REST API
+- url: https://{tenant}.workday.com/api/scheduling/v1
+  description: Workday tenant-specific Scheduling REST API
   variables:
     tenant:
       default: your-tenant
@@ -83,6 +83,31 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    LaborDemandResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborDemand'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     LaborDemand:
       type: object
       description: A labor demand entry for workforce planning
@@ -112,31 +137,6 @@ components:
         notes:
           type: string
           description: Optional notes
-    LaborDemandResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaborDemand'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
     LaborDemandInput:
       type: object
       description: Input for creating a labor demand entry
@@ -164,14 +164,14 @@ components:
       - date
       - requiredHeadcount
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:

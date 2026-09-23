@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Workday Absence Management Accruals Leave of Absence API
+  title: Workday Absence Management Leave of Absence API
   description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
   version: v1
   contact:
@@ -129,38 +129,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    LeaveOfAbsenceInput:
-      type: object
-      description: Input for creating a leave of absence request
-      properties:
-        leaveType:
-          type: string
-          description: Type of leave
-          example: FMLA
-        startDate:
-          type: string
-          format: date
-          description: Leave start date
-          example: '2026-06-01'
-        expectedEndDate:
-          type: string
-          format: date
-          description: Expected return date
-          example: '2026-07-01'
-        reason:
-          type: string
-          description: Reason for the leave
-        continuousOrIntermittent:
-          type: string
-          description: Leave continuity type
-          enum:
-          - Continuous
-          - Intermittent
-          default: Continuous
-      required:
-      - leaveType
-      - startDate
-      - expectedEndDate
     LeaveOfAbsence:
       type: object
       description: A leave of absence record
@@ -208,6 +176,30 @@ components:
           - Continuous
           - Intermittent
           example: Continuous
+    LeavesOfAbsenceResponse:
+      type: object
+      description: Response containing leaves of absence
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveOfAbsence'
+    ReturnFromLeaveInput:
+      type: object
+      description: Input for processing a return from leave
+      properties:
+        returnDate:
+          type: string
+          format: date
+          description: Actual date of return
+          example: '2026-06-30'
+        comment:
+          type: string
+          description: Optional comment on the return
+      required:
+      - returnDate
     ErrorResponse:
       type: object
       description: Standard error response
@@ -227,33 +219,41 @@ components:
                 type: string
               message:
                 type: string
-    ReturnFromLeaveInput:
+    LeaveOfAbsenceInput:
       type: object
-      description: Input for processing a return from leave
+      description: Input for creating a leave of absence request
       properties:
-        returnDate:
+        leaveType:
+          type: string
+          description: Type of leave
+          example: FMLA
+        startDate:
           type: string
           format: date
-          description: Actual date of return
-          example: '2026-06-30'
-        comment:
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
           type: string
-          description: Optional comment on the return
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        reason:
+          type: string
+          description: Reason for the leave
+        continuousOrIntermittent:
+          type: string
+          description: Leave continuity type
+          enum:
+          - Continuous
+          - Intermittent
+          default: Continuous
       required:
-      - returnDate
-    LeavesOfAbsenceResponse:
-      type: object
-      description: Response containing leaves of absence
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveOfAbsence'
+      - leaveType
+      - startDate
+      - expectedEndDate
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
@@ -264,8 +264,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:

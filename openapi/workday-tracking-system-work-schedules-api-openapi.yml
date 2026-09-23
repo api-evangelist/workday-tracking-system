@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Workday Absence Management Accruals Work Schedules API
-  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  title: Workday Time Tracking Work Schedules API
+  description: Manage employee time entries, time blocks, time clock events, work schedule assignments, and time requests within the Workday platform. Supports both individual and batch operations for enterprise workforce management.
   version: v1
   contact:
     name: Workday Developer Support
@@ -9,8 +9,8 @@ info:
   x-generated-from: documentation
   x-last-validated: '2026-05-03'
 servers:
-- url: https://{tenant}.workday.com/api/absence-management/v1
-  description: Workday tenant-specific Absence Management REST API
+- url: https://{tenant}.workday.com/api/time-tracking/v1
+  description: Workday tenant-specific Time Tracking REST API
   variables:
     tenant:
       default: your-tenant
@@ -85,26 +85,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    WorkScheduleAssignment:
-      type: object
-      description: Input for assigning a work schedule to a worker
-      properties:
-        scheduleId:
-          type: string
-          description: Workday ID of the schedule to assign
-          example: sch_standard_5day
-        effectiveDate:
-          type: string
-          format: date
-          description: Date the assignment becomes effective
-          example: '2026-05-01'
-        endDate:
-          type: string
-          format: date
-          description: Optional end date for the assignment
-      required:
-      - scheduleId
-      - effectiveDate
     Shift:
       type: object
       description: A single shift within a work schedule
@@ -135,6 +115,50 @@ components:
           format: float
           description: Total hours for this shift
           example: 8.0
+    WorkScheduleAssignment:
+      type: object
+      description: Input for assigning a work schedule to a worker
+      properties:
+        scheduleId:
+          type: string
+          description: Workday ID of the schedule to assign
+          example: sch_standard_5day
+        effectiveDate:
+          type: string
+          format: date
+          description: Date the assignment becomes effective
+          example: '2026-05-01'
+        endDate:
+          type: string
+          format: date
+          description: Optional end date for the assignment
+      required:
+      - scheduleId
+      - effectiveDate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
     WorkSchedule:
       type: object
       description: A worker's work schedule assignment
@@ -178,33 +202,9 @@ components:
       - workerId
       - scheduleName
       - effectiveDate
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: INVALID_REQUEST
-        message:
-          type: string
-          description: Human-readable error message
-          example: The request is missing required fields
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Field-level error message
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
@@ -215,8 +215,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:

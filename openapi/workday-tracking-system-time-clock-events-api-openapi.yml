@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Workday Absence Management Accruals Time Clock Events API
-  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  title: Workday Time Tracking Time Clock Events API
+  description: Manage employee time entries, time blocks, time clock events, work schedule assignments, and time requests within the Workday platform. Supports both individual and batch operations for enterprise workforce management.
   version: v1
   contact:
     name: Workday Developer Support
@@ -9,8 +9,8 @@ info:
   x-generated-from: documentation
   x-last-validated: '2026-05-03'
 servers:
-- url: https://{tenant}.workday.com/api/absence-management/v1
-  description: Workday tenant-specific Absence Management REST API
+- url: https://{tenant}.workday.com/api/time-tracking/v1
+  description: Workday tenant-specific Time Tracking REST API
   variables:
     tenant:
       default: your-tenant
@@ -92,46 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TimeClockEvent:
-      type: object
-      description: A time clock event recording a punch-in or punch-out
-      properties:
-        id:
-          type: string
-          description: Unique Workday ID of the time clock event
-        workerId:
-          type: string
-          description: Workday ID of the worker
-        eventType:
-          type: string
-          description: Type of clock event
-          enum:
-          - ClockIn
-          - ClockOut
-          - BreakStart
-          - BreakEnd
-        eventDateTime:
-          type: string
-          format: date-time
-          description: Date and time of the clock event
-          example: '2026-05-03T09:00:00Z'
-        deviceId:
-          type: string
-          description: ID of the time clock device
-        locationId:
-          type: string
-          description: Location identifier for the clock event
-        status:
-          type: string
-          description: Processing status of the event
-          enum:
-          - Pending
-          - Processed
-          - Failed
-      required:
-      - workerId
-      - eventType
-      - eventDateTime
     TimeClockEventInput:
       type: object
       description: Input for creating a time clock event
@@ -183,6 +143,46 @@ components:
               message:
                 type: string
                 description: Field-level error message
+    TimeClockEvent:
+      type: object
+      description: A time clock event recording a punch-in or punch-out
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the time clock event
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+          - ClockIn
+          - ClockOut
+          - BreakStart
+          - BreakEnd
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device
+        locationId:
+          type: string
+          description: Location identifier for the clock event
+        status:
+          type: string
+          description: Processing status of the event
+          enum:
+          - Pending
+          - Processed
+          - Failed
+      required:
+      - workerId
+      - eventType
+      - eventDateTime
     TimeClockEventsResponse:
       type: object
       description: Response containing time clock events
@@ -196,8 +196,8 @@ components:
           items:
             $ref: '#/components/schemas/TimeClockEvent'
   responses:
-    Unauthorized:
-      description: Authentication required
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
@@ -208,8 +208,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:

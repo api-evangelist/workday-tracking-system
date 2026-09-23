@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Workday Absence Management Accruals Scheduling Organizations API
-  description: Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+  title: Workday Scheduling Scheduling Organizations API
+  description: Create and manage employee work schedules, shifts, scheduling organizations, and labor demand within the Workday platform. Supports importing schedule data, managing shift assignments, and configuring scheduling settings.
   version: v1
   contact:
     name: Workday Developer Support
@@ -9,8 +9,8 @@ info:
   x-generated-from: documentation
   x-last-validated: '2026-05-03'
 servers:
-- url: https://{tenant}.workday.com/api/absence-management/v1
-  description: Workday tenant-specific Absence Management REST API
+- url: https://{tenant}.workday.com/api/scheduling/v1
+  description: Workday tenant-specific Scheduling REST API
   variables:
     tenant:
       default: your-tenant
@@ -101,42 +101,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
     SchedulingOrganization:
       type: object
       description: A scheduling organization unit
@@ -179,6 +144,35 @@ components:
               description: Days when the location operates
               items:
                 type: string
+    SchedulingOrganizationsResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchedulingOrganization'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     SchedulingOrganizationInput:
       type: object
       description: Input for creating a scheduling organization
@@ -202,19 +196,25 @@ components:
       required:
       - name
       - type
-    SchedulingOrganizationsResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        limit:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SchedulingOrganization'
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http
