@@ -92,6 +92,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    TimeRequestInput:
+      type: object
+      description: Input for creating a time request
+      properties:
+        requestDate:
+          type: string
+          format: date
+          description: Date for the time request
+          example: '2026-05-03'
+        requestType:
+          type: string
+          description: Type of time request
+          enum:
+          - Overtime
+          - AdjustmentRequest
+          - ScheduleChange
+        comment:
+          type: string
+          description: Comment explaining the request
+      required:
+      - requestDate
+      - requestType
     TimeRequestsResponse:
       type: object
       description: Response containing time requests
@@ -144,28 +166,6 @@ components:
           format: date-time
           description: Timestamp of request creation
           readOnly: true
-    TimeRequestInput:
-      type: object
-      description: Input for creating a time request
-      properties:
-        requestDate:
-          type: string
-          format: date
-          description: Date for the time request
-          example: '2026-05-03'
-        requestType:
-          type: string
-          description: Type of time request
-          enum:
-          - Overtime
-          - AdjustmentRequest
-          - ScheduleChange
-        comment:
-          type: string
-          description: Comment explaining the request
-      required:
-      - requestDate
-      - requestType
     ErrorResponse:
       type: object
       description: Standard error response
@@ -197,14 +197,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

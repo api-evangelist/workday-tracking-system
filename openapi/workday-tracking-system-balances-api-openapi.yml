@@ -55,6 +55,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    TimeOffBalancesResponse:
+      type: object
+      description: Response containing time off balances
+      properties:
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        balances:
+          type: array
+          description: Array of time off plan balances
+          items:
+            $ref: '#/components/schemas/TimeOffBalance'
     TimeOffBalance:
       type: object
       description: A worker's balance for a specific time off plan
@@ -97,18 +109,6 @@ components:
           type: string
           format: date
           description: Date the balance was calculated
-    TimeOffBalancesResponse:
-      type: object
-      description: Response containing time off balances
-      properties:
-        workerId:
-          type: string
-          description: Workday ID of the worker
-        balances:
-          type: array
-          description: Array of time off plan balances
-          items:
-            $ref: '#/components/schemas/TimeOffBalance'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -129,14 +129,14 @@ components:
               message:
                 type: string
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

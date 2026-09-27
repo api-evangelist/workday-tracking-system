@@ -92,57 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TimeClockEventInput:
-      type: object
-      description: Input for creating a time clock event
-      properties:
-        eventType:
-          type: string
-          description: Type of clock event
-          enum:
-          - ClockIn
-          - ClockOut
-          - BreakStart
-          - BreakEnd
-          example: ClockIn
-        eventDateTime:
-          type: string
-          format: date-time
-          description: Date and time of the clock event
-          example: '2026-05-03T09:00:00Z'
-        deviceId:
-          type: string
-          description: ID of the time clock device (optional)
-        locationId:
-          type: string
-          description: Location identifier (optional)
-      required:
-      - eventType
-      - eventDateTime
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: INVALID_REQUEST
-        message:
-          type: string
-          description: Human-readable error message
-          example: The request is missing required fields
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Field-level error message
     TimeClockEvent:
       type: object
       description: A time clock event recording a punch-in or punch-out
@@ -183,6 +132,33 @@ components:
       - workerId
       - eventType
       - eventDateTime
+    TimeClockEventInput:
+      type: object
+      description: Input for creating a time clock event
+      properties:
+        eventType:
+          type: string
+          description: Type of clock event
+          enum:
+          - ClockIn
+          - ClockOut
+          - BreakStart
+          - BreakEnd
+          example: ClockIn
+        eventDateTime:
+          type: string
+          format: date-time
+          description: Date and time of the clock event
+          example: '2026-05-03T09:00:00Z'
+        deviceId:
+          type: string
+          description: ID of the time clock device (optional)
+        locationId:
+          type: string
+          description: Location identifier (optional)
+      required:
+      - eventType
+      - eventDateTime
     TimeClockEventsResponse:
       type: object
       description: Response containing time clock events
@@ -195,6 +171,30 @@ components:
           description: Array of time clock events
           items:
             $ref: '#/components/schemas/TimeClockEvent'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
   responses:
     BadRequest:
       description: Bad request - invalid input
@@ -202,14 +202,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

@@ -176,16 +176,6 @@ components:
           - Continuous
           - Intermittent
           example: Continuous
-    LeavesOfAbsenceResponse:
-      type: object
-      description: Response containing leaves of absence
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveOfAbsence'
     ReturnFromLeaveInput:
       type: object
       description: Input for processing a return from leave
@@ -200,25 +190,6 @@ components:
           description: Optional comment on the return
       required:
       - returnDate
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
     LeaveOfAbsenceInput:
       type: object
       description: Input for creating a leave of absence request
@@ -251,6 +222,35 @@ components:
       - leaveType
       - startDate
       - expectedEndDate
+    LeavesOfAbsenceResponse:
+      type: object
+      description: Response containing leaves of absence
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveOfAbsence'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
   responses:
     BadRequest:
       description: Bad request - invalid input
@@ -258,14 +258,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

@@ -84,14 +84,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -165,6 +165,16 @@ components:
       - overrideType
       - hours
       - effectiveDate
+    AccrualOverridesResponse:
+      type: object
+      description: Response containing accrual overrides
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccrualOverride'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -184,16 +194,6 @@ components:
                 type: string
               message:
                 type: string
-    AccrualOverridesResponse:
-      type: object
-      description: Response containing accrual overrides
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccrualOverride'
   securitySchemes:
     BearerAuth:
       type: http

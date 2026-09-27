@@ -83,31 +83,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    LaborDemandResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaborDemand'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
     LaborDemand:
       type: object
       description: A labor demand entry for workforce planning
@@ -137,6 +112,15 @@ components:
         notes:
           type: string
           description: Optional notes
+    LaborDemandResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborDemand'
     LaborDemandInput:
       type: object
       description: Input for creating a labor demand entry
@@ -163,6 +147,22 @@ components:
       - organizationId
       - date
       - requiredHeadcount
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
   responses:
     BadRequest:
       description: Bad request - invalid input

@@ -144,6 +144,29 @@ components:
               description: Days when the location operates
               items:
                 type: string
+    SchedulingOrganizationInput:
+      type: object
+      description: Input for creating a scheduling organization
+      properties:
+        name:
+          type: string
+          description: Name of the organization
+        type:
+          type: string
+          description: Organization type
+          enum:
+          - Site
+          - Department
+          - Team
+        parentOrganizationId:
+          type: string
+          description: Parent organization ID (optional)
+        timezone:
+          type: string
+          description: Timezone identifier
+      required:
+      - name
+      - type
     SchedulingOrganizationsResponse:
       type: object
       properties:
@@ -173,29 +196,6 @@ components:
                 type: string
               message:
                 type: string
-    SchedulingOrganizationInput:
-      type: object
-      description: Input for creating a scheduling organization
-      properties:
-        name:
-          type: string
-          description: Name of the organization
-        type:
-          type: string
-          description: Organization type
-          enum:
-          - Site
-          - Department
-          - Team
-        parentOrganizationId:
-          type: string
-          description: Parent organization ID (optional)
-        timezone:
-          type: string
-          description: Timezone identifier
-      required:
-      - name
-      - type
   responses:
     BadRequest:
       description: Bad request - invalid input
@@ -203,14 +203,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
