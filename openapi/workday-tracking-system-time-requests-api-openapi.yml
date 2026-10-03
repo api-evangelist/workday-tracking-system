@@ -91,29 +91,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    TimeRequestInput:
-      type: object
-      description: Input for creating a time request
-      properties:
-        requestDate:
-          type: string
-          format: date
-          description: Date for the time request
-          example: '2026-05-03'
-        requestType:
-          type: string
-          description: Type of time request
-          enum:
-          - Overtime
-          - AdjustmentRequest
-          - ScheduleChange
-        comment:
-          type: string
-          description: Comment explaining the request
-      required:
-      - requestDate
-      - requestType
     TimeRequestsResponse:
       type: object
       description: Response containing time requests
@@ -166,6 +163,28 @@ components:
           format: date-time
           description: Timestamp of request creation
           readOnly: true
+    TimeRequestInput:
+      type: object
+      description: Input for creating a time request
+      properties:
+        requestDate:
+          type: string
+          format: date
+          description: Date for the time request
+          example: '2026-05-03'
+        requestType:
+          type: string
+          description: Type of time request
+          enum:
+          - Overtime
+          - AdjustmentRequest
+          - ScheduleChange
+        comment:
+          type: string
+          description: Comment explaining the request
+      required:
+      - requestDate
+      - requestType
     ErrorResponse:
       type: object
       description: Standard error response
@@ -190,25 +209,6 @@ components:
               message:
                 type: string
                 description: Field-level error message
-  responses:
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

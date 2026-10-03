@@ -54,19 +54,20 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    TimeOffBalancesResponse:
-      type: object
-      description: Response containing time off balances
-      properties:
-        workerId:
-          type: string
-          description: Workday ID of the worker
-        balances:
-          type: array
-          description: Array of time off plan balances
-          items:
-            $ref: '#/components/schemas/TimeOffBalance'
     TimeOffBalance:
       type: object
       description: A worker's balance for a specific time off plan
@@ -128,19 +129,18 @@ components:
                 type: string
               message:
                 type: string
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    TimeOffBalancesResponse:
+      type: object
+      description: Response containing time off balances
+      properties:
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        balances:
+          type: array
+          description: Array of time off plan balances
+          items:
+            $ref: '#/components/schemas/TimeOffBalance'
   securitySchemes:
     BearerAuth:
       type: http

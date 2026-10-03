@@ -186,6 +186,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     TimeOffResponse:
       type: object
@@ -201,6 +220,50 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimeOffEntry'
+    TimeOffInput:
+      type: object
+      description: Input for creating or adjusting a time off entry
+      properties:
+        timeOffType:
+          type: string
+          description: Type of time off plan
+          example: Vacation
+        startDate:
+          type: string
+          format: date
+          description: Start date of the time off
+          example: '2026-05-10'
+        endDate:
+          type: string
+          format: date
+          description: End date of the time off
+          example: '2026-05-14'
+        comment:
+          type: string
+          description: Optional comment
+      required:
+      - timeOffType
+      - startDate
+      - endDate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     TimeOffEntry:
       type: object
       description: An employee time off entry
@@ -259,69 +322,6 @@ components:
       - timeOffType
       - startDate
       - endDate
-    TimeOffInput:
-      type: object
-      description: Input for creating or adjusting a time off entry
-      properties:
-        timeOffType:
-          type: string
-          description: Type of time off plan
-          example: Vacation
-        startDate:
-          type: string
-          format: date
-          description: Start date of the time off
-          example: '2026-05-10'
-        endDate:
-          type: string
-          format: date
-          description: End date of the time off
-          example: '2026-05-14'
-        comment:
-          type: string
-          description: Optional comment
-      required:
-      - timeOffType
-      - startDate
-      - endDate
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-  responses:
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

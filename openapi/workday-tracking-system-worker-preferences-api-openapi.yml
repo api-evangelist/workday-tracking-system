@@ -79,26 +79,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    WorkerSchedulingPreferencesInput:
+      type: object
+      description: Input for updating scheduling preferences
+      properties:
+        preferredStartTime:
+          type: string
+          format: time
+        preferredEndTime:
+          type: string
+          format: time
+        preferredDaysOff:
+          type: array
+          items:
+            type: string
+        maxHoursPerWeek:
+          type: number
+          format: float
+        minHoursPerWeek:
+          type: number
+          format: float
     WorkerSchedulingPreferences:
       type: object
       description: A worker's scheduling preferences
@@ -153,26 +154,6 @@ components:
               endTime:
                 type: string
                 format: time
-    WorkerSchedulingPreferencesInput:
-      type: object
-      description: Input for updating scheduling preferences
-      properties:
-        preferredStartTime:
-          type: string
-          format: time
-        preferredEndTime:
-          type: string
-          format: time
-        preferredDaysOff:
-          type: array
-          items:
-            type: string
-        maxHoursPerWeek:
-          type: number
-          format: float
-        minHoursPerWeek:
-          type: number
-          format: float
     ErrorResponse:
       type: object
       properties:
@@ -189,6 +170,25 @@ components:
                 type: string
               message:
                 type: string
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

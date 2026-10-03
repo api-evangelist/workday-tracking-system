@@ -174,20 +174,45 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ScheduleShiftsResponse:
+    ScheduleShiftInput:
       type: object
-      description: Paginated list of schedule shifts
+      description: Input for creating or updating a schedule shift
       properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        limit:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleShift'
+        workerId:
+          type: string
+          description: Worker ID to assign to the shift
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+          - Regular
+          - Overtime
+          - OnCall
+          - Split
+          default: Regular
+        notes:
+          type: string
+          description: Optional notes
+      required:
+      - workerId
+      - shiftDate
+      - startTime
+      - endTime
     ScheduleShift:
       type: object
       description: A schedule shift assigned to a worker or position
@@ -246,45 +271,20 @@ components:
       - shiftDate
       - startTime
       - endTime
-    ScheduleShiftInput:
+    ScheduleShiftsResponse:
       type: object
-      description: Input for creating or updating a schedule shift
+      description: Paginated list of schedule shifts
       properties:
-        workerId:
-          type: string
-          description: Worker ID to assign to the shift
-        organizationId:
-          type: string
-          description: Scheduling organization ID
-        shiftDate:
-          type: string
-          format: date
-          description: Date of the shift
-        startTime:
-          type: string
-          format: time
-          description: Shift start time
-        endTime:
-          type: string
-          format: time
-          description: Shift end time
-        shiftType:
-          type: string
-          description: Type of shift
-          enum:
-          - Regular
-          - Overtime
-          - OnCall
-          - Split
-          default: Regular
-        notes:
-          type: string
-          description: Optional notes
-      required:
-      - workerId
-      - shiftDate
-      - startTime
-      - endTime
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShift'
     ErrorResponse:
       type: object
       properties:
@@ -302,12 +302,6 @@ components:
               message:
                 type: string
   responses:
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication required
       content:
@@ -316,6 +310,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
