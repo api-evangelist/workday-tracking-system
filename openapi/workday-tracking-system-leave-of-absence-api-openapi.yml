@@ -128,6 +128,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ReturnFromLeaveInput:
       type: object
@@ -153,53 +172,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LeaveOfAbsence'
-    LeaveOfAbsence:
-      type: object
-      description: A leave of absence record
-      properties:
-        id:
-          type: string
-          description: Unique Workday ID of the leave record
-        workerId:
-          type: string
-          description: Workday ID of the worker
-        leaveType:
-          type: string
-          description: Type of leave (e.g., FMLA, Military, Personal)
-          example: FMLA
-        startDate:
-          type: string
-          format: date
-          description: Leave start date
-          example: '2026-06-01'
-        expectedEndDate:
-          type: string
-          format: date
-          description: Expected return date
-          example: '2026-07-01'
-        actualReturnDate:
-          type: string
-          format: date
-          description: Actual date of return from leave
-        status:
-          type: string
-          description: Status of the leave
-          enum:
-          - Pending
-          - Approved
-          - Active
-          - Completed
-          - Cancelled
-        reason:
-          type: string
-          description: Reason for the leave of absence
-        continuousOrIntermittent:
-          type: string
-          description: Whether leave is continuous or intermittent
-          enum:
-          - Continuous
-          - Intermittent
-          example: Continuous
     ErrorResponse:
       type: object
       description: Standard error response
@@ -251,25 +223,53 @@ components:
       - leaveType
       - startDate
       - expectedEndDate
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    LeaveOfAbsence:
+      type: object
+      description: A leave of absence record
+      properties:
+        id:
+          type: string
+          description: Unique Workday ID of the leave record
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        leaveType:
+          type: string
+          description: Type of leave (e.g., FMLA, Military, Personal)
+          example: FMLA
+        startDate:
+          type: string
+          format: date
+          description: Leave start date
+          example: '2026-06-01'
+        expectedEndDate:
+          type: string
+          format: date
+          description: Expected return date
+          example: '2026-07-01'
+        actualReturnDate:
+          type: string
+          format: date
+          description: Actual date of return from leave
+        status:
+          type: string
+          description: Status of the leave
+          enum:
+          - Pending
+          - Approved
+          - Active
+          - Completed
+          - Cancelled
+        reason:
+          type: string
+          description: Reason for the leave of absence
+        continuousOrIntermittent:
+          type: string
+          description: Whether leave is continuous or intermittent
+          enum:
+          - Continuous
+          - Intermittent
+          example: Continuous
   securitySchemes:
     BearerAuth:
       type: http

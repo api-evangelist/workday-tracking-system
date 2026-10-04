@@ -173,46 +173,56 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ScheduleShiftInput:
+    ScheduleShiftsResponse:
       type: object
-      description: Input for creating or updating a schedule shift
+      description: Paginated list of schedule shifts
       properties:
-        workerId:
+        total:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShift'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
           type: string
-          description: Worker ID to assign to the shift
-        organizationId:
+        message:
           type: string
-          description: Scheduling organization ID
-        shiftDate:
-          type: string
-          format: date
-          description: Date of the shift
-        startTime:
-          type: string
-          format: time
-          description: Shift start time
-        endTime:
-          type: string
-          format: time
-          description: Shift end time
-        shiftType:
-          type: string
-          description: Type of shift
-          enum:
-          - Regular
-          - Overtime
-          - OnCall
-          - Split
-          default: Regular
-        notes:
-          type: string
-          description: Optional notes
-      required:
-      - workerId
-      - shiftDate
-      - startTime
-      - endTime
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     ScheduleShift:
       type: object
       description: A schedule shift assigned to a worker or position
@@ -271,55 +281,45 @@ components:
       - shiftDate
       - startTime
       - endTime
-    ScheduleShiftsResponse:
+    ScheduleShiftInput:
       type: object
-      description: Paginated list of schedule shifts
+      description: Input for creating or updating a schedule shift
       properties:
-        total:
-          type: integer
-        offset:
-          type: integer
-        limit:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleShift'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
+        workerId:
           type: string
-        message:
+          description: Worker ID to assign to the shift
+        organizationId:
           type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+          description: Scheduling organization ID
+        shiftDate:
+          type: string
+          format: date
+          description: Date of the shift
+        startTime:
+          type: string
+          format: time
+          description: Shift start time
+        endTime:
+          type: string
+          format: time
+          description: Shift end time
+        shiftType:
+          type: string
+          description: Type of shift
+          enum:
+          - Regular
+          - Overtime
+          - OnCall
+          - Split
+          default: Regular
+        notes:
+          type: string
+          description: Optional notes
+      required:
+      - workerId
+      - shiftDate
+      - startTime
+      - endTime
   securitySchemes:
     BearerAuth:
       type: http

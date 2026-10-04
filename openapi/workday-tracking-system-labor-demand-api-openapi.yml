@@ -96,35 +96,15 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    LaborDemand:
+    LaborDemandResponse:
       type: object
-      description: A labor demand entry for workforce planning
       properties:
-        id:
-          type: string
-          description: Unique ID of the labor demand entry
-        organizationId:
-          type: string
-          description: Scheduling organization ID
-        date:
-          type: string
-          format: date
-          description: Date for the labor demand
-        hour:
+        total:
           type: integer
-          description: Hour of the day (0-23) for the demand
-          minimum: 0
-          maximum: 23
-        requiredHeadcount:
-          type: integer
-          description: Number of workers required
-          example: 5
-        jobProfileId:
-          type: string
-          description: Job profile/role required
-        notes:
-          type: string
-          description: Optional notes
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborDemand'
     ErrorResponse:
       type: object
       properties:
@@ -167,15 +147,35 @@ components:
       - organizationId
       - date
       - requiredHeadcount
-    LaborDemandResponse:
+    LaborDemand:
       type: object
+      description: A labor demand entry for workforce planning
       properties:
-        total:
+        id:
+          type: string
+          description: Unique ID of the labor demand entry
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        date:
+          type: string
+          format: date
+          description: Date for the labor demand
+        hour:
           type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaborDemand'
+          description: Hour of the day (0-23) for the demand
+          minimum: 0
+          maximum: 23
+        requiredHeadcount:
+          type: integer
+          description: Number of workers required
+          example: 5
+        jobProfileId:
+          type: string
+          description: Job profile/role required
+        notes:
+          type: string
+          description: Optional notes
   securitySchemes:
     BearerAuth:
       type: http
