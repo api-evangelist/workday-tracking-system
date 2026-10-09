@@ -7,14 +7,17 @@ front_door_ai:
   probed_at: '2026-09-17'
   host: workday.com
   final_host: www.workday.com
-  ownership: inherited
+  ownership: own
   owner: workday-tracking-system
   shares_host_with: null
-  inherited_from: www.workday.com
+  inherited_from: null
+  alias_of: www.workday.com
   verdict: scored
-  score: null
+  score: 36
+  band: 6
+  band_label: dominant
   host_score: 36
-  density: null
+  density: 29.03
   words: 1240
   tiers:
     agentic: 8

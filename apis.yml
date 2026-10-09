@@ -2272,6 +2272,10 @@ apis:
   - type: JSONStructure
     url: https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-worker-scheduling-preferences-input-structure.json
 common:
+- type: Plans
+  url: plans/workday-tracking-system-plans-pricing.yml
+- type: FinOps
+  url: finops/workday-tracking-system-finops.yml
 - type: Website
   url: https://workday.com
 - type: PostmanWorkspace
