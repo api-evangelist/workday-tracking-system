@@ -82,71 +82,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    LaborDemandResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaborDemand'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-    LaborDemandInput:
-      type: object
-      description: Input for creating a labor demand entry
-      properties:
-        organizationId:
-          type: string
-          description: Scheduling organization ID
-        date:
-          type: string
-          format: date
-          description: Date for the demand
-        hour:
-          type: integer
-          description: Hour of the day (0-23)
-          minimum: 0
-          maximum: 23
-        requiredHeadcount:
-          type: integer
-          description: Number of workers required
-        jobProfileId:
-          type: string
-          description: Job profile ID (optional)
-      required:
-      - organizationId
-      - date
-      - requiredHeadcount
     LaborDemand:
       type: object
       description: A labor demand entry for workforce planning
@@ -176,6 +112,70 @@ components:
         notes:
           type: string
           description: Optional notes
+    LaborDemandResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborDemand'
+    LaborDemandInput:
+      type: object
+      description: Input for creating a labor demand entry
+      properties:
+        organizationId:
+          type: string
+          description: Scheduling organization ID
+        date:
+          type: string
+          format: date
+          description: Date for the demand
+        hour:
+          type: integer
+          description: Hour of the day (0-23)
+          minimum: 0
+          maximum: 23
+        requiredHeadcount:
+          type: integer
+          description: Number of workers required
+        jobProfileId:
+          type: string
+          description: Job profile ID (optional)
+      required:
+      - organizationId
+      - date
+      - requiredHeadcount
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

@@ -78,8 +78,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
@@ -90,8 +90,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -165,16 +165,6 @@ components:
         reason:
           type: string
           description: Reason for the override
-    AccrualOverridesResponse:
-      type: object
-      description: Response containing accrual overrides
-      properties:
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccrualOverride'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -194,6 +184,16 @@ components:
                 type: string
               message:
                 type: string
+    AccrualOverridesResponse:
+      type: object
+      description: Response containing accrual overrides
+      properties:
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccrualOverride'
   securitySchemes:
     BearerAuth:
       type: http

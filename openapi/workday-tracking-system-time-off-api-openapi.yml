@@ -187,8 +187,8 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request - invalid input
       content:
         application/json:
           schema:
@@ -199,8 +199,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -278,6 +278,25 @@ components:
       - timeOffType
       - startDate
       - endDate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     TimeOffInput:
       type: object
       description: Input for creating or adjusting a time off entry
@@ -303,25 +322,6 @@ components:
       - timeOffType
       - startDate
       - endDate
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
   securitySchemes:
     BearerAuth:
       type: http

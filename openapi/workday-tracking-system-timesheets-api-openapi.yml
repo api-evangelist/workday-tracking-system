@@ -94,26 +94,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    TimesheetsResponse:
+      type: object
+      description: Response containing timesheets
+      properties:
+        total:
+          type: integer
+          description: Total count of timesheets
+        data:
+          type: array
+          description: Array of timesheets
+          items:
+            $ref: '#/components/schemas/Timesheet'
     Timesheet:
       type: object
       description: An employee timesheet for a pay period
@@ -162,30 +155,6 @@ components:
           description: Time blocks in this timesheet
           items:
             $ref: '#/components/schemas/TimeBlock'
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: INVALID_REQUEST
-        message:
-          type: string
-          description: Human-readable error message
-          example: The request is missing required fields
-        details:
-          type: array
-          description: Additional error details
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                description: Field that caused the error
-              message:
-                type: string
-                description: Field-level error message
     TimeBlock:
       type: object
       description: A reported or calculated time block representing hours worked
@@ -263,18 +232,49 @@ components:
       - date
       - hours
       - type
-    TimesheetsResponse:
+    ErrorResponse:
       type: object
-      description: Response containing timesheets
+      description: Standard error response
       properties:
-        total:
-          type: integer
-          description: Total count of timesheets
-        data:
+        error:
+          type: string
+          description: Error code
+          example: INVALID_REQUEST
+        message:
+          type: string
+          description: Human-readable error message
+          example: The request is missing required fields
+        details:
           type: array
-          description: Array of timesheets
+          description: Additional error details
           items:
-            $ref: '#/components/schemas/Timesheet'
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field that caused the error
+              message:
+                type: string
+                description: Field-level error message
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

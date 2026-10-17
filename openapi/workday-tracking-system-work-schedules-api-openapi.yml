@@ -84,56 +84,50 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request - invalid input
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    Shift:
+    WorkSchedule:
       type: object
-      description: A single shift within a work schedule
+      description: A worker's work schedule assignment
       properties:
-        dayOfWeek:
+        id:
           type: string
-          description: Day of the week for this shift
+          description: Unique ID of the schedule assignment
+        workerId:
+          type: string
+          description: Workday ID of the worker
+        scheduleName:
+          type: string
+          description: Name of the assigned work schedule
+          example: Standard 5-Day Week
+        scheduleType:
+          type: string
+          description: Type of schedule
           enum:
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-          - Sunday
-        startTime:
+          - Fixed
+          - Flexible
+          - Rotating
+        effectiveDate:
           type: string
-          format: time
-          description: Shift start time (HH:MM:SS)
-          example: 09:00:00
-        endTime:
+          format: date
+          description: Date the schedule assignment takes effect
+        endDate:
           type: string
-          format: time
-          description: Shift end time (HH:MM:SS)
-          example: '17:00:00'
-        hours:
+          format: date
+          description: Date the schedule assignment ends (optional)
+        hoursPerWeek:
           type: number
           format: float
-          description: Total hours for this shift
-          example: 8.0
+          description: Scheduled hours per week
+          example: 40.0
+        shifts:
+          type: array
+          description: Daily shift schedule
+          items:
+            $ref: '#/components/schemas/Shift'
+      required:
+      - workerId
+      - scheduleName
+      - effectiveDate
     WorkScheduleAssignment:
       type: object
       description: Input for assigning a work schedule to a worker
@@ -178,49 +172,55 @@ components:
               message:
                 type: string
                 description: Field-level error message
-    WorkSchedule:
+    Shift:
       type: object
-      description: A worker's work schedule assignment
+      description: A single shift within a work schedule
       properties:
-        id:
+        dayOfWeek:
           type: string
-          description: Unique ID of the schedule assignment
-        workerId:
-          type: string
-          description: Workday ID of the worker
-        scheduleName:
-          type: string
-          description: Name of the assigned work schedule
-          example: Standard 5-Day Week
-        scheduleType:
-          type: string
-          description: Type of schedule
+          description: Day of the week for this shift
           enum:
-          - Fixed
-          - Flexible
-          - Rotating
-        effectiveDate:
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+          - Sunday
+        startTime:
           type: string
-          format: date
-          description: Date the schedule assignment takes effect
-        endDate:
+          format: time
+          description: Shift start time (HH:MM:SS)
+          example: 09:00:00
+        endTime:
           type: string
-          format: date
-          description: Date the schedule assignment ends (optional)
-        hoursPerWeek:
+          format: time
+          description: Shift end time (HH:MM:SS)
+          example: '17:00:00'
+        hours:
           type: number
           format: float
-          description: Scheduled hours per week
-          example: 40.0
-        shifts:
-          type: array
-          description: Daily shift schedule
-          items:
-            $ref: '#/components/schemas/Shift'
-      required:
-      - workerId
-      - scheduleName
-      - effectiveDate
+          description: Total hours for this shift
+          example: 8.0
+  responses:
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http
