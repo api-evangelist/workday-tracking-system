@@ -1,4 +1,4 @@
-# Workday Tracking System (workday-tracking-system)
+# Workday Tracking System
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,224 +66,247 @@
 
 APIs for managing employee time tracking, absence management, and workforce scheduling in the Workday platform. Covers time blocks, time clock events, timesheets, time off, leaves of absence, accruals, schedule shifts, scheduling organizations, labor demand, and worker scheduling preferences.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/apis.yml)
+**Areas:** Absence Management · Attendance · Enterprise · HCM · Payroll · Scheduling · Time Tracking · Timesheets · Workforce Management
 
-## Tags
+## Workday Tracking System on APIs.io
 
-- Absence Management
-- Attendance
-- Enterprise
-- HCM
-- Human Capital Management
-- Payroll
-- Scheduling
-- Time Tracking
-- Timesheets
-- Workforce Management
+Everything profiled for Workday Tracking System is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/workday-tracking-system/](https://apis.io/providers/workday-tracking-system/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (13)
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+- [Workday Tracking System Accruals API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-accruals-api/) — Operations for managing accrual overrides and balances
+- [Workday Tracking System Balances API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-balances-api/) — Operations for managing time off plan balances and overrides
+- [Workday Tracking System Labor Demand API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-labor-demand-api/) — Operations for managing labor demand data
+- [Workday Tracking System Leave of Absence API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-leave-of-absence-api/) — Operations for managing leave of absence requests
+- [Workday Tracking System Scheduling Organizations API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-scheduling-organizations-api/) — Operations for managing scheduling organizations and settings
+- [Workday Tracking System Shifts API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-shifts-api/) — Operations for managing schedule shifts
+- [Workday Tracking System Time Blocks API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-time-blocks-api/) — Operations for managing reported and calculated time blocks
+- [Workday Tracking System Time Clock Events API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-time-clock-events-api/) — Operations for importing and managing time clock events
+- [Workday Tracking System Time Off API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-time-off-api/) — Operations for managing employee time off requests
+- [Workday Tracking System Time Requests API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-time-requests-api/) — Operations for creating and retrieving time requests
+- [Workday Tracking System Timesheets API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-timesheets-api/) — Operations for managing employee timesheets
+- [Workday Tracking System Work Schedules API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-work-schedules-api/) — Operations for assigning and managing work schedules
+- [Workday Tracking System Worker Preferences API](https://apis.io/apis/workday-tracking-system/workday-tracking-system-worker-preferences-api/) — Operations for managing worker scheduling preferences
 
-## APIs
+### Published properties
 
-### Workday Time Tracking API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Manage employee time entries, time blocks, time clock events, work schedule assignments, and time requests within the Workday platform. Supports both individual and batch operations for enterprise workforce management.
+#### Arazzo workflows (8)
 
-- **Human URL:** [https://www.workday.com/en-us/products/human-capital-management/time-tracking.html](https://www.workday.com/en-us/products/human-capital-management/time-tracking.html)
-- **Base URL:** `https://{tenant}.workday.com/api/time-tracking/v1`
+Multi-step workflows that chain operations into a business task.
 
-#### Tags
+- [Workday Assign Work Schedule](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-assign-work-schedule-workflow/)
+- [Workday Clock Event to Timesheet Submission](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-clock-event-to-timesheet-workflow/)
+- [Workday Create Scheduling Organization and Shift](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-create-scheduling-org-and-shift-workflow/)
+- [Workday Leave of Absence Lifecycle](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-leave-of-absence-lifecycle-workflow/)
+- [Workday Request Time Off With Balance Check](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-request-time-off-with-balance-check-workflow/)
+- [Workday Staff Against Labor Demand](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-staff-against-labor-demand-workflow/)
+- [Workday Time Block Lifecycle](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-time-block-lifecycle-workflow/)
+- [Workday Update Scheduling Preferences and Shift](https://apis.io/arazzos/workday-tracking-system/workday-tracking-system-update-scheduling-preferences-and-shift-workflow/)
 
-- Time Tracking
-- Timesheets
-- Time Blocks
-- Time Clock
-- Work Schedules
-- Time Requests
-- Hours
-- Attendance
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.workday.com/api/time-tracking)
-- [API Reference](https://developer.workday.com/api-reference/time-tracking)
-- [Authentication](https://docs.workday.com/authentication)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/openapi/workday-tracking-system-time-tracking-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-shift-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-block-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-block-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-blocks-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-clock-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-clock-event-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-clock-events-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-request-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-request-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-time-requests-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-timesheet-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-timesheets-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-work-schedule-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/time-tracking-work-schedule-assignment-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-shift-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-block-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-block-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-blocks-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-clock-event-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-clock-event-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-clock-events-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-request-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-request-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-time-requests-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-timesheet-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-timesheets-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-work-schedule-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/time-tracking-work-schedule-assignment-structure.json)
-- [Postman Collection](collections/workday-tracking-system-absence-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-absence-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-scheduling.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-scheduling.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-time-tracking.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-time-tracking.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Workday Tracking System Agentic Access](https://apis.io/agentic-access/workday-tracking-system/workday-tracking-system-agentic-access/)
 
-### Workday Absence Management API
+#### JSON Schema (40)
 
-Track employee attendance, absences, leave requests, and time off balances in the Workday platform. Supports entering time off, requesting leave of absence, managing accrual balances, and processing return-from-leave events.
+The data models the API reads and writes.
 
-- **Human URL:** [https://www.workday.com/en-us/products/human-capital-management/absence-management.html](https://www.workday.com/en-us/products/human-capital-management/absence-management.html)
-- **Base URL:** `https://{tenant}.workday.com/api/absence-management/v1`
+- [AccrualOverride](https://apis.io/schemas/workday-tracking-system/absence-management-accrual-override/)
+- [AccrualOverrideInput](https://apis.io/schemas/workday-tracking-system/absence-management-accrual-override-input/)
+- [AccrualOverridesResponse](https://apis.io/schemas/workday-tracking-system/absence-management-accrual-overrides-response/)
+- [LeaveOfAbsence](https://apis.io/schemas/workday-tracking-system/absence-management-leave-of-absence/)
+- [LeaveOfAbsenceInput](https://apis.io/schemas/workday-tracking-system/absence-management-leave-of-absence-input/)
+- [LeavesOfAbsenceResponse](https://apis.io/schemas/workday-tracking-system/absence-management-leaves-of-absence-response/)
+- [ReturnFromLeaveInput](https://apis.io/schemas/workday-tracking-system/absence-management-return-from-leave-input/)
+- [TimeOffBalance](https://apis.io/schemas/workday-tracking-system/absence-management-time-off-balance/)
+- [TimeOffBalancesResponse](https://apis.io/schemas/workday-tracking-system/absence-management-time-off-balances-response/)
+- [TimeOffEntry](https://apis.io/schemas/workday-tracking-system/absence-management-time-off-entry/)
+- [TimeOffInput](https://apis.io/schemas/workday-tracking-system/absence-management-time-off-input/)
+- [TimeOffResponse](https://apis.io/schemas/workday-tracking-system/absence-management-time-off-response/)
+- [LaborDemand](https://apis.io/schemas/workday-tracking-system/scheduling-labor-demand/)
+- [LaborDemandInput](https://apis.io/schemas/workday-tracking-system/scheduling-labor-demand-input/)
+- [LaborDemandResponse](https://apis.io/schemas/workday-tracking-system/scheduling-labor-demand-response/)
+- [ScheduleShift](https://apis.io/schemas/workday-tracking-system/scheduling-schedule-shift/)
+- [ScheduleShiftInput](https://apis.io/schemas/workday-tracking-system/scheduling-schedule-shift-input/)
+- [ScheduleShiftsResponse](https://apis.io/schemas/workday-tracking-system/scheduling-schedule-shifts-response/)
+- [SchedulingOrganization](https://apis.io/schemas/workday-tracking-system/scheduling-scheduling-organization/)
+- [SchedulingOrganizationInput](https://apis.io/schemas/workday-tracking-system/scheduling-scheduling-organization-input/)
+- [SchedulingOrganizationsResponse](https://apis.io/schemas/workday-tracking-system/scheduling-scheduling-organizations-response/)
+- [WorkerSchedulingPreferences](https://apis.io/schemas/workday-tracking-system/scheduling-worker-scheduling-preferences/)
+- [WorkerSchedulingPreferencesInput](https://apis.io/schemas/workday-tracking-system/scheduling-worker-scheduling-preferences-input/)
+- [Shift](https://apis.io/schemas/workday-tracking-system/time-tracking-shift/)
+- [TimeBlock](https://apis.io/schemas/workday-tracking-system/time-tracking-time-block/)
+- …and 15 more published on APIs.io
 
-#### Tags
+#### JSON Structure (40)
 
-- Absence Management
-- Time Off
-- Leave of Absence
-- Accruals
-- Balances
-- Attendance
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Absence Management Accrual Override Input Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-accrual-override-input-structure/)
+- [Absence Management Accrual Override Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-accrual-override-structure/)
+- [Absence Management Accrual Overrides Response Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-accrual-overrides-response-structure/)
+- [Absence Management Leave Of Absence Input Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-leave-of-absence-input-structure/)
+- [Absence Management Leave Of Absence Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-leave-of-absence-structure/)
+- [Absence Management Leaves Of Absence Response Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-leaves-of-absence-response-structure/)
+- [Absence Management Return From Leave Input Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-return-from-leave-input-structure/)
+- [Absence Management Time Off Balance Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-time-off-balance-structure/)
+- [Absence Management Time Off Balances Response Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-time-off-balances-response-structure/)
+- [Absence Management Time Off Entry Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-time-off-entry-structure/)
+- [Absence Management Time Off Input Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-time-off-input-structure/)
+- [Absence Management Time Off Response Structure](https://apis.io/json-structure/workday-tracking-system/absence-management-time-off-response-structure/)
+- [Scheduling Labor Demand Input Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-labor-demand-input-structure/)
+- [Scheduling Labor Demand Response Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-labor-demand-response-structure/)
+- [Scheduling Labor Demand Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-labor-demand-structure/)
+- [Scheduling Schedule Shift Input Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-schedule-shift-input-structure/)
+- [Scheduling Schedule Shift Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-schedule-shift-structure/)
+- [Scheduling Schedule Shifts Response Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-schedule-shifts-response-structure/)
+- [Scheduling Scheduling Organization Input Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-scheduling-organization-input-structure/)
+- [Scheduling Scheduling Organization Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-scheduling-organization-structure/)
+- [Scheduling Scheduling Organizations Response Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-scheduling-organizations-response-structure/)
+- [Scheduling Worker Scheduling Preferences Input Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-worker-scheduling-preferences-input-structure/)
+- [Scheduling Worker Scheduling Preferences Structure](https://apis.io/json-structure/workday-tracking-system/scheduling-worker-scheduling-preferences-structure/)
+- [Time Tracking Shift Structure](https://apis.io/json-structure/workday-tracking-system/time-tracking-shift-structure/)
+- [Time Tracking Time Block Input Structure](https://apis.io/json-structure/workday-tracking-system/time-tracking-time-block-input-structure/)
+- …and 15 more published on APIs.io
 
-- [Documentation](https://docs.workday.com/api/absence-management)
-- [API Reference](https://developer.workday.com/api-reference/absence-management)
-- [Authentication](https://docs.workday.com/authentication)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/openapi/workday-tracking-system-absence-management-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-accrual-override-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-accrual-override-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-accrual-overrides-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-leave-of-absence-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-leave-of-absence-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-leaves-of-absence-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-return-from-leave-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-balance-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-balances-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-entry-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/absence-management-time-off-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-accrual-override-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-accrual-override-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-accrual-overrides-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-leave-of-absence-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-leave-of-absence-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-leaves-of-absence-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-return-from-leave-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-balance-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-balances-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-entry-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/absence-management-time-off-response-structure.json)
-- [Postman Collection](collections/workday-tracking-system-absence-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-absence-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-scheduling.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-scheduling.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-time-tracking.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-time-tracking.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### Workday Scheduling API
+Linked-data contexts for the provider's vocabulary.
 
-Create and manage employee work schedules, shifts, scheduling organizations, and labor demand within the Workday platform. Supports importing schedule data, managing shift assignments, and configuring scheduling settings and worker scheduling preferences.
+- [Workday Tracking System Context](https://apis.io/jsonld/workday-tracking-system/workday-tracking-system-context/)
 
-- **Human URL:** [https://www.workday.com/en-us/products/human-capital-management/scheduling.html](https://www.workday.com/en-us/products/human-capital-management/scheduling.html)
-- **Base URL:** `https://{tenant}.workday.com/api/scheduling/v1`
+#### Collections (29)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Scheduling
-- Schedules
-- Shifts
-- Scheduling Organizations
-- Labor Demand
-- Worker Preferences
-- Workforce Management
+- [Workday Absence Management API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-absence-management/)
+- [Workday Absence Management Accruals API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-accruals-api/)
+- [Workday Absence Management Accruals Balances API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-balances-api/)
+- [Workday Absence Management Accruals Labor Demand API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-labor-demand-api/)
+- [Workday Absence Management Accruals Leave of Absence API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-leave-of-absence-api/)
+- [Workday Scheduling API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-scheduling/)
+- [Workday Absence Management Accruals Scheduling Organizations API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-scheduling-organizations-api/)
+- [Workday Absence Management Accruals Shifts API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-shifts-api/)
+- [Workday Absence Management Accruals Time Blocks API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-time-blocks-api/)
+- [Workday Absence Management Accruals Time Clock Events API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-time-clock-events-api/)
+- [Workday Absence Management Accruals Time Off API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-time-off-api/)
+- [Workday Absence Management Accruals Time Requests API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-time-requests-api/)
+- [Workday Time Tracking API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-time-tracking/)
+- [Workday Absence Management Accruals Timesheets API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-timesheets-api/)
+- [Workday Absence Management Accruals Work Schedules API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-work-schedules-api/)
+- [Workday Absence Management Accruals Worker Preferences API](https://apis.io/collections/workday-tracking-system/open-workday-tracking-system-worker-preferences-api/)
+- [Workday Absence Management Accruals API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-accruals-api/)
+- [Workday Absence Management Accruals Balances API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-balances-api/)
+- [Workday Absence Management Accruals Labor Demand API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-labor-demand-api/)
+- [Workday Absence Management Accruals Leave of Absence API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-leave-of-absence-api/)
+- [Workday Absence Management Accruals Scheduling Organizations API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-scheduling-organizations-api/)
+- [Workday Absence Management Accruals Shifts API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-shifts-api/)
+- [Workday Absence Management Accruals Time Blocks API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-time-blocks-api/)
+- [Workday Absence Management Accruals Time Clock Events API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-time-clock-events-api/)
+- [Workday Absence Management Accruals Time Off API](https://apis.io/collections/workday-tracking-system/postman-workday-tracking-system-time-off-api/)
+- …and 4 more published on APIs.io
 
-#### Properties
+#### Governance rules (2)
 
-- [Documentation](https://docs.workday.com/api/scheduling)
-- [API Reference](https://developer.workday.com/api-reference/scheduling)
-- [Authentication](https://docs.workday.com/authentication)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/openapi/workday-tracking-system-scheduling-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-labor-demand-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-labor-demand-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-labor-demand-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-schedule-shift-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-schedule-shift-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-schedule-shifts-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-scheduling-organization-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-scheduling-organization-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-scheduling-organizations-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-worker-scheduling-preferences-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/scheduling-worker-scheduling-preferences-input-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-labor-demand-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-labor-demand-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-labor-demand-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-schedule-shift-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-schedule-shift-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-schedule-shifts-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-scheduling-organization-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-scheduling-organization-input-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-scheduling-organizations-response-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-worker-scheduling-preferences-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/scheduling-worker-scheduling-preferences-input-structure.json)
-- [Postman Collection](collections/workday-tracking-system-absence-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-absence-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-scheduling.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-scheduling.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/workday-tracking-system-time-tracking.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/workday-tracking-system-time-tracking.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-## Common Properties
+- [Workday Tracking System — jsonschema rules](https://apis.io/rules/workday-tracking-system/workday-tracking-system-jsonschema-spectral-rules/)
+- [Workday Tracking System API Rules](https://apis.io/rules/workday-tracking-system/workday-tracking-system-spectral-rules/)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://developer.workday.com)
-- [Getting Started](https://developer.workday.com/getting-started)
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Workday Tracking System Authentication](https://apis.io/security/workday-tracking-system/workday-tracking-system-authentication/)
+- [Workday Tracking System Domain Security](https://apis.io/security/workday-tracking-system/workday-tracking-system-domain-security/)
+- [Workday Tracking System Trust Center](https://apis.io/security/workday-tracking-system/workday-tracking-system-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Workday Tracking System Plans Pricing](https://apis.io/plans/workday-tracking-system/workday-tracking-system-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Workday Tracking System Rate Limits](https://apis.io/rate-limits/workday-tracking-system/workday-tracking-system-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Workday Tracking System Finops](https://apis.io/finops/workday-tracking-system/workday-tracking-system-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://workday.com)
 - [Documentation](https://docs.workday.com)
-- [Authentication](https://docs.workday.com/authentication/oauth2)
-- [Sign Up](https://www.workday.com/en-us/forms/contact-sales.html)
+- [Getting started](https://developer.workday.com/getting-started)
 - [Pricing](https://www.workday.com/en-us/pricing.html)
-- [Rate Limits](https://docs.workday.com/rate-limits)
-- [Status Page](https://status.workday.com)
 - [Support](https://www.workday.com/en-us/company/latest/customer-support.html)
-- [Community](https://community.workday.com)
 - [Blog](https://blog.workday.com)
-- [Release Notes](https://docs.workday.com/release-notes)
-- [Terms of Service](https://www.workday.com/en-us/terms-of-service.html)
-- [Privacy Policy](https://www.workday.com/en-us/privacy.html)
-- [GitHub Organization](https://github.com/Workday)
-- [JSON-LD](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-ld/workday-tracking-system-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/workday-tracking-system-leave-of-absence-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/workday-tracking-system-time-block-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-schema/workday-tracking-system-timesheet-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/workday-tracking-system-leave-of-absence-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/workday-tracking-system-time-block-structure.json)
-- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/json-structure/workday-tracking-system-timesheet-structure.json)
-- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/workday-tracking-system/refs/heads/main/rules/workday-tracking-system-spectral-rules.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Terms of service](https://www.workday.com/en-us/terms-of-service.html)
+- [Privacy policy](https://www.workday.com/en-us/privacy.html)
+- [GitHub](https://github.com/Workday)
+- [Status](https://status.workday.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 29.3 |
+| Contract governance | 13.6 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 39.3 |
+| Access clarity | 36.8 |
+
+**Agent readiness 19.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 25.5** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/workday-tracking-system/](https://apis.io/providers/workday-tracking-system/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Workday Tracking System: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/workday-tracking-system/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
